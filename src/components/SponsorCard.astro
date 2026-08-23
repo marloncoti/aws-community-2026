@@ -40,8 +40,9 @@ const linkProps = sponsor.url ? { href: sponsor.url, target: '_blank', rel: 'noo
 	}
 
 	.card img {
-		width: 100%;
-		height: 100%;
+		height: 48px;
+		width: auto;
+		max-width: 100%;
 		object-fit: contain;
 	}
 
@@ -49,6 +50,12 @@ const linkProps = sponsor.url ? { href: sponsor.url, target: '_blank', rel: 'noo
 	.tier-gold,
 	.tier-silver {
 		min-height: 130px;
+	}
+
+	@media (min-width: 640px) {
+		.card img {
+			height: 56px;
+		}
 	}
 
 	.tier-diamond {
