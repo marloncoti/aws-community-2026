@@ -44,7 +44,6 @@ import { Image } from 'astro:assets';
 		align-items: center;
 		overflow: hidden;
 		background: var(--color-near-black);
-		clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
 	}
 
 	.hero :global(.hero-bg) {
@@ -53,7 +52,13 @@ import { Image } from 'astro:assets';
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
-		object-position: center 30%;
+		object-position: center 22%;
+	}
+
+	@media (min-width: 1400px) {
+		.hero {
+			min-height: max(88svh, 48vw);
+		}
 	}
 
 	.hero-scrim {
@@ -193,10 +198,6 @@ import { Image } from 'astro:assets';
 	}
 
 	@media (min-width: 900px) {
-		.hero {
-			clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
-		}
-
 		h1 {
 			font-size: clamp(3rem, 5vw, 4rem);
 		}
