@@ -14,6 +14,8 @@ import { Image } from 'astro:assets';
 		fetchpriority="high"
 	/>
 	<div class="hero-scrim"></div>
+	<div class="hero-glow" aria-hidden="true"></div>
+	<div class="hero-pattern" aria-hidden="true"></div>
 
 	<div class="hero-content">
 		<p class="badge">Guatemala · 2026</p>
@@ -53,8 +55,44 @@ import { Image } from 'astro:assets';
 		position: absolute;
 		inset: 0;
 		background:
-			linear-gradient(115deg, rgba(15, 20, 28, 0.85) 0%, rgba(15, 20, 28, 0.55) 30%, rgba(15, 20, 28, 0.15) 52%, rgba(15, 20, 28, 0) 68%),
-			linear-gradient(0deg, rgba(15, 20, 28, 0.45) 0%, rgba(15, 20, 28, 0) 35%);
+			linear-gradient(115deg, rgba(20, 16, 28, 0.85) 0%, rgba(20, 16, 28, 0.55) 30%, rgba(20, 16, 28, 0.15) 52%, rgba(20, 16, 28, 0) 68%),
+			linear-gradient(0deg, rgba(20, 16, 28, 0.45) 0%, rgba(20, 16, 28, 0) 35%);
+	}
+
+	.hero-glow {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 60% 55% at 12% 8%, rgba(109, 74, 173, 0.55), transparent 65%);
+		mix-blend-mode: screen;
+	}
+
+	.hero-pattern {
+		position: absolute;
+		inset: 0;
+		background-image: url('/images/pattern.svg');
+		background-repeat: repeat;
+		background-size: 380px;
+		background-position: 0 0;
+		opacity: 0.14;
+		mix-blend-mode: soft-light;
+		animation: pattern-drift 50s linear infinite;
+		-webkit-mask-image: linear-gradient(100deg, black 0%, black 30%, transparent 55%);
+		mask-image: linear-gradient(100deg, black 0%, black 30%, transparent 55%);
+	}
+
+	@keyframes pattern-drift {
+		from {
+			background-position: 0 0;
+		}
+		to {
+			background-position: 380px 380px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.hero-pattern {
+			animation: none;
+		}
 	}
 
 	.hero-content {

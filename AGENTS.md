@@ -66,12 +66,29 @@ En su lugar:
   genéricas; logos de patrocinadores en cajas neutras (blanco/gris) para que
   no compitan entre sí.
 
+**Transición de paleta (en curso):** por pedido explícito, el sitio está
+migrando gradualmente de un tono solo navy/gris hacia acentos morados, tomando
+como referencia el hero de `day.awscommunity.mx` (fondo púrpura oscuro +
+patrón de iconos a muy baja opacidad). Variables ya definidas en
+`Layout.astro`: `--color-violet` (#6d4aad) y `--color-violet-deep` (#2a1f3d).
+Primer paso aplicado: un glow radial morado en la esquina superior del Hero
+(`.hero-glow`, `mix-blend-mode: screen`) combinado con el patrón de iconos.
+Esto es intencionalmente gradual — no reemplazar navy/orange de golpe en el
+resto del sitio sin confirmarlo primero.
+
 ## Assets ya descargados
 
 - `src/assets/brand/hero-background.png` — banner original del hero (1600×857),
   descargado de `awscommunitygt.com/wp-content/uploads/2026/07/banner_demo_2.png`.
 - `src/assets/brand/logo-awscd-2026.png` — logo del evento (192×115),
   descargado de `awscommunitygt.com/wp-content/uploads/2026/01/logo_awscd_2026_mini.png`.
+- `src/assets/brand/quetzal.png` — flourish decorativo del header, descargado
+  de `awscommunitygt.com/wp-content/uploads/2026/07/mini_v3_shape_quetzal.png`.
+- `public/images/pattern.svg` — patrón de iconos tileable (475×475), descargado
+  de `day.awscommunity.mx/img/Pattern.svg`. Se usa como textura de fondo en el
+  Hero a opacidad muy baja (`.hero-pattern`, 8%, `mix-blend-mode: soft-light`)
+  con una animación lenta de `background-position` (`pattern-drift`, 50s) para
+  darle algo de movimiento al hero, respetando `prefers-reduced-motion`.
 - `public/images/sponsors/*` — logos de patrocinadores (ver `src/data/sponsors.json`).
 - `public/images/organizers/*` — fotos de organizadores (ver `src/data/organizers.json`).
 
