@@ -19,14 +19,19 @@ import { Image } from 'astro:assets';
 
 	<div class="hero-content">
 		<p class="badge">Guatemala · 2026</p>
-		<h1>AWS Community Day<br />Guatemala</h1>
+		<h1>AWS Community Day<br /><span class="text-gradient">Guatemala</span></h1>
 		<p class="lead">
 			Un día para conectar con la comunidad de AWS en Guatemala: charlas técnicas,
 			casos reales y networking con quienes construyen sobre la nube.
 		</p>
 		<div class="actions">
-			<a class="btn-primary" href="https://c.proticket.store/1e90d63c6b97" target="_blank" rel="noopener noreferrer">Regístrate</a>
-			<a class="btn-ghost" href="#patrocinadores">Ver patrocinadores</a>
+			<a class="btn-primary" href="https://c.proticket.store/1e90d63c6b97" target="_blank" rel="noopener noreferrer">
+				Regístrate sin Costo
+				<svg class="icon-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M5 12h14" />
+					<path d="M13 6l6 6-6 6" />
+				</svg>
+			</a>
 		</div>
 	</div>
 </section>
@@ -38,7 +43,7 @@ import { Image } from 'astro:assets';
 		display: flex;
 		align-items: center;
 		overflow: hidden;
-		background: var(--color-ink);
+		background: var(--color-near-black);
 		clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
 	}
 
@@ -71,9 +76,9 @@ import { Image } from 'astro:assets';
 		inset: 0;
 		background-image: url('/images/pattern.svg');
 		background-repeat: repeat;
-		background-size: 380px;
+		background-size: 560px;
 		background-position: 0 0;
-		opacity: 0.14;
+		opacity: 0.16;
 		mix-blend-mode: soft-light;
 		animation: pattern-drift 50s linear infinite;
 		-webkit-mask-image: linear-gradient(100deg, black 0%, black 30%, transparent 55%);
@@ -85,7 +90,7 @@ import { Image } from 'astro:assets';
 			background-position: 0 0;
 		}
 		to {
-			background-position: 380px 380px;
+			background-position: 560px 560px;
 		}
 	}
 
@@ -128,6 +133,13 @@ import { Image } from 'astro:assets';
 		margin-right: 0.5rem;
 	}
 
+	.text-gradient {
+		background: var(--gradient-accent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
 	h1 {
 		color: var(--color-text-inverse);
 		font-size: clamp(2.25rem, 9vw, 3rem);
@@ -150,8 +162,10 @@ import { Image } from 'astro:assets';
 		margin-top: 2rem;
 	}
 
-	.btn-primary,
-	.btn-ghost {
+	.btn-primary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
 		font-family: var(--font-display);
 		font-weight: 600;
 		font-size: 0.95rem;
@@ -159,25 +173,21 @@ import { Image } from 'astro:assets';
 		text-align: center;
 		padding: 0.85rem 1.5rem;
 		border-radius: 2px;
-	}
-
-	.btn-primary {
 		background: var(--color-orange);
 		color: var(--color-ink);
 	}
 
-	.btn-ghost {
-		border: 1px solid rgba(245, 247, 250, 0.35);
-		color: var(--color-text-inverse);
+	.icon-arrow {
+		flex-shrink: 0;
+		transition: transform 0.2s ease;
+	}
+
+	.btn-primary:hover .icon-arrow {
+		transform: translateX(3px);
 	}
 
 	@media (min-width: 640px) {
-		.actions {
-			flex-direction: row;
-		}
-
-		.btn-primary,
-		.btn-ghost {
+		.btn-primary {
 			padding: 0.9rem 2rem;
 		}
 	}

@@ -1,0 +1,223 @@
+---
+import videoCover from '../assets/brand/video-cover.jpg';
+import { Image } from 'astro:assets';
+
+const youtubeId = 'oCDOWYOz62c';
+---
+
+<section class="event-video">
+	<div class="glow" aria-hidden="true"></div>
+	<div class="container grid">
+		<div class="copy">
+			<p class="kicker">El evento</p>
+			<h2>El Evento AWS más grande de Guatemala</h2>
+			<p class="subhead">Más que un Community Day.</p>
+			<p class="body">
+				Es un día para aprender de expertos, intercambiar ideas con la comunidad AWS y
+				regresar a casa con nuevas conexiones, inspiración y ganas de construir algo grande.
+			</p>
+		</div>
+
+		<div class="media">
+			<button class="player" type="button" data-youtube-id={youtubeId} aria-label="Reproducir video del evento">
+				<Image
+					src={videoCover}
+					alt="AWS Community Day Guatemala"
+					widths={[480, 768, 1024]}
+					sizes="(min-width: 900px) 560px, 100vw"
+					class="cover"
+				/>
+				<span class="scrim" aria-hidden="true"></span>
+				<span class="play-ring" aria-hidden="true"></span>
+				<span class="play-icon" aria-hidden="true">
+					<svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor">
+						<path d="M8 5v14l11-7z" />
+					</svg>
+				</span>
+			</button>
+		</div>
+	</div>
+</section>
+
+<script>
+	document.querySelectorAll<HTMLButtonElement>('.player').forEach((btn) => {
+		btn.addEventListener(
+			'click',
+			() => {
+				const id = btn.dataset.youtubeId;
+				const iframe = document.createElement('iframe');
+				iframe.className = btn.className + ' iframe-embed';
+				iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+				iframe.title = 'AWS Community Day Guatemala';
+				iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+				iframe.allowFullscreen = true;
+				iframe.setAttribute('frameborder', '0');
+				btn.replaceWith(iframe);
+			},
+			{ once: true },
+		);
+	});
+</script>
+
+<style>
+	.event-video {
+		position: relative;
+		overflow: hidden;
+		padding-block: var(--section-padding-block);
+		background: linear-gradient(180deg, var(--color-near-black) 0%, var(--color-violet-deep) 100%);
+	}
+
+	.glow {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 55% 60% at 85% 15%, rgba(109, 74, 173, 0.35), transparent 65%);
+		mix-blend-mode: screen;
+		pointer-events: none;
+	}
+
+	.grid {
+		position: relative;
+		display: grid;
+		gap: 3rem;
+		align-items: center;
+	}
+
+	.kicker {
+		font-family: var(--font-display);
+		color: var(--color-orange);
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.8rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+	}
+
+	h2 {
+		color: var(--color-text-inverse);
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		line-height: 1.1;
+	}
+
+	.subhead {
+		font-family: var(--font-display);
+		background: var(--gradient-accent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+		font-weight: 600;
+		margin-top: 0.75rem;
+	}
+
+	.body {
+		color: var(--color-text-inverse-muted);
+		margin-top: 1.25rem;
+		font-size: 1.05rem;
+		max-width: 46ch;
+	}
+
+	.media {
+		position: relative;
+	}
+
+	.player,
+	.iframe-embed {
+		display: block;
+		position: relative;
+		width: 100%;
+		aspect-ratio: 16 / 10;
+		border-radius: 6px;
+		overflow: hidden;
+		transform: rotate(-1.5deg);
+		box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+		border: none;
+	}
+
+	.iframe-embed {
+		transform: none;
+	}
+
+	.player {
+		padding: 0;
+		background: var(--color-ink);
+		cursor: pointer;
+	}
+
+	.player :global(.cover) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.scrim {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(180deg, rgba(20, 16, 28, 0.15) 0%, rgba(20, 16, 28, 0.55) 100%);
+		transition: background-color 0.2s ease;
+	}
+
+	.play-ring {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		border: 1.5px solid rgba(255, 255, 255, 0.6);
+		transform: translate(-50%, -50%);
+		animation: ring-pulse 2.4s ease-out infinite;
+	}
+
+	.play-icon {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 64px;
+		height: 64px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transform: translate(-50%, -50%);
+		border-radius: 50%;
+		background: var(--color-orange);
+		color: var(--color-ink);
+		padding-left: 4px;
+		box-sizing: border-box;
+	}
+
+	.player:hover .play-icon {
+		background: var(--color-orange-dark);
+	}
+
+	@keyframes ring-pulse {
+		0% {
+			transform: translate(-50%, -50%) scale(1);
+			opacity: 0.9;
+		}
+		100% {
+			transform: translate(-50%, -50%) scale(1.6);
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.play-ring {
+			animation: none;
+		}
+	}
+
+	@media (min-width: 900px) {
+		.grid {
+			grid-template-columns: 1fr 1fr;
+			gap: 4rem;
+		}
+
+		.media {
+			order: 2;
+		}
+	}
+</style>
