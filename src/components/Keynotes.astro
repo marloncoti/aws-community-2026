@@ -1,0 +1,70 @@
+---
+import keynotes from '../data/keynotes.json';
+import KeynoteCard from './KeynoteCard.astro';
+---
+
+<section class="keynotes" id="keynote">
+	<div class="container">
+		<p class="badge">Keynote</p>
+		<h2>Keynote Speakers</h2>
+		<p class="lead">Muy pronto anunciaremos a quienes abrirán el AWS Community Day Guatemala 2026.</p>
+
+		<div class="grid">
+			{keynotes.map((keynote) => <KeynoteCard keynote={keynote} />)}
+		</div>
+	</div>
+</section>
+
+<style>
+	.keynotes {
+		padding-block: var(--section-padding-block);
+		background: linear-gradient(180deg, var(--color-violet-deep) 0%, var(--color-ink-soft) 100%);
+	}
+
+	.badge {
+		display: inline-flex;
+		font-family: var(--font-display);
+		color: var(--color-text-inverse);
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.75rem;
+		font-weight: 600;
+		padding: 0.4rem 0.85rem;
+		border: 1px solid rgba(255, 153, 0, 0.5);
+		border-radius: 999px;
+		margin-bottom: 1rem;
+	}
+
+	h2 {
+		color: var(--color-text-inverse);
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+	}
+
+	.lead {
+		color: var(--color-text-inverse-muted);
+		margin-top: 0.75rem;
+		font-size: 1.05rem;
+		max-width: 52ch;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+		margin-top: 2.75rem;
+	}
+
+	@media (min-width: 640px) {
+		.grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 900px) {
+		.grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+</style>

@@ -1,0 +1,156 @@
+---
+interface Keynote {
+	id: string;
+	name: string;
+	role?: string;
+	org?: string;
+	photo?: string;
+	linkedin?: string;
+}
+
+interface Props {
+	keynote: Keynote;
+}
+
+const { keynote } = Astro.props;
+const isPlaceholder = !keynote.photo;
+---
+
+<article class="card">
+	<div class="media">
+		{
+			isPlaceholder ? (
+				<div class="placeholder">
+					<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+						<circle cx="12" cy="8" r="4" />
+						<path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" />
+					</svg>
+				</div>
+			) : (
+				<img src={keynote.photo} alt={keynote.name} loading="lazy" />
+			)
+		}
+		<p class="tag">Keynote</p>
+	</div>
+
+	<div class="info">
+		<p class:list={['name', { muted: isPlaceholder }]}>{keynote.name}</p>
+		{keynote.role && <p class="role">{keynote.role}</p>}
+		{keynote.org && <p class="org">{keynote.org}</p>}
+		<span class="rule" />
+		{
+			keynote.linkedin && (
+				<a class="linkedin" href={keynote.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${keynote.name}`}>
+					<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+						<path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.48 1 4.98 2.12 4.98 3.5zM.4 8.24H4.6V23H.4V8.24zM8.34 8.24h4.03v2.01h.06c.56-1.06 1.93-2.18 3.98-2.18 4.25 0 5.03 2.8 5.03 6.44V23h-4.2v-6.68c0-1.59-.03-3.64-2.22-3.64-2.22 0-2.56 1.74-2.56 3.53V23H8.34V8.24z" />
+					</svg>
+				</a>
+			)
+		}
+	</div>
+</article>
+
+<style>
+	.card {
+		background: var(--color-ink);
+		border-radius: 10px;
+		overflow: hidden;
+		border: 1px solid rgba(255, 255, 255, 0.06);
+	}
+
+	.media {
+		position: relative;
+		aspect-ratio: 4 / 5;
+		background: radial-gradient(ellipse at 50% 20%, rgba(109, 74, 173, 0.45), transparent 65%), var(--color-violet-deep);
+	}
+
+	.media img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.placeholder {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: rgba(255, 255, 255, 0.25);
+	}
+
+	.tag {
+		position: absolute;
+		top: 1rem;
+		left: 1rem;
+		margin: 0;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1.6rem;
+		letter-spacing: -0.02em;
+		text-transform: uppercase;
+		background: var(--gradient-accent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	.info {
+		padding: 1.25rem 1.25rem 1.5rem;
+	}
+
+	.name {
+		margin: 0;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1.15rem;
+		color: var(--color-text-inverse);
+	}
+
+	.name.muted {
+		color: var(--color-text-inverse-muted);
+		font-weight: 600;
+	}
+
+	.role {
+		margin: 0.3rem 0 0;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--color-orange);
+	}
+
+	.org {
+		margin: 0.15rem 0 0;
+		font-size: 0.85rem;
+		color: var(--color-text-inverse-muted);
+	}
+
+	.rule {
+		display: block;
+		width: 32px;
+		height: 2px;
+		margin-top: 0.9rem;
+		background: var(--color-orange);
+		border-radius: 2px;
+	}
+
+	.linkedin {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		margin-top: 0.9rem;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.08);
+		color: var(--color-text-inverse);
+		text-decoration: none;
+	}
+
+	.linkedin:hover {
+		background: var(--color-orange);
+		color: var(--color-ink);
+	}
+</style>

@@ -17,6 +17,7 @@ const grouped = tiers
 ---
 
 <section class="sponsors" id="patrocinadores">
+	<div class="glow" aria-hidden="true"></div>
 	<div class="container">
 		<p class="kicker">Gracias por su apoyo</p>
 		<h2>Patrocinadores</h2>
@@ -24,7 +25,7 @@ const grouped = tiers
 		{
 			grouped.map((tier) => (
 				<div class="tier-group">
-					<p class="tier-label">{tier.label}</p>
+					<p class={`tier-label tier-label-${tier.key}`}>{tier.label}</p>
 					<div class={`grid grid-${tier.key}`}>
 						{tier.items.map((sponsor) => (
 							<SponsorCard sponsor={sponsor} />
@@ -38,8 +39,22 @@ const grouped = tiers
 
 <style>
 	.sponsors {
+		position: relative;
+		overflow: hidden;
 		padding-block: var(--section-padding-block);
-		background: linear-gradient(180deg, var(--color-violet-deep) 0%, var(--color-ink-soft) 100%);
+		background: var(--color-ink-soft);
+	}
+
+	.glow {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 50% 45% at 90% 0%, rgba(109, 74, 173, 0.3), transparent 65%);
+		mix-blend-mode: screen;
+		pointer-events: none;
+	}
+
+	.container {
+		position: relative;
 	}
 
 	.kicker {
@@ -64,44 +79,48 @@ const grouped = tiers
 	}
 
 	.tier-label {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
 		font-family: var(--font-display);
 		font-size: 0.8rem;
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 		color: var(--color-text-inverse-muted);
-		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-		padding-bottom: 0.5rem;
 		margin-bottom: 1.25rem;
+	}
+
+	.tier-label::before {
+		content: '';
+		width: 22px;
+		height: 3px;
+		border-radius: 2px;
+		background: var(--tier-color);
+	}
+
+	.tier-label-diamond {
+		--tier-color: var(--color-orange);
+	}
+
+	.tier-label-gold {
+		--tier-color: var(--color-violet);
+	}
+
+	.tier-label-silver {
+		--tier-color: rgba(255, 255, 255, 0.3);
 	}
 
 	.grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 1rem;
-	}
-
-	.grid-silver {
-		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
 	}
 
 	@media (min-width: 640px) {
-		.grid-diamond {
+		.grid {
 			grid-template-columns: repeat(3, 1fr);
-		}
-
-		.grid-gold {
-			grid-template-columns: repeat(4, 1fr);
-		}
-
-		.grid-silver {
-			grid-template-columns: repeat(5, 1fr);
-		}
-	}
-
-	@media (min-width: 900px) {
-		.grid-diamond {
-			grid-template-columns: repeat(5, 1fr);
+			gap: 1.5rem;
 		}
 	}
 </style>

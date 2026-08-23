@@ -120,9 +120,21 @@ JSON — no hace falta tocar componentes.
   (cargo/rol de cada uno) — el sitio original no expone ese dato en el markup,
   hay que pedirlo o inferirlo.
 
-Para agregar un patrocinador/organizador nuevo: soltar la imagen en
-`public/images/sponsors/` o `public/images/organizers/`, y añadir una entrada
-al JSON correspondiente. Ningún componente necesita cambios.
+- `src/data/keynotes.json` — array de objetos:
+  ```json
+  { "id": "keynote-1", "name": "Por confirmar", "role": "", "org": "", "photo": "", "linkedin": "" }
+  ```
+  **Placeholder por ahora** (3 entradas "Por confirmar", sin foto todavía —
+  `KeynoteCard.astro` detecta `photo: ""` y muestra un ícono de silueta en vez
+  de romper el layout). Diseño inspirado en las tarjetas de keynote de
+  `awscommunitydaycolombia.com/home#keynote` y el spotlight de
+  `day.awscommunity.mx`, adaptado a nuestra paleta. Cuando haya speakers
+  confirmados: reemplazar `name`/`role`/`org`/`linkedin`, y subir la foto a
+  `public/images/keynotes/` y referenciarla en `photo`.
+
+Para agregar un patrocinador/organizador/keynote nuevo: soltar la imagen en
+`public/images/sponsors/`, `public/images/organizers/` o `public/images/keynotes/`,
+y añadir una entrada al JSON correspondiente. Ningún componente necesita cambios.
 
 El CTA principal del hero ("Regístrate") enlaza directo a la plataforma de
 tickets: `https://c.proticket.store/1e90d63c6b97` (`target="_blank"`).

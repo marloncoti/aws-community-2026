@@ -10,7 +10,7 @@
     "id": "bi-partner",
     "name": "BI Partner",
     "tier": "diamond",
-    "logo": "/images/sponsors/bi-partner.png",
+    "logo": "/images/sponsors/logo-bi.webp",
     "url": ""
   },
   {
@@ -31,14 +31,14 @@
     "id": "jetbrains",
     "name": "JetBrains",
     "tier": "diamond",
-    "logo": "/images/sponsors/jetbrains.webp",
+    "logo": "/images/sponsors/jetbrains-official.png",
     "url": ""
   },
   {
     "id": "htec",
     "name": "HTEC",
     "tier": "gold",
-    "logo": "/images/sponsors/htec.png",
+    "logo": "/images/sponsors/htec.svg",
     "url": ""
   },
   {
