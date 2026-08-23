@@ -11,6 +11,11 @@ import { Image } from 'astro:assets';
 			<Image src={logo} alt="AWS Community Day Guatemala 2026" width={192} height={115} />
 		</a>
 		<nav class="nav">
+			<div class="links">
+				<a href="#ponentes">Ponentes</a>
+				<a href="#patrocinadores">Patrocinadores</a>
+				<a href="#organizadores">Organizadores</a>
+			</div>
 			<a class="cta" href="https://c.proticket.store/1e90d63c6b97" target="_blank" rel="noopener noreferrer">
 				Regístrate sin Costo
 				<svg class="icon-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -19,8 +24,32 @@ import { Image } from 'astro:assets';
 				</svg>
 			</a>
 		</nav>
+		<button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
+			<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+				<path d="M4 7h16" />
+				<path d="M4 12h16" />
+				<path d="M4 17h16" />
+			</svg>
+		</button>
 	</div>
 </header>
+
+<script>
+	const toggle = document.querySelector('.menu-toggle');
+	const links = document.querySelector('.site-header .links');
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = links?.classList.toggle('open');
+		toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+	});
+
+	links?.querySelectorAll('a').forEach((link) => {
+		link.addEventListener('click', () => {
+			links.classList.remove('open');
+			toggle?.setAttribute('aria-expanded', 'false');
+		});
+	});
+</script>
 
 <style>
 	.site-header {
@@ -61,7 +90,53 @@ import { Image } from 'astro:assets';
 
 	.nav {
 		display: flex;
-		gap: 1.25rem;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.links {
+		display: none;
+	}
+
+	.links.open {
+		display: flex;
+		flex-direction: column;
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		gap: 0.25rem;
+		padding: 0.75rem 1.25rem 1.25rem;
+		background: rgba(20, 16, 28, 0.97);
+		backdrop-filter: blur(10px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.links a {
+		font-family: var(--font-display);
+		font-size: 0.95rem;
+		font-weight: 600;
+		text-decoration: none;
+		color: var(--color-text-inverse-muted);
+		padding: 0.65rem 0;
+		transition: color 0.15s ease;
+	}
+
+	.links a:hover {
+		color: var(--color-orange);
+	}
+
+	.menu-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		background: none;
+		border: none;
+		color: var(--color-text-inverse);
+		padding: 0.4rem;
+		cursor: pointer;
+		position: relative;
+		z-index: 2;
 	}
 
 	.cta {
@@ -101,6 +176,28 @@ import { Image } from 'astro:assets';
 
 		.brand :global(img) {
 			height: 78px;
+		}
+
+		.menu-toggle {
+			display: none;
+		}
+
+		.links {
+			display: flex;
+			flex-direction: row;
+			position: static;
+			gap: 1.75rem;
+			padding: 0;
+			background: none;
+			backdrop-filter: none;
+			border-bottom: none;
+		}
+
+		.links a {
+			font-size: 0.85rem;
+			text-transform: uppercase;
+			letter-spacing: 0.04em;
+			padding: 0;
 		}
 
 		.cta {

@@ -80,6 +80,28 @@ const {
 		width: 100%;
 	}
 
+	html {
+		scroll-behavior: smooth;
+	}
+
+	section[id],
+	#top {
+		scroll-margin-top: 84px;
+	}
+
+	@media (min-width: 900px) {
+		section[id],
+		#top {
+			scroll-margin-top: 104px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+	}
+
 	body {
 		background: var(--color-near-black);
 		color: var(--color-text);

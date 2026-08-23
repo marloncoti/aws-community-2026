@@ -35,6 +35,13 @@
     "url": ""
   },
   {
+    "id": "proticket",
+    "name": "Proticket",
+    "tier": "diamond",
+    "logo": "/images/sponsors/proticket.png",
+    "url": "https://proticket.io"
+  },
+  {
     "id": "htec",
     "name": "HTEC",
     "tier": "gold",
