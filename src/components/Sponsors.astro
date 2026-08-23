@@ -19,8 +19,8 @@ const grouped = tiers
 <section class="sponsors" id="patrocinadores">
 	<div class="glow" aria-hidden="true"></div>
 	<div class="container">
-		<p class="kicker">Gracias por su apoyo</p>
-		<h2>Patrocinadores</h2>
+		<h2>Nuestros Patrocinadores</h2>
+		<p class="lead">Gracias a estas increíbles organizaciones que hacen posible este evento.</p>
 
 		{
 			grouped.map((tier) => (
@@ -57,21 +57,21 @@ const grouped = tiers
 		position: relative;
 	}
 
-	.kicker {
-		font-family: var(--font-display);
-		color: var(--color-orange);
-		text-transform: uppercase;
-		letter-spacing: 0.12em;
-		font-size: 0.8rem;
-		font-weight: 600;
-		margin-bottom: 0.5rem;
+	.lead {
+		color: var(--color-text-inverse-muted);
+		margin-top: 0.5rem;
+		font-size: 1.05rem;
+		max-width: 52ch;
 	}
 
 	h2 {
 		font-size: clamp(1.75rem, 4vw, 2.5rem);
 		font-weight: 700;
 		letter-spacing: -0.01em;
-		color: var(--color-text-inverse);
+		background: var(--gradient-accent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
 	}
 
 	.tier-group {
