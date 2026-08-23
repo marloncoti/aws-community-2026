@@ -7,9 +7,9 @@ const youtubeId = 'oCDOWYOz62c';
 
 <section class="event-video">
 	<div class="glow" aria-hidden="true"></div>
+	<p class="bg-word" aria-hidden="true">2026</p>
 	<div class="container grid">
 		<div class="copy">
-			<p class="kicker">El evento</p>
 			<h2>El Evento AWS más grande de Guatemala</h2>
 			<p class="subhead">Más que un Community Day.</p>
 			<p class="body">
@@ -19,6 +19,7 @@ const youtubeId = 'oCDOWYOz62c';
 		</div>
 
 		<div class="media">
+			<span class="media-frame" aria-hidden="true"></span>
 			<button class="player" type="button" data-youtube-id={youtubeId} aria-label="Reproducir video del evento">
 				<Image
 					src={videoCover}
@@ -75,6 +76,30 @@ const youtubeId = 'oCDOWYOz62c';
 		pointer-events: none;
 	}
 
+	.bg-word {
+		display: none;
+	}
+
+	@media (min-width: 900px) {
+		.bg-word {
+			display: block;
+			position: absolute;
+			top: 50%;
+			right: 4%;
+			transform: translate(0, -50%);
+			margin: 0;
+			font-family: var(--font-display);
+			font-weight: 700;
+			font-size: clamp(6rem, 16vw, 13rem);
+			line-height: 1;
+			color: transparent;
+			-webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.07);
+			white-space: nowrap;
+			pointer-events: none;
+			z-index: 0;
+		}
+	}
+
 	.grid {
 		position: relative;
 		display: grid;
@@ -94,7 +119,7 @@ const youtubeId = 'oCDOWYOz62c';
 
 	h2 {
 		color: var(--color-text-inverse);
-		font-size: clamp(1.75rem, 4vw, 2.5rem);
+		font-size: clamp(2.75rem, 4vw, 2.5rem);
 		font-weight: 700;
 		letter-spacing: -0.01em;
 		line-height: 1.1;
@@ -106,7 +131,7 @@ const youtubeId = 'oCDOWYOz62c';
 		-webkit-background-clip: text;
 		background-clip: text;
 		color: transparent;
-		font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+		font-size: clamp(2.15rem, 2.4vw, 1.5rem);
 		font-weight: 600;
 		margin-top: 0.75rem;
 	}
@@ -116,10 +141,19 @@ const youtubeId = 'oCDOWYOz62c';
 		margin-top: 1.25rem;
 		font-size: 1.05rem;
 		max-width: 46ch;
+		color: white !important;
 	}
 
 	.media {
 		position: relative;
+		padding: 14px 14px 0 0;
+	}
+
+	.media-frame {
+		position: absolute;
+		inset: 14px 0 0 14px;
+		background: linear-gradient(135deg, var(--color-orange), var(--color-magenta) 55%, var(--color-violet));
+		clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 44px 100%, 0 calc(100% - 44px));
 	}
 
 	.player,
@@ -128,15 +162,10 @@ const youtubeId = 'oCDOWYOz62c';
 		position: relative;
 		width: 100%;
 		aspect-ratio: 16 / 10;
-		border-radius: 6px;
 		overflow: hidden;
-		transform: rotate(-1.5deg);
+		clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 44px, 100% 100%, 44px 100%, 0 calc(100% - 44px));
 		box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
 		border: none;
-	}
-
-	.iframe-embed {
-		transform: none;
 	}
 
 	.player {
@@ -164,8 +193,8 @@ const youtubeId = 'oCDOWYOz62c';
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		width: 64px;
-		height: 64px;
+		width: 78px;
+		height: 78px;
 		border-radius: 50%;
 		border: 1.5px solid rgba(255, 255, 255, 0.6);
 		transform: translate(-50%, -50%);
@@ -176,8 +205,8 @@ const youtubeId = 'oCDOWYOz62c';
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		width: 64px;
-		height: 64px;
+		width: 78px;
+		height: 78px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -187,6 +216,7 @@ const youtubeId = 'oCDOWYOz62c';
 		color: var(--color-ink);
 		padding-left: 4px;
 		box-sizing: border-box;
+		box-shadow: 0 10px 30px -6px rgba(255, 153, 0, 0.6);
 	}
 
 	.player:hover .play-icon {
