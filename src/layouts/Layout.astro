@@ -1,4 +1,8 @@
 ---
+import { getImage } from 'astro:assets';
+import heroBackground from '../assets/brand/hero-background.png';
+import eventLogo from '../assets/brand/logo-awscd-2026.png';
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -8,6 +12,12 @@ const {
 	title = 'AWS Community Day Guatemala 2026',
 	description = 'AWS Community Day Guatemala 2026: patrocinadores, organizadores y todo lo que necesitas saber del evento de la comunidad AWS en Guatemala.',
 } = Astro.props;
+
+const ogImage = await getImage({ src: heroBackground, width: 1200, height: 630, format: 'jpg' });
+const logoImage = await getImage({ src: eventLogo, width: 192, height: 115, format: 'png' });
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage.src, Astro.site);
+const logoURL = new URL(logoImage.src, Astro.site);
 ---
 
 <!doctype html>
@@ -15,11 +25,47 @@ const {
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+
+		<link rel="icon" href="/favicon.ico" sizes="32x32" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		<meta name="theme-color" content="#14101c" />
+
 		<meta name="generator" content={Astro.generator} />
-		<meta name="description" content={description} />
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="es" />
+		<meta name="author" content="AWS Community Day Guatemala" />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="AWS Community Day Guatemala" />
+		<meta property="og:locale" content="es_GT" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL} />
+
+		<script type="application/ld+json" set:html={JSON.stringify({
+			'@context': 'https://schema.org',
+			'@type': 'Organization',
+			name: 'AWS Community Day Guatemala',
+			url: 'https://awscommunitygt.com',
+			logo: logoURL.toString(),
+			sameAs: [],
+		})} />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
