@@ -1,0 +1,51 @@
+[
+  {
+    "id": "vicente-suc",
+    "name": "Vicente Suc",
+    "role": "",
+    "photo": "/images/organizers/vicente-suc.jpg",
+    "linkedin": "https://linkedin.com/in/vicentex360"
+  },
+  {
+    "id": "melisa-moreno",
+    "name": "Melisa Moreno",
+    "role": "",
+    "photo": "/images/organizers/melisa-moreno.jpg",
+    "linkedin": "https://linkedin.com/in/melissammoreno"
+  },
+  {
+    "id": "wilmer-sipac",
+    "name": "Wilmer Sipac",
+    "role": "",
+    "photo": "/images/organizers/wilmer-sipac.jpg",
+    "linkedin": "https://linkedin.com/in/cristhian-sipac"
+  },
+  {
+    "id": "jessica-boton",
+    "name": "Jessica Boton",
+    "role": "",
+    "photo": "/images/organizers/jessica-boton.jpg",
+    "linkedin": "https://linkedin.com/in/jessicabp21"
+  },
+  {
+    "id": "abel-archila",
+    "name": "Abel Archila",
+    "role": "",
+    "photo": "/images/organizers/abel-archila.jpg",
+    "linkedin": "https://linkedin.com/in/abelarchila"
+  },
+  {
+    "id": "jherson-sazo",
+    "name": "Jherson Sazo",
+    "role": "",
+    "photo": "/images/organizers/jherson-sazo.jpg",
+    "linkedin": "https://linkedin.com/in/jherson-sazo"
+  },
+  {
+    "id": "byron-lainez",
+    "name": "Byron Lainez",
+    "role": "",
+    "photo": "/images/organizers/byron-lainez.png",
+    "linkedin": "https://linkedin.com/in/byronlainezsasvin"
+  }
+]

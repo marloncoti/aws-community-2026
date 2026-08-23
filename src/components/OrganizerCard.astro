@@ -1,0 +1,80 @@
+---
+interface Organizer {
+	id: string;
+	name: string;
+	role?: string;
+	photo: string;
+	linkedin?: string;
+}
+
+interface Props {
+	organizer: Organizer;
+}
+
+const { organizer } = Astro.props;
+---
+
+<article class="card">
+	<div class="photo-wrap">
+		<img src={organizer.photo} alt={organizer.name} loading="lazy" />
+	</div>
+	<p class="name">{organizer.name}</p>
+	{organizer.role && <p class="role">{organizer.role}</p>}
+	{
+		organizer.linkedin && (
+			<a class="linkedin" href={organizer.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${organizer.name}`}>
+				<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
+					<path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.48 1 4.98 2.12 4.98 3.5zM.4 8.24H4.6V23H.4V8.24zM8.34 8.24h4.03v2.01h.06c.56-1.06 1.93-2.18 3.98-2.18 4.25 0 5.03 2.8 5.03 6.44V23h-4.2v-6.68c0-1.59-.03-3.64-2.22-3.64-2.22 0-2.56 1.74-2.56 3.53V23H8.34V8.24z" />
+				</svg>
+				LinkedIn
+			</a>
+		)
+	}
+</article>
+
+<style>
+	.card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.photo-wrap {
+		width: 108px;
+		height: 108px;
+		border-radius: 50%;
+		overflow: hidden;
+		border: 2px solid rgba(255, 153, 0, 0.4);
+	}
+
+	.photo-wrap img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.name {
+		font-family: var(--font-display);
+		font-weight: 600;
+		margin-top: 1rem;
+		color: var(--color-text-inverse);
+	}
+
+	.role {
+		font-size: 0.85rem;
+		color: var(--color-text-inverse-muted);
+		margin-top: 0.15rem;
+	}
+
+	.linkedin {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		margin-top: 0.6rem;
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: var(--color-orange);
+		text-decoration: none;
+	}
+</style>

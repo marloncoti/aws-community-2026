@@ -1,0 +1,51 @@
+[
+  {
+    "id": "aws-partner",
+    "name": "AWS Partner",
+    "tier": "diamond",
+    "logo": "/images/sponsors/aws-partner.png",
+    "url": ""
+  },
+  {
+    "id": "bi-partner",
+    "name": "BI Partner",
+    "tier": "diamond",
+    "logo": "/images/sponsors/bi-partner.png",
+    "url": ""
+  },
+  {
+    "id": "gbm",
+    "name": "GBM",
+    "tier": "diamond",
+    "logo": "/images/sponsors/gbm.svg",
+    "url": ""
+  },
+  {
+    "id": "landivar",
+    "name": "Universidad Rafael Landívar",
+    "tier": "diamond",
+    "logo": "/images/sponsors/landivar.png",
+    "url": ""
+  },
+  {
+    "id": "jetbrains",
+    "name": "JetBrains",
+    "tier": "diamond",
+    "logo": "/images/sponsors/jetbrains.webp",
+    "url": ""
+  },
+  {
+    "id": "htec",
+    "name": "HTEC",
+    "tier": "gold",
+    "logo": "/images/sponsors/htec.png",
+    "url": ""
+  },
+  {
+    "id": "improving",
+    "name": "Improving",
+    "tier": "silver",
+    "logo": "/images/sponsors/improving.png",
+    "url": ""
+  }
+]

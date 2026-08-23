@@ -1,0 +1,100 @@
+---
+import logo from '../assets/brand/logo-awscd-2026.png';
+import quetzal from '../assets/brand/quetzal.png';
+import { Image } from 'astro:assets';
+---
+
+<header class="site-header">
+	<Image src={quetzal} alt="" class="quetzal" widths={[160, 320]} sizes="200px" />
+	<div class="container bar">
+		<a href="#top" class="brand">
+			<Image src={logo} alt="AWS Community Day Guatemala 2026" width={140} height={84} />
+		</a>
+		<nav class="nav">
+			<a href="#patrocinadores">Patrocinadores</a>
+			<a href="#organizadores">Organizadores</a>
+		</nav>
+	</div>
+</header>
+
+<style>
+	.site-header {
+		position: fixed;
+		inset-inline: 0;
+		top: 0;
+		z-index: 40;
+		background: rgba(23, 33, 46, 0.45);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bar {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding-block: 0.5rem;
+	}
+
+	.site-header :global(.quetzal) {
+		position: absolute;
+		top: 2px;
+		right: 4%;
+		z-index: 1;
+		height: 70px;
+		width: auto;
+		pointer-events: none;
+		filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+	}
+
+	.brand :global(img) {
+		height: 40px;
+		width: auto;
+	}
+
+	.nav {
+		display: flex;
+		gap: 1.25rem;
+	}
+
+	.nav a {
+		font-family: var(--font-display);
+		font-size: 0.85rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		text-decoration: none;
+		color: var(--color-text-inverse-muted);
+		text-transform: uppercase;
+		transition: color 0.15s ease;
+	}
+
+	.nav a:hover {
+		color: var(--color-orange);
+	}
+
+	@media (min-width: 900px) {
+		.bar {
+			padding-block: 0.75rem;
+		}
+
+		.brand :global(img) {
+			height: 52px;
+		}
+
+		.nav {
+			gap: 2rem;
+		}
+
+		.nav a {
+			font-size: 0.95rem;
+		}
+
+		.site-header :global(.quetzal) {
+			top: 4px;
+			right: 6%;
+			height: 100px;
+		}
+	}
+</style>

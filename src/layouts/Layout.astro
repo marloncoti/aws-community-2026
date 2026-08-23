@@ -1,23 +1,112 @@
+---
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'AWS Community Day Guatemala 2026',
+	description = 'AWS Community Day Guatemala 2026: patrocinadores, organizadores y todo lo que necesitas saber del evento de la comunidad AWS en Guatemala.',
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<meta name="description" content={description} />
+		<title>{title}</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
+	:root {
+		--color-ink: #232f3e;
+		--color-ink-soft: #2e3f52;
+		--color-orange: #ff9900;
+		--color-orange-dark: #e07c00;
+		--color-bg: #faf9f7;
+		--color-surface: #ffffff;
+		--color-border: #e4e1da;
+		--color-text: #1a2230;
+		--color-text-muted: #5c6b7a;
+		--color-text-inverse: #f5f7fa;
+		--color-text-inverse-muted: #aeb9c4;
+
+		--font-display: 'Space Grotesk', 'Arial Narrow', sans-serif;
+		--font-body: 'IBM Plex Sans', system-ui, sans-serif;
+
+		--container-width: 1180px;
+		--section-padding-block: 4rem;
+		--edge-pad: 1.25rem;
+		--edge-inset: calc(var(--edge-pad) + max(0px, (100vw - var(--container-width)) / 2));
+	}
+
+	@media (min-width: 900px) {
+		:root {
+			--section-padding-block: 6.5rem;
+			--edge-pad: 2.5rem;
+		}
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
 	html,
 	body {
 		margin: 0;
 		width: 100%;
-		height: 100%;
+	}
+
+	body {
+		background: var(--color-ink);
+		color: var(--color-text);
+		font-family: var(--font-body);
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	h1,
+	h2,
+	h3 {
+		font-family: var(--font-display);
+		margin: 0;
+		color: inherit;
+	}
+
+	p {
+		margin: 0;
+	}
+
+	a {
+		color: inherit;
+	}
+
+	img {
+		max-width: 100%;
+		display: block;
+	}
+
+	.container {
+		max-width: var(--container-width);
+		margin-inline: auto;
+		padding-inline: var(--edge-pad);
 	}
 </style>

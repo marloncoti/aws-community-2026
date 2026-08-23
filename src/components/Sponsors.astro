@@ -1,0 +1,107 @@
+---
+import sponsors from '../data/sponsors.json';
+import SponsorCard from './SponsorCard.astro';
+
+const tiers = [
+	{ key: 'diamond', label: 'Diamond' },
+	{ key: 'gold', label: 'Gold' },
+	{ key: 'silver', label: 'Silver' },
+] as const;
+
+const grouped = tiers
+	.map((tier) => ({
+		...tier,
+		items: sponsors.filter((s) => s.tier === tier.key),
+	}))
+	.filter((tier) => tier.items.length > 0);
+---
+
+<section class="sponsors" id="patrocinadores">
+	<div class="container">
+		<p class="kicker">Gracias por su apoyo</p>
+		<h2>Patrocinadores</h2>
+
+		{
+			grouped.map((tier) => (
+				<div class="tier-group">
+					<p class="tier-label">{tier.label}</p>
+					<div class={`grid grid-${tier.key}`}>
+						{tier.items.map((sponsor) => (
+							<SponsorCard sponsor={sponsor} />
+						))}
+					</div>
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.sponsors {
+		padding-block: var(--section-padding-block);
+		background: var(--color-ink-soft);
+	}
+
+	.kicker {
+		font-family: var(--font-display);
+		color: var(--color-orange);
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.8rem;
+		font-weight: 600;
+		margin-bottom: 0.5rem;
+	}
+
+	h2 {
+		font-size: clamp(1.75rem, 4vw, 2.5rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-inverse);
+	}
+
+	.tier-group {
+		margin-top: 2.75rem;
+	}
+
+	.tier-label {
+		font-family: var(--font-display);
+		font-size: 0.8rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--color-text-inverse-muted);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+		padding-bottom: 0.5rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+	}
+
+	.grid-silver {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	@media (min-width: 640px) {
+		.grid-diamond {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.grid-gold {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.grid-silver {
+			grid-template-columns: repeat(5, 1fr);
+		}
+	}
+
+	@media (min-width: 900px) {
+		.grid-diamond {
+			grid-template-columns: repeat(5, 1fr);
+		}
+	}
+</style>

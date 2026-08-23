@@ -1,0 +1,57 @@
+---
+interface Sponsor {
+	id: string;
+	name: string;
+	tier: 'diamond' | 'gold' | 'silver';
+	logo: string;
+	url?: string;
+}
+
+interface Props {
+	sponsor: Sponsor;
+}
+
+const { sponsor } = Astro.props;
+const Tag = sponsor.url ? 'a' : 'div';
+const linkProps = sponsor.url ? { href: sponsor.url, target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<Tag class={`card tier-${sponsor.tier}`} {...linkProps}>
+	<img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+</Tag>
+
+<style>
+	.card {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--color-surface);
+		border: 1px solid var(--color-border);
+		padding: 1.5rem;
+		text-decoration: none;
+	}
+
+	.card img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		filter: grayscale(1) opacity(0.65);
+		transition: filter 0.2s ease;
+	}
+
+	.card:hover img {
+		filter: grayscale(0) opacity(1);
+	}
+
+	.tier-diamond {
+		min-height: 110px;
+	}
+
+	.tier-gold {
+		min-height: 90px;
+	}
+
+	.tier-silver {
+		min-height: 74px;
+	}
+</style>

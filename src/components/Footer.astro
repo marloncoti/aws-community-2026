@@ -1,0 +1,47 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="container bar">
+		<p>AWS Community Day Guatemala · {year}</p>
+		<a href="#top">Volver arriba ↑</a>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		background: #1a232f;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.bar {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		align-items: center;
+		text-align: center;
+		padding-block: 2rem;
+		font-size: 0.85rem;
+		color: var(--color-text-inverse-muted);
+	}
+
+	.bar a {
+		text-decoration: none;
+		color: var(--color-text-inverse-muted);
+		font-family: var(--font-display);
+		font-weight: 600;
+	}
+
+	.bar a:hover {
+		color: var(--color-orange);
+	}
+
+	@media (min-width: 640px) {
+		.bar {
+			flex-direction: row;
+			justify-content: space-between;
+			padding-block: 1.5rem;
+		}
+	}
+</style>
