@@ -1,8 +1,14 @@
 ---
+import mapGuatemala from '../assets/brand/map-guatemala.png';
+import quetzal from '../assets/brand/quetzal.png';
+import { Image } from 'astro:assets';
+
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
+	<Image src={mapGuatemala} alt="" class="map" widths={[176, 260]} sizes="220px" />
+	<Image src={quetzal} alt="" class="flying-quetzal" widths={[160]} sizes="100px" />
 	<div class="container bar">
 		<p>AWS Community Day Guatemala · {year}</p>
 		<a href="#top">Volver arriba ↑</a>
@@ -11,8 +17,73 @@ const year = new Date().getFullYear();
 
 <style>
 	.site-footer {
+		position: relative;
+		overflow: hidden;
 		background: var(--color-violet-deep);
 		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.site-footer :global(.map) {
+		position: absolute;
+		top: 50%;
+		right: 6%;
+		transform: translateY(-50%);
+		height: 130px;
+		width: auto;
+		opacity: 0.16;
+		pointer-events: none;
+	}
+
+	.site-footer :global(.flying-quetzal) {
+		position: absolute;
+		top: 50%;
+		right: 6%;
+		height: 34px;
+		width: auto;
+		pointer-events: none;
+		filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+		animation: quetzal-loop 14s ease-in-out infinite;
+	}
+
+	@keyframes quetzal-loop {
+		0% {
+			transform: translate(70px, 40px) rotate(-6deg) scale(0.9);
+			opacity: 0;
+		}
+		8% {
+			opacity: 1;
+		}
+		30% {
+			transform: translate(-10px, -50px) rotate(4deg) scale(1);
+		}
+		55% {
+			transform: translate(-70px, 10px) rotate(-8deg) scale(0.95);
+		}
+		78% {
+			transform: translate(-15px, 55px) rotate(6deg) scale(1);
+		}
+		92% {
+			opacity: 1;
+		}
+		100% {
+			transform: translate(70px, 40px) rotate(-6deg) scale(0.9);
+			opacity: 0;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.site-footer :global(.flying-quetzal) {
+			animation: none;
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	@media (max-width: 639px) {
+		.site-footer :global(.map),
+		.site-footer :global(.flying-quetzal) {
+			display: none;
+		}
 	}
 
 	.bar {
