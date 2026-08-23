@@ -1,11 +1,9 @@
 ---
 import logo from '../assets/brand/logo-awscd-2026.png';
-import quetzal from '../assets/brand/quetzal.png';
 import { Image } from 'astro:assets';
 ---
 
 <header class="site-header">
-	<Image src={quetzal} alt="" class="quetzal" widths={[160, 320]} sizes="200px" />
 	<div class="container bar">
 		<a href="#top" class="brand">
 			<Image src={logo} alt="AWS Community Day Guatemala 2026" width={192} height={115} />
@@ -70,41 +68,6 @@ import { Image } from 'astro:assets';
 		align-items: center;
 		justify-content: space-between;
 		padding-block: 0.5rem;
-	}
-
-	.site-header :global(.quetzal) {
-		position: absolute;
-		top: 2px;
-		right: 4%;
-		z-index: 1;
-		height: 70px;
-		width: auto;
-		pointer-events: none;
-		filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
-		animation: quetzal-fly 6s ease-in-out infinite;
-		transform-origin: 60% 50%;
-	}
-
-	@keyframes quetzal-fly {
-		0%,
-		100% {
-			transform: translate(0, 0) rotate(0deg);
-		}
-		25% {
-			transform: translate(-4px, -6px) rotate(-3deg);
-		}
-		50% {
-			transform: translate(2px, 2px) rotate(2deg);
-		}
-		75% {
-			transform: translate(-2px, -3px) rotate(-1deg);
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		.site-header :global(.quetzal) {
-			animation: none;
-		}
 	}
 
 	.brand :global(img) {
@@ -229,10 +192,5 @@ import { Image } from 'astro:assets';
 			padding: 0.65rem 1.4rem;
 		}
 
-		.site-header :global(.quetzal) {
-			top: 4px;
-			right: 6%;
-			height: 100px;
-		}
 	}
 </style>
