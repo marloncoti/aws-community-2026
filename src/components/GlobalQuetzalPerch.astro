@@ -1,0 +1,139 @@
+---
+import RealisticQuetzal from './RealisticQuetzal.astro';
+---
+
+<div class="global-perch" aria-hidden="true">
+	<div class="perch-stage">
+		<RealisticQuetzal class="perch-branch" showBranch={true} showBird={false} />
+		<RealisticQuetzal class="perch-bird" showBranch={false} showBird={true} />
+	</div>
+</div>
+
+<style>
+	.global-perch {
+		position: fixed;
+		top: 62%;
+		right: 2%;
+		width: 130px;
+		z-index: 45;
+		pointer-events: none;
+	}
+
+	.perch-stage {
+		position: relative;
+		width: 100%;
+	}
+
+	.perch-stage :global(.perch-branch),
+	.perch-stage :global(.perch-bird) {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: auto;
+	}
+
+	.perch-stage :global(.perch-branch) {
+		opacity: 0.9;
+	}
+
+	.perch-stage :global(.perch-bird) {
+		animation: perch-flight 16s ease-in-out infinite;
+		filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
+	}
+
+	.perch-stage :global(.perch-bird .rq-wing-folded) {
+		animation: perch-wing-folded 16s ease-in-out infinite;
+	}
+
+	.perch-stage :global(.perch-bird .rq-wing-extended) {
+		animation: perch-wing-extended 16s ease-in-out infinite, perch-wing-flap 0.35s ease-in-out infinite;
+	}
+
+	@keyframes perch-flight {
+		0% {
+			transform: translateX(220px) rotate(4deg) scale(0.92);
+		}
+		22% {
+			transform: translateX(0) rotate(0deg) scale(1);
+		}
+		68% {
+			transform: translateX(0) rotate(0deg) scale(1);
+		}
+		92% {
+			transform: translateX(-260px) rotate(-5deg) scale(0.92);
+		}
+		100% {
+			transform: translateX(220px) rotate(4deg) scale(0.92);
+		}
+	}
+
+	@keyframes perch-wing-folded {
+		0%,
+		100% {
+			opacity: 0;
+		}
+		20%,
+		70% {
+			opacity: 1;
+		}
+		24%,
+		66% {
+			opacity: 0;
+		}
+	}
+
+	@keyframes perch-wing-extended {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		20%,
+		70% {
+			opacity: 0;
+		}
+		24%,
+		66% {
+			opacity: 1;
+		}
+	}
+
+	@keyframes perch-wing-flap {
+		0%,
+		100% {
+			transform: rotate(0deg);
+		}
+		50% {
+			transform: rotate(-22deg);
+		}
+	}
+
+	@media (min-width: 900px) {
+		.global-perch {
+			width: 170px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.perch-stage :global(.perch-bird) {
+			animation: none;
+			transform: translateX(0);
+		}
+
+		.perch-stage :global(.perch-bird .rq-wing-folded) {
+			animation: none;
+			opacity: 1;
+		}
+
+		.perch-stage :global(.perch-bird .rq-wing-extended) {
+			animation: none;
+			opacity: 0;
+		}
+	}
+
+	@media (max-width: 639px) {
+		.global-perch {
+			display: none;
+		}
+	}
+</style>
