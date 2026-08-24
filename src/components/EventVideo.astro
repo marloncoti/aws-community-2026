@@ -47,7 +47,16 @@ const youtubeId = 'oCDOWYOz62c';
 			() => {
 				const id = btn.dataset.youtubeId;
 				const iframe = document.createElement('iframe');
-				iframe.className = btn.className + ' iframe-embed';
+				iframe.className = 'iframe-embed';
+				// Astro scopes component styles with a data-astro-cid-* attribute added
+				// at build time; elements created via JS never get it automatically, so
+				// copy it from the button or the scoped .player styles (aspect-ratio,
+				// clip-path, sizing) silently fail to apply to the injected iframe.
+				for (const attr of btn.getAttributeNames()) {
+					if (attr.startsWith('data-astro-cid')) {
+						iframe.setAttribute(attr, '');
+					}
+				}
 				iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
 				iframe.title = 'AWS Community Day Guatemala';
 				iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
