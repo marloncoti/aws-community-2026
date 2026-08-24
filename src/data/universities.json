@@ -1,0 +1,48 @@
+[
+  {
+    "id": "url",
+    "name": "Universidad Rafael Landívar",
+    "shortName": "URL",
+    "logo": "/images/universities/url.png",
+    "tagline": "La sede te espera en casa",
+    "description": "Como universidad anfitriona, Landívar vive el evento completo: charlas, networking y la comunidad AWS de Guatemala, todo dentro de tu campus.",
+    "url": "https://c.proticket.store/03ccc6d18c04",
+    "default": true
+  },
+  {
+    "id": "uvg",
+    "name": "Universidad del Valle de Guatemala",
+    "shortName": "UVG",
+    "logo": "",
+    "tagline": "De las ideas a soluciones reales",
+    "description": "Charlas técnicas, casos de uso reales y builders de la industria compartiendo cómo construyen sobre AWS — pensado para llevarte más allá del aula.",
+    "url": "https://c.proticket.store/86c593c5b872"
+  },
+  {
+    "id": "galileo",
+    "name": "Universidad Galileo",
+    "shortName": "Galileo",
+    "logo": "/images/universities/galileo.png",
+    "tagline": "La innovación se aprende en comunidad",
+    "description": "Conecta con especialistas en cloud, explora tecnologías emergentes y descubre cómo transformar tus proyectos en soluciones con impacto.",
+    "url": "https://c.proticket.store/a86b9ebd081f"
+  },
+  {
+    "id": "usac",
+    "name": "Universidad de San Carlos de Guatemala",
+    "shortName": "USAC",
+    "logo": "/images/universities/usac.png",
+    "tagline": "Comunidad que construye el futuro",
+    "description": "Un espacio abierto para aprender, hacer networking y construir con tecnología cloud junto a los builders más activos de Guatemala.",
+    "url": "https://c.proticket.store/a1c913625a74"
+  },
+  {
+    "id": "umg",
+    "name": "Universidad Mariano Gálvez",
+    "shortName": "UMG",
+    "logo": "/images/universities/umg.png",
+    "tagline": "Conocimiento que abre camino",
+    "description": "Descubre cómo la nube está transformando industrias y qué habilidades necesitas para ser parte de esa transformación.",
+    "url": "https://c.proticket.store/03ccc6d18c04"
+  }
+]

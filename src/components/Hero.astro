@@ -2,6 +2,8 @@
 import heroBackground from '../assets/brand/hero-background.png';
 import quetzal from '../assets/brand/quetzal.png';
 import { Image } from 'astro:assets';
+
+const general_register_url = 'https://c.proticket.store/tickets/free/o/b88ac5c2-573b-438a-8587-12248067b887/e/e8fe1d69-4870-4d27-a63e-e499c819c7cd/s/350e165d-dc95-4e2b-9c97-1e90d63c6b97?chart=ga&category=2c1a98d1-c186-42e1-983d-f901df4e35f6'
 ---
 
 <section class="hero" id="top">
@@ -27,8 +29,15 @@ import { Image } from 'astro:assets';
 			casos reales y networking con quienes construyen sobre la nube.
 		</p>
 		<div class="actions">
-			<a class="btn-primary" href="https://c.proticket.store/1e90d63c6b97" target="_blank" rel="noopener noreferrer">
-				Regístrate sin Costo
+			<a class="btn-primary" href={general_register_url} target="_blank" rel="noopener noreferrer">
+				Registro Público General
+				<svg class="icon-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M5 12h14" />
+					<path d="M13 6l6 6-6 6" />
+				</svg>
+			</a>
+			<a class="btn-secondary" href="/registro-universidades">
+				Registro Comunidad Universitaria
 				<svg class="icon-arrow" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M5 12h14" />
 					<path d="M13 6l6 6-6 6" />
@@ -229,9 +238,11 @@ import { Image } from 'astro:assets';
 		margin-top: 2rem;
 	}
 
-	.btn-primary {
+	.btn-primary,
+	.btn-secondary {
 		display: inline-flex;
 		align-items: center;
+		justify-content: center;
 		gap: 0.6rem;
 		font-family: var(--font-display);
 		font-weight: 600;
@@ -240,8 +251,22 @@ import { Image } from 'astro:assets';
 		text-align: center;
 		padding: 0.85rem 1.5rem;
 		border-radius: 2px;
+	}
+
+	.btn-primary {
 		background: var(--color-orange);
 		color: var(--color-ink);
+	}
+
+	.btn-secondary {
+		background: transparent;
+		color: var(--color-text-inverse);
+		border: 1px solid rgba(255, 255, 255, 0.4);
+	}
+
+	.btn-secondary:hover {
+		border-color: var(--color-orange);
+		color: var(--color-orange);
 	}
 
 	.icon-arrow {
@@ -249,12 +274,21 @@ import { Image } from 'astro:assets';
 		transition: transform 0.2s ease;
 	}
 
-	.btn-primary:hover .icon-arrow {
+	.btn-primary:hover .icon-arrow,
+	.btn-secondary:hover .icon-arrow {
 		transform: translateX(3px);
 	}
 
+	@media (min-width: 480px) {
+		.actions {
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+	}
+
 	@media (min-width: 640px) {
-		.btn-primary {
+		.btn-primary,
+		.btn-secondary {
 			padding: 0.9rem 2rem;
 		}
 	}

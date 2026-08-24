@@ -1,20 +1,23 @@
 ---
 import logo from '../assets/brand/logo-awscd-2026.png';
 import { Image } from 'astro:assets';
+
+const general_register_url = 'https://c.proticket.store/tickets/free/o/b88ac5c2-573b-438a-8587-12248067b887/e/e8fe1d69-4870-4d27-a63e-e499c819c7cd/s/350e165d-dc95-4e2b-9c97-1e90d63c6b97?chart=ga&category=2c1a98d1-c186-42e1-983d-f901df4e35f6'
 ---
 
 <header class="site-header">
 	<div class="container bar">
-		<a href="#top" class="brand">
+		<a href="/" class="brand">
 			<Image src={logo} alt="AWS Community Day Guatemala 2026" width={192} height={115} />
 		</a>
 		<nav class="nav">
 			<div class="links">
-				<a href="#ponentes">Ponentes</a>
-				<a href="#patrocinadores">Patrocinadores</a>
-				<a href="#organizadores">Organizadores</a>
+				<a href="/#ponentes">Ponentes</a>
+				<a href="/#patrocinadores">Patrocinadores</a>
+				<a href="/#organizadores">Organizadores</a>
+				<a href="/registro-universidades">Universidades</a>
 			</div>
-			<a class="cta" href="https://c.proticket.store/1e90d63c6b97" target="_blank" rel="noopener noreferrer">
+			<a class="cta" href={general_register_url} target="_blank" rel="noopener noreferrer">
 				Regístrate sin Costo
 				<svg class="icon-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M5 12h14" />

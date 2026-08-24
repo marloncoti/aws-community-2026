@@ -1,0 +1,329 @@
+---
+import universities from '../data/universities.json';
+
+const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
+---
+
+<div class="selector">
+	<div class="list" role="tablist" aria-label="Selecciona tu universidad">
+		{
+			universities.map((university) => (
+				<button
+					type="button"
+					class:list={['list-item', { active: university.id === defaultId }]}
+					data-target={university.id}
+					role="tab"
+					aria-selected={university.id === defaultId}
+				>
+					<span class="list-mark" aria-hidden="true">
+						{university.logo ? <img src={university.logo} alt="" /> : <span class="list-fallback">{university.shortName}</span>}
+					</span>
+					<span class="list-name">{university.name}</span>
+					<svg class="list-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M5 12h14" />
+						<path d="M13 6l6 6-6 6" />
+					</svg>
+				</button>
+			))
+		}
+	</div>
+
+	<div class="panel">
+		{
+			universities.map((university) => (
+				<div class:list={['panel-item', { active: university.id === defaultId }]} data-panel={university.id}>
+					<div class="panel-head">
+						<span class="panel-logo">
+							{university.logo ? (
+								<img src={university.logo} alt="" />
+							) : (
+								<span class="logo-fallback">{university.shortName}</span>
+							)}
+						</span>
+						<p class="panel-title">{university.shortName}</p>
+					</div>
+					<p class="panel-tagline">{university.tagline}</p>
+					<p class="description">{university.description}</p>
+					<a class="cta" href={university.url} target="_blank" rel="noopener noreferrer">
+						Registrarme
+						<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M5 12h14" />
+							<path d="M13 6l6 6-6 6" />
+						</svg>
+					</a>
+				</div>
+			))
+		}
+	</div>
+</div>
+
+<script>
+	const list = document.querySelector('.selector .list');
+	const panels = document.querySelectorAll<HTMLElement>('.selector .panel-item');
+	const buttons = document.querySelectorAll<HTMLButtonElement>('.selector .list-item');
+	const panelEl = document.querySelector<HTMLElement>('.selector .panel');
+
+	list?.addEventListener('click', (event) => {
+		const button = (event.target as HTMLElement).closest<HTMLButtonElement>('.list-item');
+		if (!button) return;
+
+		const target = button.dataset.target;
+
+		panels.forEach((panel) => panel.classList.toggle('active', panel.dataset.panel === target));
+		buttons.forEach((btn) => {
+			const isActive = btn === button;
+			btn.classList.toggle('active', isActive);
+			btn.setAttribute('aria-selected', String(isActive));
+		});
+
+		panelEl?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+	});
+</script>
+
+<style>
+	.selector {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.5rem;
+	}
+
+	.panel {
+		position: relative;
+		border-radius: 10px;
+		background: var(--color-ink);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		overflow: hidden;
+		scroll-margin-top: calc(84px + 1rem);
+	}
+
+	@media (min-width: 900px) {
+		.panel {
+			scroll-margin-top: calc(104px + 1rem);
+		}
+	}
+
+	.panel-item {
+		display: none;
+		position: relative;
+		flex-direction: column;
+		padding: 2rem 1.5rem;
+	}
+
+	.panel-item.active {
+		display: flex;
+	}
+
+	.panel-item::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 70% 60% at 100% 0%, rgba(109, 74, 173, 0.4), transparent 65%);
+		mix-blend-mode: screen;
+		pointer-events: none;
+	}
+
+	.panel-head {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+	}
+
+	.panel-logo {
+		flex-shrink: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background: var(--color-surface);
+		overflow: hidden;
+	}
+
+	.panel-logo img {
+		height: 30px;
+		width: auto;
+		max-width: 70%;
+		object-fit: contain;
+	}
+
+	.logo-fallback {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.85rem;
+		color: var(--color-ink);
+	}
+
+	.panel-title {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1.75rem;
+		letter-spacing: -0.01em;
+		text-transform: uppercase;
+		color: var(--color-text-inverse);
+		margin: 0;
+	}
+
+	.panel-tagline {
+		position: relative;
+		color: var(--color-orange);
+		font-weight: 600;
+		font-size: 0.95rem;
+		margin-top: 1.5rem;
+	}
+
+	.description {
+		position: relative;
+		color: var(--color-text-inverse-muted);
+		margin-top: 0.9rem;
+		font-size: 0.95rem;
+		line-height: 1.6;
+		flex: 1;
+	}
+
+	.cta {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.55rem;
+		width: 100%;
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.9rem;
+		text-decoration: none;
+		color: var(--color-ink);
+		background: var(--color-orange);
+		padding: 0.9rem 1.4rem;
+		border-radius: 8px;
+		margin-top: 1.75rem;
+		transition: background-color 0.15s ease;
+	}
+
+	.cta:hover {
+		background: var(--color-orange-dark);
+	}
+
+	.cta svg {
+		transition: transform 0.2s ease;
+	}
+
+	.cta:hover svg {
+		transform: translateX(3px);
+	}
+
+	.list {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.list-item {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		width: 100%;
+		font: inherit;
+		text-align: left;
+		background: rgba(255, 255, 255, 0.03);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 12px;
+		padding: 0.75rem 1.25rem 0.75rem 0.75rem;
+		cursor: pointer;
+		color: var(--color-text-inverse-muted);
+		transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+	}
+
+	.list-item:hover {
+		border-color: rgba(255, 153, 0, 0.4);
+	}
+
+	.list-item.active {
+		background: rgba(255, 153, 0, 0.08);
+		border-color: var(--color-orange);
+		color: var(--color-text-inverse);
+	}
+
+	.list-mark {
+		flex-shrink: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		background: var(--color-surface);
+		box-shadow: 0 0 0 3px var(--color-violet-deep);
+		overflow: hidden;
+	}
+
+	.list-mark img {
+		height: 26px;
+		width: auto;
+		max-width: 70%;
+		object-fit: contain;
+	}
+
+	.list-fallback {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.7rem;
+		color: var(--color-ink);
+	}
+
+	.list-name {
+		flex: 1;
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.9rem;
+	}
+
+	.list-arrow {
+		flex-shrink: 0;
+		opacity: 0;
+		transform: translateX(-3px);
+		transition: opacity 0.15s ease, transform 0.15s ease;
+	}
+
+	.list-item.active .list-arrow,
+	.list-item:hover .list-arrow {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	@media (min-width: 800px) {
+		.selector {
+			grid-template-columns: 1fr 1.15fr;
+			align-items: stretch;
+		}
+
+		.panel {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.panel-item {
+			flex: 1;
+			padding: 3rem;
+		}
+
+		.panel-logo {
+			width: 72px;
+			height: 72px;
+		}
+
+		.panel-logo img {
+			height: 36px;
+		}
+
+		.panel-title {
+			font-size: 2.1rem;
+		}
+
+		.list {
+			justify-content: center;
+			gap: 0.9rem;
+		}
+	}
+</style>

@@ -1,0 +1,124 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import UniversitySelector from '../components/UniversitySelector.astro';
+---
+
+<Layout
+	title="Registro para Universidades — AWS Community Day Guatemala 2026"
+	description="Regístrate al AWS Community Day Guatemala 2026 desde tu universidad: UVG, Galileo, USAC, URL y UMG tienen su propio enlace de registro para la comunidad estudiantil."
+>
+	<Header />
+
+	<section class="uni-hero" id="top">
+		<div class="glow" aria-hidden="true"></div>
+		<div class="container">
+			<p class="badge">Comunidad Universitaria</p>
+			<h1>Tu universidad también <span class="text-gradient">construye en la nube</span></h1>
+			<p class="lead">
+				Elige tu casa de estudios y regístrate sin costo con el enlace exclusivo para tu
+				comunidad. Charlas técnicas, casos reales y networking con quienes ya están
+				construyendo sobre AWS.
+			</p>
+		</div>
+	</section>
+
+	<section class="universities">
+		<div class="container">
+			<UniversitySelector />
+		</div>
+	</section>
+
+	<Footer />
+</Layout>
+
+<style>
+	.uni-hero {
+		position: relative;
+		overflow: hidden;
+		background: linear-gradient(180deg, var(--color-near-black) 0%, var(--color-violet-deep) 100%);
+		padding-top: calc(84px + 3rem);
+		padding-bottom: 3rem;
+	}
+
+	.glow {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 60% 55% at 88% 0%, rgba(109, 74, 173, 0.5), transparent 65%);
+		mix-blend-mode: screen;
+		pointer-events: none;
+	}
+
+	.container {
+		position: relative;
+	}
+
+	.badge {
+		display: inline-flex;
+		align-items: center;
+		font-family: var(--font-display);
+		color: var(--color-text-inverse);
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.75rem;
+		font-weight: 600;
+		padding: 0.4rem 0.85rem;
+		border: 1px solid rgba(255, 153, 0, 0.5);
+		border-radius: 999px;
+		background: rgba(15, 20, 28, 0.35);
+		margin-bottom: 1.5rem;
+	}
+
+	.badge::before {
+		content: '';
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--color-orange);
+		margin-right: 0.5rem;
+	}
+
+	.text-gradient {
+		background: var(--gradient-accent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	h1 {
+		color: var(--color-text-inverse);
+		font-size: clamp(2rem, 7vw, 2.75rem);
+		font-weight: 700;
+		line-height: 1.1;
+		letter-spacing: -0.01em;
+		max-width: 22ch;
+	}
+
+	.lead {
+		color: var(--color-text-inverse-muted);
+		margin-top: 1.25rem;
+		font-size: 1.05rem;
+		max-width: 48ch;
+	}
+
+	.universities {
+		padding-block: var(--section-padding-block);
+		background: var(--color-violet-deep);
+	}
+
+	@media (min-width: 900px) {
+		h1 {
+			font-size: clamp(2.75rem, 4.5vw, 3.5rem);
+		}
+
+		.lead {
+			font-size: 1.15rem;
+		}
+
+		.uni-hero {
+			padding-top: calc(104px + 4rem);
+			padding-bottom: 4rem;
+		}
+	}
+</style>
