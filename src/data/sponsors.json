@@ -13,6 +13,13 @@
     "logo": "/images/sponsors/logo-bi.webp",
     "url": ""
   },
+    {
+    "id": "proticket",
+    "name": "Proticket",
+    "tier": "diamond",
+    "logo": "/images/sponsors/proticket.png",
+    "url": "https://proticket.io"
+  },
   {
     "id": "gbm",
     "name": "GBM",
@@ -34,13 +41,7 @@
     "logo": "/images/sponsors/jetbrains-official.png",
     "url": ""
   },
-  {
-    "id": "proticket",
-    "name": "Proticket",
-    "tier": "diamond",
-    "logo": "/images/sponsors/proticket.png",
-    "url": "https://proticket.io"
-  },
+
   {
     "id": "htec",
     "name": "HTEC",
