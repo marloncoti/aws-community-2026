@@ -113,6 +113,35 @@ const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 1.5rem;
+		max-width: 34rem;
+	}
+
+	@media (min-width: 900px) {
+		.selector {
+			max-width: none;
+		}
+
+		.panel-item {
+			padding: 3rem 3.5rem;
+		}
+
+		.panel-logo {
+			width: 76px;
+			height: 76px;
+		}
+
+		.panel-logo img {
+			height: 38px;
+		}
+
+		.panel-title {
+			font-size: 2.25rem;
+		}
+
+		.panel-tagline,
+		.description {
+			font-size: 1.05rem;
+		}
 	}
 
 	.panel {
@@ -199,6 +228,7 @@ const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
 		font-weight: 600;
 		font-size: 0.95rem;
 		margin-top: 1.5rem;
+		max-width: 36rem;
 	}
 
 	.description {
@@ -208,6 +238,7 @@ const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
 		font-size: 0.95rem;
 		line-height: 1.6;
 		flex: 1;
+		max-width: 36rem;
 	}
 
 	.cta {
@@ -217,6 +248,7 @@ const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
 		justify-content: center;
 		gap: 0.55rem;
 		width: 100%;
+		max-width: 20rem;
 		font-family: var(--font-display);
 		font-weight: 600;
 		font-size: 0.9rem;
@@ -346,100 +378,5 @@ const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
 
 	.list-arrow {
 		display: none;
-	}
-
-	@media (min-width: 800px) {
-		.selector {
-			grid-template-columns: 1fr 1.15fr;
-			align-items: stretch;
-		}
-
-		.panel {
-			display: flex;
-			flex-direction: column;
-		}
-
-		.panel-item {
-			flex: 1;
-			padding: 3rem;
-		}
-
-		.panel-logo {
-			width: 72px;
-			height: 72px;
-		}
-
-		.panel-logo img {
-			height: 36px;
-		}
-
-		.panel-title {
-			font-size: 2.1rem;
-		}
-
-		.list {
-			overflow: visible;
-			-webkit-mask-image: none;
-			mask-image: none;
-		}
-
-		.list-track {
-			flex-direction: column;
-			width: 100%;
-			justify-content: center;
-			gap: 0.9rem;
-			animation: none;
-		}
-
-		.list-track [data-clone='true'] {
-			display: none;
-		}
-
-		.list-item {
-			width: 100%;
-			border-radius: 12px;
-			padding: 0.75rem 1.25rem 0.75rem 0.75rem;
-			gap: 1rem;
-		}
-
-		.list-mark {
-			width: 48px;
-			height: 48px;
-		}
-
-		.list-mark img {
-			height: 26px;
-		}
-
-		.list-fallback {
-			font-size: 0.7rem;
-		}
-
-		.list-name {
-			flex: 1;
-			white-space: normal;
-		}
-
-		.list-name-full {
-			display: inline;
-		}
-
-		.list-name-short {
-			display: none;
-		}
-
-		.list-arrow {
-			display: block;
-			flex-shrink: 0;
-			opacity: 0;
-			transform: translateX(-3px);
-			transition: opacity 0.15s ease, transform 0.15s ease;
-		}
-
-		.list-item.active .list-arrow,
-		.list-item:hover .list-arrow {
-			opacity: 1;
-			transform: translateX(0);
-		}
 	}
 </style>

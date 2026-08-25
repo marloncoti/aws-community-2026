@@ -10,6 +10,15 @@
     "default": true
   },
   {
+    "id": "usac",
+    "name": "Universidad de San Carlos de Guatemala",
+    "shortName": "USAC",
+    "logo": "/images/universities/usac.png",
+    "tagline": "Comunidad que construye el futuro",
+    "description": "Un espacio abierto para aprender, hacer networking y construir con tecnología cloud junto a los builders más activos de Guatemala.",
+    "url": "https://c.proticket.store/tickets/free/o/b88ac5c2-573b-438a-8587-12248067b887/e/e8fe1d69-4870-4d27-a63e-e499c819c7cd/s/814c2534-e3df-4357-b1ab-a1c913625a74?chart=ga&category=c99d99b4-87fe-4af5-befe-c117a9959b9c"
+  },
+  {
     "id": "uvg",
     "name": "Universidad del Valle de Guatemala",
     "shortName": "UVG",
@@ -27,15 +36,7 @@
     "description": "Conecta con especialistas en cloud, explora tecnologías emergentes y descubre cómo transformar tus proyectos en soluciones con impacto.",
     "url": "https://c.proticket.store/tickets/free/o/b88ac5c2-573b-438a-8587-12248067b887/e/e8fe1d69-4870-4d27-a63e-e499c819c7cd/s/706ddb6a-324e-4e03-8462-a86b9ebd081f?chart=ga&category=9085eb0f-93bc-43c9-a015-c5830d153b1d"
   },
-  {
-    "id": "usac",
-    "name": "Universidad de San Carlos de Guatemala",
-    "shortName": "USAC",
-    "logo": "/images/universities/usac.png",
-    "tagline": "Comunidad que construye el futuro",
-    "description": "Un espacio abierto para aprender, hacer networking y construir con tecnología cloud junto a los builders más activos de Guatemala.",
-    "url": "https://c.proticket.store/tickets/free/o/b88ac5c2-573b-438a-8587-12248067b887/e/e8fe1d69-4870-4d27-a63e-e499c819c7cd/s/814c2534-e3df-4357-b1ab-a1c913625a74?chart=ga&category=c99d99b4-87fe-4af5-befe-c117a9959b9c"
-  },
+
   {
     "id": "umg",
     "name": "Universidad Mariano Gálvez",
@@ -44,5 +45,41 @@
     "tagline": "Conocimiento que abre camino",
     "description": "Descubre cómo la nube está transformando industrias y qué habilidades necesitas para ser parte de esa transformación.",
     "url": "https://c.proticket.store/tickets/free/o/b88ac5c2-573b-438a-8587-12248067b887/e/e8fe1d69-4870-4d27-a63e-e499c819c7cd/s/830cc862-2133-4096-a327-03ccc6d18c04?chart=ga&category=ef4eb24d-2238-4e14-9593-275b7844ff48"
+  },
+  {
+    "id": "udeo",
+    "name": "Universidad de Occidente",
+    "shortName": "UDEO",
+    "logo": "/images/universities/udeo.png",
+    "tagline": "Innovación y excelencia en educación",
+    "description": "Espacio para aprender, compartir y construir soluciones tecnológicas con impacto en la sociedad.",
+    "url": "#"
+  },
+    {
+    "id": "unis",
+    "name": "Universidad del Istmo",
+    "shortName": "UNIS",
+    "logo": "/images/universities/unis.png",
+    "tagline": "",
+    "description": "Espacio para aprender, compartir y construir soluciones tecnológicas con impacto en la sociedad.",
+    "url": "#"
+  },
+      {
+    "id": "upana",
+    "name": "Universidad Panamericana",
+    "shortName": "UPANA",
+    "logo": "/images/universities/upana.png",
+    "tagline": "",
+    "description": "Espacio para aprender, compartir y construir soluciones tecnológicas con impacto en la sociedad.",
+    "url": "#"
+  },
+        {
+    "id": "umes",
+    "name": "Universidad Mesoamericana",
+    "shortName": "UMES",
+    "logo": "/images/universities/umes.png",
+    "tagline": "",
+    "description": "Espacio para aprender, compartir y construir soluciones tecnológicas con impacto en la sociedad.",
+    "url": "#"
   }
 ]
