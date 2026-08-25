@@ -67,6 +67,19 @@ const logoURL = new URL(logoImage.src, Astro.site);
 			sameAs: [],
 		})} />
 
+
+		<!--google Analytics -->
+		<!-- Google tag (gtag.js) -->
+		<script is:inline  async src="https://www.googletagmanager.com/gtag/js?id=G-Y3DD0Q024D"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-Y3DD0Q024D');
+		</script>
+
+
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
