@@ -116,34 +116,6 @@ const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
 		max-width: 34rem;
 	}
 
-	@media (min-width: 900px) {
-		.selector {
-			max-width: none;
-		}
-
-		.panel-item {
-			padding: 3rem 3.5rem;
-		}
-
-		.panel-logo {
-			width: 76px;
-			height: 76px;
-		}
-
-		.panel-logo img {
-			height: 38px;
-		}
-
-		.panel-title {
-			font-size: 2.25rem;
-		}
-
-		.panel-tagline,
-		.description {
-			font-size: 1.05rem;
-		}
-	}
-
 	.panel {
 		position: relative;
 		border-radius: 10px;
@@ -378,5 +350,41 @@ const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
 
 	.list-arrow {
 		display: none;
+	}
+
+	@media (min-width: 900px) {
+		.selector {
+			max-width: none;
+		}
+
+		.panel-item {
+			padding: 3rem 3.5rem;
+		}
+
+		.panel-head {
+			gap: 1.5rem;
+		}
+
+		.panel-logo {
+			width: 140px;
+			height: 140px;
+		}
+
+		.panel-logo img {
+			height: 68px;
+		}
+
+		.logo-fallback {
+			font-size: 1.3rem;
+		}
+
+		.panel-title {
+			font-size: 2.5rem;
+		}
+
+		.panel-tagline,
+		.description {
+			font-size: 1.05rem;
+		}
 	}
 </style>
