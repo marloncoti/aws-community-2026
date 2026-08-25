@@ -36,7 +36,7 @@ const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
 								<span class="logo-fallback">{university.shortName}</span>
 							)}
 						</span>
-						<p class="panel-title">{university.shortName}</p>
+						<p class="panel-title">{university.name}</p>
 					</div>
 					<p class="panel-tagline">{university.tagline}</p>
 					<p class="description">{university.description}</p>
@@ -318,7 +318,7 @@ const defaultId = universities.find((u) => u.default)?.id ?? universities[0].id;
 		}
 
 		.panel-title {
-			font-size: 2.5rem;
+			font-size: 1rem;
 		}
 
 		.panel-tagline,
