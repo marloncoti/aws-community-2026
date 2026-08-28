@@ -1,0 +1,502 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const sections = [
+	{ id: 'horario', title: 'Horario designado' },
+	{ id: 'material-grafico', title: 'Material gráfico' },
+	{ id: 'llegada-estadia', title: 'Llegada y estadía en Guatemala' },
+	{ id: 'comunicacion', title: 'Comunicación inmediata' },
+	{ id: 'lugar-estacionamiento', title: 'Lugar y estacionamiento' },
+	{ id: 'moneda-pagos', title: 'Moneda y pagos' },
+	{ id: 'transporte', title: 'Transporte público' },
+	{ id: 'zonas', title: 'Zonas seguras' },
+	{ id: 'hospedaje', title: 'Hospedaje' },
+];
+---
+
+<Layout
+	title="Información para Speakers — AWS Community Day Guatemala 2026"
+	description="Guía práctica para speakers del AWS Community Day Guatemala 2026: horario, sede, transporte, moneda, hospedaje y recomendaciones de seguridad."
+>
+	<Header />
+
+	<section class="speakers-hero" id="top">
+		<div class="glow" aria-hidden="true"></div>
+		<div class="container">
+			<h1>Todo lo que necesitas <span class="text-gradient">saber antes del evento</span></h1>
+			<p class="lead">
+				Les agradecemos nuevamente su disposición para participar como expositores en el
+				AWS Community Day Guatemala 2026. A continuación les compartimos los primeros datos
+				importantes.
+			</p>
+		</div>
+	</section>
+
+	<nav class="quick-nav" aria-label="Secciones de la guía">
+		<div class="container">
+			<div class="quick-nav-list">
+				{sections.map((s) => <a href={`#${s.id}`}>{s.title}</a>)}
+			</div>
+		</div>
+	</nav>
+
+	<section class="speakers-content">
+		<div class="container">
+			<section class="info-block" id="horario">
+				<div class="info-head">
+					<span class="info-number">01</span>
+					<h2>Horario designado</h2>
+				</div>
+				<div class="info-body">
+					<p>
+						En la agenda encontrarán el horario asignado a su presentación. Por favor
+						notifíquennos si existe algún inconveniente.
+					</p>
+				</div>
+			</section>
+
+			<section class="info-block" id="material-grafico">
+				<div class="info-head">
+					<span class="info-number">02</span>
+					<h2>Material gráfico</h2>
+				</div>
+				<div class="info-body">
+					<p>
+						En unos días estaremos publicando el material gráfico del evento para que
+						puedan utilizarlo en su presentación y/o difusión del evento. También pueden
+						visitar el <strong>Kit de Prensa</strong> para más información.
+					</p>
+				</div>
+			</section>
+
+			<section class="info-block" id="llegada-estadia">
+				<div class="info-head">
+					<span class="info-number">03</span>
+					<h2>Llegada y estadía en Guatemala</h2>
+				</div>
+				<div class="info-body">
+					<p>
+						Les recordamos que el evento se llevará a cabo el <strong>sábado 10 de octubre</strong>.
+						Nuestra sugerencia es que su fecha de salida sea el <strong>lunes 12 de octubre</strong>,
+						ya que tendremos un evento especial preparado para el domingo 11.
+					</p>
+				</div>
+			</section>
+
+			<section class="info-block" id="comunicacion">
+				<div class="info-head">
+					<span class="info-number">04</span>
+					<h2>Comunicación inmediata</h2>
+				</div>
+				<div class="info-body">
+					<p>
+						Para los speakers que deseen tener comunicación inmediata: al enviar las
+						notificaciones de aceptación de charla, habilitaremos un canal de WhatsApp
+						exclusivo para speakers y organizadores.
+					</p>
+				</div>
+			</section>
+
+			<section class="info-block" id="lugar-estacionamiento">
+				<div class="info-head">
+					<span class="info-number">05</span>
+					<h2>Lugar y estacionamiento</h2>
+				</div>
+				<div class="info-body">
+					<p>
+						Los salones cuentan con proyector HDMI, conexión eléctrica y, en el caso del
+						Auditorio Principal, amplificación de audio. Contaremos con una conexión a
+						internet <strong>exclusiva para speakers</strong> — les pedimos no compartir la
+						contraseña durante la conferencia.
+					</p>
+					<p>
+						Cada salón tendrá voluntarios del evento asignados para asistirlos durante la
+						preparación y la conexión. Si su charla es patrocinada, cuentan con
+						autorización para regalar souvenirs.
+					</p>
+					<p>
+						El evento se llevará a cabo en el <strong>Campus Central de la Universidad
+						Rafael Landívar, zona 16</strong>.
+					</p>
+					<p>
+						Si se desplazan en automóvil, el Campus Central cuenta con estacionamiento
+						para automóviles pequeños (sedán) y motocicletas, a un costo fijo por todo el
+						día. Si su entrada es a partir de las 9:00 a.m., el estacionamiento estará
+						lleno — les sugerimos usar el parqueo de enfrente, también propiedad de la
+						universidad.
+					</p>
+				</div>
+			</section>
+
+			<section class="info-block" id="moneda-pagos">
+				<div class="info-head">
+					<span class="info-number">06</span>
+					<h2>Moneda y pagos</h2>
+				</div>
+				<div class="info-body">
+					<p>
+						La moneda oficial de Guatemala es el <strong>Quetzal (Q)</strong>, con un tipo
+						de cambio que oscila entre Q7.60 y Q7.80 por US$1.
+					</p>
+					<p>
+						Guatemala es uno de los países con mayor uso de tarjeta de crédito en
+						Centroamérica — es posible pagar con tarjeta en montos desde US$4.
+					</p>
+					<p>
+						Los comercios con POS BAC suelen aceptar cualquier emisor (Visa, Mastercard,
+						American Express, Diners Club), mientras que los comercios con POS Visa suelen
+						aceptar únicamente las marcas más populares (Visa, Mastercard y American
+						Express).
+					</p>
+					<p>No todos los comercios aceptan pagos con criptomonedas, pero algunos sí.</p>
+				</div>
+			</section>
+
+			<section class="info-block" id="transporte">
+				<div class="info-head">
+					<span class="info-number">07</span>
+					<h2>Transporte público</h2>
+				</div>
+				<div class="info-body">
+					<p>La ciudad capital cuenta con dos tipos de transporte público, si planean pasear:</p>
+					<ul>
+						<li>
+							<a href="https://www.muniguate.com/movilidadurbana/transmetro/" target="_blank" rel="noopener noreferrer">Transmetro</a>{' '}
+							— considerado seguro, pueden utilizarlo.
+						</li>
+						<li>
+							<a href="https://moovitapp.com/index/es-419/transporte_p%C3%BAblico-lines-Ciudad_de_Guatemala-6097-1892809" target="_blank" rel="noopener noreferrer">Transurbano</a>
+						</li>
+					</ul>
+					<p>
+						<strong>No recomendamos</strong>, bajo ningún motivo, tomar un bus urbano — suelen
+						ser incómodos y peligrosos.
+					</p>
+					<p>Guatemala cuenta además con cuatro sistemas de taxi:</p>
+					<ul>
+						<li>Rotativos (blancos)</li>
+						<li>De alquiler (amarillos y verdes) — <a href="http://www.amarilloexpress.com/" target="_blank" rel="noopener noreferrer">Amarillo Express</a></li>
+						<li>Uber</li>
+						<li>InDrive</li>
+					</ul>
+					<p>
+						Los taxis blancos solo aceptan efectivo y suelen tener tarifas muy variables
+						con extranjeros, por lo que no los recomendamos. Los taxis amarillos, InDrive
+						y Uber aceptan efectivo y tarjeta de crédito.
+					</p>
+				</div>
+			</section>
+
+			<section class="info-block" id="zonas">
+				<div class="info-head">
+					<span class="info-number">08</span>
+					<h2>Zonas seguras e inseguras de la ciudad capital</h2>
+				</div>
+				<div class="info-body">
+					<p>
+						Como en todo evento en Latinoamérica, nuestra primera sugerencia es tomar las
+						precauciones pertinentes para tener la mejor experiencia durante el evento.
+					</p>
+					<p>La ciudad capital está dividida en zonas, de la 1 a la 25. Las zonas consideradas seguras son:</p>
+					<ul class="zone-grid">
+						<li>Zona 4</li>
+						<li>Zona 9</li>
+						<li>Zona 10</li>
+						<li>Zona 13</li>
+						<li>Zona 15</li>
+						<li>Zona 11 (centros comerciales populares)</li>
+						<li>Zona 16 (donde se realizará el evento)</li>
+					</ul>
+					<p>
+						Si les interesa hacer turismo en el centro histórico (zona 1), el área más
+						segura son las calles aledañas al{' '}
+						<a href="https://es.wikipedia.org/wiki/Paseo_de_la_Sexta" target="_blank" rel="noopener noreferrer">Paseo de la Sexta</a>{' '}
+						y Cayalá, la zona más cercana a la universidad.
+					</p>
+					<p>
+						De cualquier forma, nuestra recomendación es no portar objetos de valor
+						visibles y, antes de dirigirse a algún lugar, consultar con los organizadores.
+					</p>
+				</div>
+			</section>
+
+			<section class="info-block" id="hospedaje">
+				<div class="info-head">
+					<span class="info-number">09</span>
+					<h2>Opciones de hospedaje recomendadas</h2>
+				</div>
+				<div class="info-body">
+					<p>
+						Las zonas hoteleras con mejores opciones en Guatemala son las zonas 4, 9, 10,
+						13, 15 y 16 — todas a 15–30 minutos del evento en automóvil.
+					</p>
+					<p>Guatemala cuenta con cadenas hoteleras como Hilton, Marriott, IHG, Barceló y Holiday Inn.</p>
+					<p>
+						La zona 4 es la zona bohemia de la capital y uno de los mejores barrios de
+						Latinoamérica, con diversas opciones en Airbnb y Booking.com en sus
+						cercanías.
+					</p>
+					<p>Hospedajes cercanos al evento:</p>
+					<ul>
+						<li>Hotel Conquistador</li>
+						<li>Airbnb</li>
+					</ul>
+				</div>
+			</section>
+		</div>
+	</section>
+
+	<Footer />
+</Layout>
+
+<style>
+	.speakers-hero {
+		position: relative;
+		overflow: hidden;
+		background: linear-gradient(180deg, var(--color-near-black) 0%, var(--color-violet-deep) 100%);
+		padding-top: calc(84px + 3rem);
+		padding-bottom: 3rem;
+	}
+
+	.glow {
+		position: absolute;
+		inset: 0;
+		background: radial-gradient(ellipse 60% 55% at 88% 0%, rgba(109, 74, 173, 0.5), transparent 65%);
+		mix-blend-mode: screen;
+		pointer-events: none;
+	}
+
+	.container {
+		position: relative;
+	}
+
+	.badge {
+		display: inline-flex;
+		align-items: center;
+		font-family: var(--font-display);
+		color: var(--color-text-inverse);
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		font-size: 0.75rem;
+		font-weight: 600;
+		padding: 0.4rem 0.85rem;
+		border: 1px solid rgba(255, 153, 0, 0.5);
+		border-radius: 999px;
+		background: rgba(15, 20, 28, 0.35);
+		margin-bottom: 1.5rem;
+	}
+
+	.badge::before {
+		content: '';
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: var(--color-orange);
+		margin-right: 0.5rem;
+	}
+
+	.text-gradient {
+		background: var(--gradient-accent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	h1 {
+		color: var(--color-text-inverse);
+		font-size: clamp(2rem, 7vw, 2.75rem);
+		font-weight: 700;
+		line-height: 1.1;
+		letter-spacing: -0.01em;
+		max-width: 26ch;
+	}
+
+	.lead {
+		color: var(--color-text-inverse-muted);
+		margin-top: 1.25rem;
+		font-size: 1.05rem;
+		max-width: 56ch;
+	}
+
+	.quick-nav {
+		background: var(--color-violet-deep);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+		padding-block: 1.25rem;
+	}
+
+	.quick-nav-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+
+	.quick-nav-list a {
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.8rem;
+		text-decoration: none;
+		color: var(--color-text-inverse-muted);
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		border-radius: 999px;
+		padding: 0.45rem 0.9rem;
+		white-space: nowrap;
+		transition: border-color 0.15s ease, color 0.15s ease;
+	}
+
+	.quick-nav-list a:hover {
+		border-color: var(--color-orange);
+		color: var(--color-orange);
+	}
+
+	.speakers-content {
+		background: var(--color-ink);
+		padding-block: var(--section-padding-block);
+	}
+
+	.info-block {
+		padding: 2rem 0;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+		scroll-margin-top: calc(84px + 1rem);
+	}
+
+	.info-block:first-child {
+		padding-top: 0;
+	}
+
+	.info-block:last-child {
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+
+	.info-head {
+		display: flex;
+		align-items: baseline;
+		gap: 0.75rem;
+	}
+
+	.info-number {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.85rem;
+		color: var(--color-orange);
+		letter-spacing: 0.05em;
+	}
+
+	.info-block h2 {
+		color: var(--color-text-inverse);
+		font-size: 1.4rem;
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		max-width: 42ch;
+	}
+
+	.info-body p {
+		color: var(--color-text-inverse-muted);
+		margin-top: 0.9rem;
+		font-size: 0.98rem;
+		line-height: 1.65;
+		max-width: 62ch;
+	}
+
+	.info-body p:first-child {
+		margin-top: 1rem;
+	}
+
+	.info-body strong {
+		color: var(--color-text-inverse);
+	}
+
+	.info-body a {
+		color: var(--color-orange);
+		font-weight: 600;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.info-body a:hover {
+		color: var(--color-orange-dark);
+	}
+
+	.info-body ul {
+		margin: 0.9rem 0 0;
+		padding-left: 1.25rem;
+		color: var(--color-text-inverse-muted);
+		font-size: 0.98rem;
+		line-height: 1.65;
+		max-width: 62ch;
+	}
+
+	.info-body li + li {
+		margin-top: 0.4rem;
+	}
+
+	.zone-grid {
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 0.5rem;
+		padding-left: 0;
+		max-width: 40ch;
+	}
+
+	.zone-grid li {
+		position: relative;
+		padding-left: 1rem;
+	}
+
+	.zone-grid li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.55em;
+		width: 6px;
+		height: 2px;
+		background: var(--color-orange);
+	}
+
+	@media (min-width: 900px) {
+		h1 {
+			font-size: clamp(2.75rem, 4.5vw, 3.5rem);
+		}
+
+		.lead {
+			font-size: 1.15rem;
+		}
+
+		.speakers-hero {
+			padding-top: calc(104px + 4rem);
+			padding-bottom: 4rem;
+		}
+
+		.info-block {
+			display: grid;
+			grid-template-columns: 14rem 1fr;
+			gap: 2rem;
+			padding: 2.5rem 0;
+		}
+
+		.info-block:first-child {
+			padding-top: 2.5rem;
+		}
+
+		.info-block:last-child {
+			padding-bottom: 2.5rem;
+		}
+
+		.info-head {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 0.5rem;
+		}
+
+		.info-number {
+			font-size: 1rem;
+		}
+
+		.info-body p:first-child {
+			margin-top: 0;
+		}
+	}
+</style>
