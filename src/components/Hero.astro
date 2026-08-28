@@ -28,6 +28,33 @@ const general_register_url = 'https://c.proticket.store/tickets/free/o/b88ac5c2-
 			Un día para conectar con la comunidad de AWS en Guatemala: charlas técnicas,
 			casos reales y networking con quienes construyen sobre la nube.
 		</p>
+
+		<div class="event-info">
+			<div class="event-info-items">
+				<span class="event-info-item">
+					<svg class="info-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<rect x="3" y="4.5" width="18" height="16" rx="2" />
+						<path d="M16 2.5v4M8 2.5v4M3 10h18" />
+					</svg>
+					10 de octubre, 2026
+				</span>
+				<span class="event-info-item">
+					<svg class="info-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<circle cx="12" cy="12" r="9" />
+						<path d="M12 7.5v5l3 2.5" />
+					</svg>
+					8:00 AM
+				</span>
+				<span class="event-info-item">
+					<svg class="info-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z" />
+						<circle cx="12" cy="10" r="2.5" />
+					</svg>
+					Universidad Rafael Landívar, Zona 16
+				</span>
+			</div>
+		</div>
+
 		<div class="actions">
 			<a class="btn-primary" href={general_register_url} target="_blank" rel="noopener noreferrer">
 				Registro Público General
@@ -182,6 +209,7 @@ const general_register_url = 'https://c.proticket.store/tickets/free/o/b88ac5c2-
 		box-sizing: border-box;
 		padding: 2rem var(--edge-pad) 2rem var(--edge-inset);
 		max-width: 52rem;
+		padding-top: 150px !important;
 	}
 
 	.badge {
@@ -229,6 +257,37 @@ const general_register_url = 'https://c.proticket.store/tickets/free/o/b88ac5c2-
 		margin-top: 1.25rem;
 		font-size: 1.05rem;
 		max-width: 42ch;
+	}
+
+	.event-info {
+		margin-top: 1.5rem;
+		padding: 0.65rem 1rem;
+		background: rgba(15, 20, 28, 0.4);
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		border-radius: 8px;
+		width: fit-content;
+	}
+
+	.event-info-items {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem 0.9rem;
+	}
+
+	.event-info-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.85rem;
+		color: var(--color-text-inverse);
+	}
+
+	.info-icon {
+		flex-shrink: 0;
+		color: var(--color-orange);
 	}
 
 	.actions {
