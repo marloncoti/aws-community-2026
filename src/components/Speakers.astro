@@ -1,66 +1,121 @@
 ---
 import speakers from '../data/speakers.json';
 import SpeakerCard from './SpeakerCard.astro';
+const pageSize = 6;
+const pages = Array.from({ length: Math.ceil(speakers.length / pageSize) }, (_, index) => speakers.slice(index * pageSize, (index + 1) * pageSize));
 ---
-
-<section class="speakers" id="ponentes">
-	<div class="container">
-		<p class="kicker">Comparten su conocimiento</p>
-		<h2>Ponentes</h2>
-		<p class="lead">Muy pronto anunciaremos el line-up completo de charlas y quienes las presentarán.</p>
-
-		<div class="grid">
-			{speakers.map((speaker) => <SpeakerCard speaker={speaker} />)}
-		</div>
-	</div>
+<section class="speakers" id="ponentes" aria-labelledby="speakers-title">
+ <div class="container">
+  <div class="heading">
+   <div><p class="kicker"></p><h2 id="speakers-title">Conoce a los <span>ponentes.</span></h2></div>
+   <p class="lead">Ideas, experiencia y nuevas perspectivas.<br />Conecta con quienes hacen posible este encuentro.</p>
+  </div>
+  <speaker-gallery data-total={speakers.length} data-page-size={pageSize}>
+   <div class="gallery-top"><p><strong>{String(speakers.length).padStart(2, '0')}</strong> voces de la comunidad</p><span>AWS Community Day · Guatemala 2026</span></div>
+   <div class="track" id="speakers-track" tabindex="0" aria-label="Galería de ponentes. Desliza para explorar.">
+    {pages.map((page, pageIndex) => <div class="slide">{page.map((speaker, index) => <SpeakerCard speaker={speaker} index={pageIndex * pageSize + index} />)}</div>)}
+   </div>
+   <div class="controls" hidden>
+    <p class="status" aria-live="polite" aria-atomic="true"></p>
+    <div class="navigation"><button class="previous" type="button" aria-label="Página anterior de ponentes" aria-controls="speakers-track"><span aria-hidden="true">←</span></button><label>Página <select aria-label="Seleccionar página de ponentes" aria-controls="speakers-track"></select><span class="page-total"></span></label><button class="next" type="button" aria-label="Página siguiente de ponentes" aria-controls="speakers-track"><span aria-hidden="true">→</span></button></div>
+   </div>
+  </speaker-gallery>
+ </div>
 </section>
-
+<script>
+ class SpeakerGallery extends HTMLElement {
+  connectedCallback() {
+   if (this.dataset.ready) return;
+   this.dataset.ready = 'true';
+   const track = this.querySelector<HTMLElement>('.track')!;
+   let slides = Array.from(this.querySelectorAll<HTMLElement>('.slide'));
+   const cards = slides.flatMap(slide => Array.from(slide.children));
+   const slideTemplate = slides[0].cloneNode(false) as HTMLElement;
+   const previous = this.querySelector<HTMLButtonElement>('.previous')!;
+   const next = this.querySelector<HTMLButtonElement>('.next')!;
+   const select = this.querySelector<HTMLSelectElement>('select')!;
+   const status = this.querySelector<HTMLElement>('.status')!;
+   const total = this.querySelector<HTMLElement>('.page-total')!;
+   let page = 0;
+   let size = Number(this.dataset.pageSize);
+   const speakerCount = Number(this.dataset.total);
+   const count = () => slides.length;
+   const update = () => {
+    select.value = String(page);
+    previous.disabled = page === 0;
+    next.disabled = page === count() - 1;
+    status.textContent = `${page * size + 1}–${Math.min((page + 1) * size, speakerCount)} de ${speakerCount} ponentes`;
+    slides.forEach((slide, index) => { slide.inert = index !== page; });
+   };
+   const go = (target: number) => {
+    page = Math.max(0, Math.min(target, count() - 1));
+    track.scrollTo({ left: slides[page].offsetLeft - slides[0].offsetLeft, behavior: 'instant' });
+    update();
+   };
+   const resize = () => {
+    const newSize = Number(getComputedStyle(this).getPropertyValue('--page-size'));
+    const firstSpeaker = page * size;
+    if (newSize !== size) {
+     size = newSize;
+     slides = Array.from({ length: Math.ceil(cards.length / size) }, (_, index) => {
+      const slide = slideTemplate.cloneNode(false) as HTMLElement;
+      slide.append(...cards.slice(index * size, (index + 1) * size));
+      return slide;
+     });
+     track.replaceChildren(...slides);
+    }
+    select.replaceChildren(...Array.from({ length: count() }, (_, index) => new Option(String(index + 1).padStart(2, '0'), String(index))));
+    total.textContent = `de ${count()}`;
+    go(Math.floor(firstSpeaker / size));
+   };
+   previous.addEventListener('click', () => go(page - 1));
+   next.addEventListener('click', () => go(page + 1));
+   select.addEventListener('change', () => go(Number(select.value)));
+   track.addEventListener('keydown', (event) => {
+    if (event.target !== track) return;
+    const targets: Record<string, number> = { ArrowLeft: page - 1, ArrowRight: page + 1, Home: 0, End: count() - 1 };
+    if (event.key in targets) { event.preventDefault(); go(targets[event.key]); }
+   });
+   track.addEventListener('scroll', () => {
+    const step = slides.length > 1 ? slides[1].offsetLeft - slides[0].offsetLeft : track.clientWidth;
+    page = Math.min(count() - 1, Math.max(0, Math.round(track.scrollLeft / step)));
+    update();
+   }, { passive: true });
+   this.querySelector<HTMLElement>('.controls')!.hidden = false;
+   resize();
+   this.observer = new ResizeObserver(resize);
+   this.observer.observe(this);
+   this.querySelectorAll('img').forEach(img => { img.addEventListener('error', () => { img.hidden = true; }); });
+  }
+  observer?: ResizeObserver;
+  disconnectedCallback() { this.observer?.disconnect(); delete this.dataset.ready; }
+ }
+ if (!customElements.get('speaker-gallery')) customElements.define('speaker-gallery', SpeakerGallery);
+</script>
 <style>
-	.speakers {
-		padding-block: var(--section-padding-block);
-		background: var(--color-ink-soft);
-	}
-
-	.kicker {
-		font-family: var(--font-display);
-		color: var(--color-orange);
-		text-transform: uppercase;
-		letter-spacing: 0.12em;
-		font-size: 0.8rem;
-		font-weight: 600;
-		margin-bottom: 0.5rem;
-	}
-
-	h2 {
-		color: var(--color-text-inverse);
-		font-size: clamp(1.75rem, 4vw, 2.5rem);
-		font-weight: 700;
-		letter-spacing: -0.01em;
-	}
-
-	.lead {
-		color: var(--color-text-inverse-muted);
-		margin-top: 0.5rem;
-		font-size: 1.05rem;
-		max-width: 52ch;
-	}
-
-	.grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1.25rem;
-		margin-top: 2.75rem;
-	}
-
-	@media (min-width: 640px) {
-		.grid {
-			grid-template-columns: repeat(3, 1fr);
-		}
-	}
-
-	@media (min-width: 900px) {
-		.grid {
-			grid-template-columns: repeat(4, 1fr);
-		}
-	}
+ .speakers { padding-block: var(--section-padding-block); background: var(--color-violet-deep); color: var(--color-text-inverse); border-block: 1px solid #ffffff16; }
+ .heading { display: grid; gap: 1.25rem; margin-bottom: 2.5rem; }
+ .kicker { color: var(--color-orange); text-transform: uppercase; letter-spacing: .13em; font-size: .72rem; font-weight: 600; margin-bottom: .85rem; }
+ h2 { font-size: clamp(2rem, 4.5vw, 3.5rem); line-height: 1.1; letter-spacing: -.045em; }
+ h2 span { display: block; }
+ .lead { color: var(--color-text-inverse-muted); font-size: .95rem; max-width: 39ch; }
+ speaker-gallery { --columns: 2; --page-size: 6; --gap: 12px; display: block; }
+ .gallery-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-block: 1rem; border-top: 1px solid #ffffff30; font-size: .78rem; color: var(--color-text-inverse-muted); }
+ .gallery-top strong { font: 600 1.4rem var(--font-display); color: var(--color-orange); margin-right: .5rem; }
+ .gallery-top > span { display: none; }
+ .track { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: 100%; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--color-violet) transparent; padding-bottom: 12px; }
+ .slide { min-width: 0; scroll-snap-align: start; display: grid; grid-template-columns: repeat(var(--columns), minmax(0, 1fr)); gap: var(--gap); align-content: start; }
+ .controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1.25rem; border-top: 1px solid #ffffff25; margin-top: .5rem; }
+ .controls[hidden] { display: none; }
+ .status { color: var(--color-text-inverse-muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
+ .navigation { display: flex; gap: .75rem; align-items: center; }
+ button, select { font: 500 .9rem var(--font-display); color: var(--color-text-inverse); background: var(--color-near-black); border: 1px solid #ffffff40; border-radius: 5px; min-height: 44px; cursor: pointer; }
+ button { width: 44px; font-size: 1.4rem; }
+ button:hover:not(:disabled) { background: var(--color-orange); color: var(--color-near-black); border-color: var(--color-orange); }
+ button:disabled { opacity: .3; cursor: default; }
+ label { display: flex; align-items: center; gap: .5rem; color: var(--color-text-inverse-muted); font-size: .8rem; }
+ select { padding-inline: .5rem; }
+ button:focus-visible, select:focus-visible, .track:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 3px; }
+ @media (min-width: 600px) { speaker-gallery { --columns: 3; --page-size: 12; --gap: 20px; } .gallery-top > span { display: block; } }
+ @media (min-width: 1000px) { speaker-gallery { --columns: 4; } .heading { grid-template-columns: 1.3fr 1fr; align-items: end; } .lead { justify-self: end; } }
 </style>

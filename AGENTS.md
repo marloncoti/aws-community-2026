@@ -132,9 +132,78 @@ JSON — no hace falta tocar componentes.
   confirmados: reemplazar `name`/`role`/`org`/`linkedin`, y subir la foto a
   `public/images/keynotes/` y referenciarla en `photo`.
 
-Para agregar un patrocinador/organizador/keynote nuevo: soltar la imagen en
-`public/images/sponsors/`, `public/images/organizers/` o `public/images/keynotes/`,
-y añadir una entrada al JSON correspondiente. Ningún componente necesita cambios.
+- `src/data/agenda-rooms.json` — array de objetos, el orden del array define el
+  orden de columnas/tarjetas en toda la agenda:
+  ```json
+  { "id": "auditorio-principal", "name": "Auditorio Principal", "nickname": "Tajumulco", "building": "Edificio O", "capacity": 300, "color": "#ff9900" }
+  ```
+  `color` es el acento de la sala: se usa **solo** como punto de 8px y como
+  barra de 3px en el borde superior de la tarjeta, nunca como fondo. Sirve para
+  rastrear un salón cuando se ven las 7 salas en paralelo. Agregar una sala al
+  JSON hace aparecer su tab de filtro automáticamente; si falta `color` la barra
+  cae a `var(--color-orange)`.
+
+- `src/data/agenda-tracks.json` — categorías temáticas, solo `id` + `name`
+  (sin color: el track se distingue tipográficamente para no competir con el
+  color de sala):
+  ```json
+  { "id": "ia", "name": "IA & Agentes" }
+  ```
+
+- `src/data/agenda.json` — array de objetos (sesiones), consumido por
+  `Agenda.astro`, que agrupa por `startTime` exacto (sin lógica de solape de
+  horarios) y ordena las charlas de cada bloque según el orden de
+  `agenda-rooms.json`:
+  ```json
+  { "id": "0950-auditorio-principal", "type": "talk", "startTime": "09:50", "endTime": "10:40", "title": "...", "speakerName": "...", "speakerOrg": "", "roomIds": ["auditorio-principal"], "track": "carrera", "notes": "" }
+  ```
+  `track` referencia un `id` de `agenda-tracks.json`; `""` no rompe nada
+  (simplemente no se pinta el badge) y es lo que usan las charlas "Tema por
+  confirmar". Las sesiones `type: "general"` usan `"track": "plenaria"`.
+  La clasificación actual se infirió de los títulos — **revisar**; en particular
+  las dos sesiones de Casa de Kiro están en `ia` de forma tentativa.
+  `type` acepta `general | talk`. Las sesiones generales (recepción, keynote,
+  almuerzo, cierre, cena) usan `roomIds: []` y se renderizan como banner de
+  ancho completo (`AgendaGeneralBanner.astro`) en vez de tarjeta
+  (`AgendaTalkCard.astro`). `roomIds` acepta más de un id para una charla que
+  ocupa dos salones combinados (ver la sesión `0950-salon-1-salon-2`).
+  Charlas sin confirmar usan `"speakerName": "Por confirmar"` /
+  `"title": "Tema por confirmar"`, mismo patrón placeholder que `keynotes.json`.
+  Reconstruido a partir de un PDF de la agenda; algunas celdas venían
+  incompletas o ambiguas en la fuente original (título de Byron Laínez
+  truncado, la sesión de Casa de Kiro con Bárbara Gaspar sin título, la charla
+  de Luis Carlo sin tema) — revisar y corregir directamente en el JSON cuando
+  se tenga el dato real.
+
+### Los dos modos de vista de la agenda
+
+`Agenda.astro` renderiza un custom element `<agenda-board>` con dos atributos
+que el script del filtro va cambiando; **los dos layouts son CSS puro sobre
+`[data-view]`, no hay re-render**:
+
+- `data-view="grid"` (tab «Todas las salas», por defecto): grid de 1/2/3
+  columnas por bloque horario, para que se lea que las charlas son simultáneas.
+  El rail de tiempo se colapsa en una línea de encabezado y muestra solo
+  `startTime` — dentro de un mismo bloque las tarjetas pueden tener distinto
+  `endTime` (los workshops de Casa de Kiro llegan hasta las 16:50), así que la
+  duración vive en cada tarjeta, donde siempre es correcta.
+- `data-view="track"` (una sala seleccionada): timeline de 1 columna con rail
+  vertical, nodo y línea continua. Como queda una sola sesión visible por
+  bloque, el script copia su `endTime` y duración al rail, y oculta la hora
+  duplicada dentro de la tarjeta.
+
+Las sesiones plenarias (`data-general`) **nunca se ocultan** al filtrar por
+sala: keynote, almuerzo y cierre aplican a todos los asistentes. Los chips de
+horario sí se reducen a las horas que quedan visibles. El filtro se refleja en
+la URL como `?sala=<id>` (`history.replaceState`) para poder compartir un track.
+
+Sin JavaScript la barra de tabs no se muestra (`hidden` lo quita el script al
+montar) y la página se comporta como la versión estática: todo visible.
+
+Para agregar un patrocinador/organizador/keynote/sesión de agenda nuevo: soltar
+la imagen en `public/images/sponsors/`, `public/images/organizers/` o
+`public/images/keynotes/` si aplica, y añadir una entrada al JSON
+correspondiente. Ningún componente necesita cambios.
 
 El CTA principal del hero ("Regístrate") enlaza directo a la plataforma de
 tickets: `https://c.proticket.store/1e90d63c6b97` (`target="_blank"`).

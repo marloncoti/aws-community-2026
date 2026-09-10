@@ -1,0 +1,9 @@
+[
+  { "id": "auditorio-principal", "name": "Auditorio Principal", "nickname": "Tajumulco", "building": "Edificio O", "capacity": 300, "color": "#ff9900" },
+  { "id": "ignacio-loyola", "name": "Ignacio Loyola", "nickname": "Tacaná", "building": "Edificio H", "capacity": 200, "color": "#e5327a" },
+  { "id": "francisco-borja", "name": "Francisco Borja", "nickname": "Acatenango", "building": "Edificio H", "capacity": 100, "color": "#9a7ae0" },
+  { "id": "pedro-javier-1", "name": "Pedro Javier 1", "nickname": "Santa María", "building": "Edificio H", "capacity": 60, "color": "#2bb0a8" },
+  { "id": "salon-1", "name": "Salón 1", "nickname": "Agua", "building": "Edificio H", "capacity": 50, "color": "#4b9fe1" },
+  { "id": "salon-2", "name": "Salón 2", "nickname": "Fuego", "building": "Edificio H", "capacity": 50, "color": "#d9b310" },
+  { "id": "casa-de-kiro", "name": "Casa de Kiro", "nickname": "", "building": "Biblioteca", "capacity": 20, "color": "#7ec24c" }
+]

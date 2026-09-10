@@ -1,0 +1,9 @@
+[
+  { "id": "ia", "name": "IA & Agentes" },
+  { "id": "datos", "name": "Datos & Analítica" },
+  { "id": "arquitectura", "name": "Arquitectura & Serverless" },
+  { "id": "devops", "name": "DevOps & Operaciones" },
+  { "id": "seguridad", "name": "Seguridad" },
+  { "id": "carrera", "name": "Carrera & Comunidad" },
+  { "id": "plenaria", "name": "Plenaria" }
+]

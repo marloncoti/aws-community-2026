@@ -1,0 +1,375 @@
+---
+import { durationLabel } from '../utils/duration';
+import { flagEmoji } from '../utils/flag';
+
+interface Speaker {
+	name: string;
+	photo?: string;
+	country?: string;
+	countryCode?: string;
+}
+
+interface Room {
+	id: string;
+	name: string;
+	nickname: string;
+	building: string;
+	capacity: number;
+	color: string;
+}
+
+interface Talk {
+	id: string;
+	startTime: string;
+	endTime: string;
+	title: string;
+	speakerName: string;
+	speakerOrg: string;
+	roomIds: string[];
+	track?: string;
+	notes: string;
+}
+
+interface Props {
+	talk: Talk;
+	rooms: Room[];
+	trackName?: string;
+	speaker?: Speaker;
+}
+
+const { talk, rooms, trackName, speaker } = Astro.props;
+
+const isPlaceholder = talk.speakerName === 'Por confirmar';
+const duration = durationLabel(talk.startTime, talk.endTime);
+
+// Ni un placeholder ni un panel son una persona: no les toca avatar.
+const isPerson = Boolean(talk.speakerName) && !isPlaceholder && !talk.speakerName.startsWith('Panel');
+const initials = talk.speakerName
+	.split(' ')
+	.filter((part) => /^\p{L}/u.test(part))
+	.slice(0, 2)
+	.map((part) => part[0])
+	.join('');
+const flag = flagEmoji(speaker?.countryCode);
+
+// Barra de acento: color sólido con una sala, bloques duros cuando la charla ocupa varias.
+const accent =
+	rooms.length > 1
+		? `linear-gradient(90deg, ${rooms
+				.map((room, index) => `${room.color} ${(index * 100) / rooms.length}% ${((index + 1) * 100) / rooms.length}%`)
+				.join(', ')})`
+		: (rooms[0]?.color ?? 'var(--color-orange)');
+
+const buildings = [...new Set(rooms.map((room) => room.building))].join(' · ');
+const capacity = rooms.reduce((total, room) => total + room.capacity, 0);
+
+// "Cupo limitado" es información accionable para el asistente; el resto de notas son editoriales.
+const isCapacityNote = talk.notes.toLowerCase().includes('cupo');
+---
+
+<article
+	class="talk-card"
+	data-rooms={talk.roomIds.join(' ')}
+	data-track={talk.track}
+	data-end={talk.endTime}
+	data-duration={duration}
+>
+	<span class="accent" style={`background: ${accent}`} aria-hidden="true"></span>
+
+	<div class="card-head">
+		<p class="card-rooms">
+			{
+				rooms.map((room) => (
+					<span class="room-tag" style={`--room-color: ${room.color}`}>
+						<span class="room-dot" aria-hidden="true" />
+						<span class="room-name">{room.name}</span>
+						{room.nickname && <span class="room-nick">{room.nickname}</span>}
+					</span>
+				))
+			}
+		</p>
+		{trackName && <p class="card-track">{trackName}</p>}
+	</div>
+
+	<p class="talk-time">
+		{talk.startTime}{talk.endTime && `–${talk.endTime}`}
+		{duration && <span class="talk-duration">{duration}</span>}
+	</p>
+
+	<h3 class="talk-title">{talk.title}</h3>
+
+	<div class:list={['speaker-row', { muted: isPlaceholder }]}>
+		{
+			isPerson && (
+				<span class="avatar">
+					<span class="avatar-initials" aria-hidden="true">
+						{initials}
+					</span>
+					{speaker?.photo && (
+						<img src={speaker.photo} alt="" width="72" height="72" loading="lazy" decoding="async" />
+					)}
+				</span>
+			)
+		}
+		<p class="speaker-info">
+			<span class="speaker-name">
+				{talk.speakerName}
+				{flag && speaker?.country && (
+					<span class="flag" role="img" aria-label={speaker.country} title={speaker.country}>
+						{flag}
+					</span>
+				)}
+			</span>
+			{talk.speakerOrg && <span class="speaker-org">{talk.speakerOrg}</span>}
+		</p>
+	</div>
+
+	<div class="card-foot">
+		{talk.notes && isCapacityNote && <p class="note-chip">{talk.notes}</p>}
+		{talk.notes && !isCapacityNote && <p class="talk-notes">{talk.notes}</p>}
+		{
+			(buildings || capacity > 0) && (
+				<p class="room-meta">
+					{buildings}
+					{capacity > 0 && ` · ${capacity} personas`}
+				</p>
+			)
+		}
+	</div>
+</article>
+
+<style>
+	.talk-card {
+		position: relative;
+		background: var(--color-ink);
+		border: 1px solid rgba(255, 255, 255, 0.08);
+		border-radius: 10px;
+		padding: 1.4rem 1.25rem 1.1rem;
+		display: flex;
+		flex-direction: column;
+		overflow: hidden;
+		transition: border-color 0.15s ease, transform 0.15s ease;
+	}
+
+	/* `display: flex` de autor gana sobre el `[hidden]` del UA stylesheet. */
+	.talk-card[hidden] {
+		display: none;
+	}
+
+	.talk-card:hover {
+		border-color: rgba(255, 153, 0, 0.45);
+		transform: translateY(-2px);
+	}
+
+	.accent {
+		position: absolute;
+		inset: 0 0 auto 0;
+		height: 3px;
+	}
+
+	.card-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 0.4rem 0.75rem;
+	}
+
+	.card-rooms {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.35rem 0.75rem;
+	}
+
+	.room-tag {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.4rem;
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.7rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-text-inverse);
+	}
+
+	.room-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--room-color);
+		flex: 0 0 auto;
+		align-self: center;
+	}
+
+	.room-nick {
+		font-weight: 500;
+		color: var(--color-text-inverse-muted);
+	}
+
+	.room-nick::before {
+		content: '· ';
+	}
+
+	.card-track {
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--color-text-inverse-muted);
+		border: 1px solid rgba(255, 255, 255, 0.16);
+		border-radius: 999px;
+		padding: 0.2rem 0.55rem;
+		white-space: nowrap;
+	}
+
+	.talk-time {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.85rem;
+		color: var(--color-orange);
+		letter-spacing: 0.02em;
+		font-variant-numeric: tabular-nums;
+		margin-top: 0.9rem;
+	}
+
+	.talk-duration {
+		color: var(--color-text-inverse-muted);
+		font-weight: 600;
+		font-size: 0.72rem;
+		letter-spacing: 0.06em;
+	}
+
+	.talk-duration::before {
+		content: '· ';
+	}
+
+	.talk-title {
+		color: var(--color-text-inverse);
+		font-size: 1.1rem;
+		font-weight: 700;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
+		margin-top: 0.35rem;
+	}
+
+	.speaker-row {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin-top: 0.8rem;
+		flex: 1;
+	}
+
+	.speaker-row.muted .speaker-name {
+		font-style: italic;
+		color: var(--color-text-inverse-muted);
+	}
+
+	.avatar {
+		position: relative;
+		flex: 0 0 auto;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		overflow: hidden;
+		display: grid;
+		place-items: center;
+		background: rgba(255, 255, 255, 0.07);
+		border: 1px solid rgba(255, 255, 255, 0.12);
+	}
+
+	/* Las iniciales quedan debajo: si la foto falta o falla, siguen ahí. */
+	.avatar-initials {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.7rem;
+		letter-spacing: 0.02em;
+		color: var(--color-text-inverse-muted);
+	}
+
+	.avatar img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.speaker-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.1rem;
+		min-width: 0;
+	}
+
+	.speaker-name {
+		color: var(--color-text-inverse);
+		font-size: 0.92rem;
+		line-height: 1.25;
+	}
+
+	.flag {
+		font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+		font-size: 0.9rem;
+		line-height: 1;
+		margin-left: 0.35rem;
+	}
+
+	.speaker-org {
+		color: var(--color-text-inverse-muted);
+		font-size: 0.8rem;
+		line-height: 1.3;
+	}
+
+	.card-foot {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem 0.75rem;
+		margin-top: 1rem;
+		padding-top: 0.75rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.note-chip {
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.68rem;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--color-orange);
+		border: 1px solid rgba(255, 153, 0, 0.4);
+		background: rgba(255, 153, 0, 0.08);
+		border-radius: 999px;
+		padding: 0.2rem 0.55rem;
+	}
+
+	.talk-notes {
+		font-size: 0.75rem;
+		color: var(--color-text-inverse-muted);
+		font-style: italic;
+	}
+
+	.room-meta {
+		font-family: var(--font-display);
+		font-weight: 500;
+		font-size: 0.7rem;
+		letter-spacing: 0.04em;
+		color: var(--color-text-inverse-muted);
+		margin-left: auto;
+		font-variant-numeric: tabular-nums;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.talk-card {
+			transition: border-color 0.15s ease;
+		}
+
+		.talk-card:hover {
+			transform: none;
+		}
+	}
+</style>

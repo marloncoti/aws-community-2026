@@ -1,0 +1,203 @@
+---
+import { durationLabel } from '../utils/duration';
+import { flagEmoji } from '../utils/flag';
+
+interface Speaker {
+	name: string;
+	photo?: string;
+	country?: string;
+	countryCode?: string;
+}
+
+interface Session {
+	id: string;
+	startTime: string;
+	endTime: string;
+	title: string;
+	speakerName: string;
+	speakerOrg: string;
+	track?: string;
+	notes: string;
+}
+
+interface Props {
+	session: Session;
+	trackName?: string;
+	speaker?: Speaker;
+}
+
+const { session, trackName, speaker } = Astro.props;
+const duration = durationLabel(session.startTime, session.endTime);
+
+const initials = session.speakerName
+	.split(' ')
+	.filter((part) => /^\p{L}/u.test(part))
+	.slice(0, 2)
+	.map((part) => part[0])
+	.join('');
+const flag = flagEmoji(speaker?.countryCode);
+---
+
+<div class="general-banner" data-general data-end={session.endTime} data-duration={duration}>
+	<div class="general-head">
+		{trackName && <p class="general-track">{trackName}</p>}
+		<p class="general-time">
+			{session.startTime}{session.endTime && `–${session.endTime}`}
+			{duration && <span class="general-duration">{duration}</span>}
+		</p>
+	</div>
+
+	<p class="general-title">{session.title}</p>
+
+	{
+		session.speakerName && (
+			<div class="general-speaker">
+				<span class="avatar">
+					<span class="avatar-initials" aria-hidden="true">
+						{initials}
+					</span>
+					{speaker?.photo && (
+						<img src={speaker.photo} alt="" width="72" height="72" loading="lazy" decoding="async" />
+					)}
+				</span>
+				<p class="speaker-info">
+					<span class="speaker-name">
+						{session.speakerName}
+						{flag && speaker?.country && (
+							<span class="flag" role="img" aria-label={speaker.country} title={speaker.country}>
+								{flag}
+							</span>
+						)}
+					</span>
+					{session.speakerOrg && <span class="general-org">{session.speakerOrg}</span>}
+				</p>
+			</div>
+		)
+	}
+
+	{session.notes && <p class="general-notes">{session.notes}</p>}
+</div>
+
+<style>
+	.general-banner {
+		border-left: 5px solid var(--color-orange);
+		background: rgba(255, 153, 0, 0.08);
+		border-radius: 4px;
+		padding: 1rem 1.25rem;
+	}
+
+	.general-head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem 0.75rem;
+	}
+
+	.general-track {
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: var(--color-orange);
+		border: 1px solid rgba(255, 153, 0, 0.4);
+		border-radius: 999px;
+		padding: 0.2rem 0.55rem;
+	}
+
+	.general-time {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.85rem;
+		color: var(--color-orange);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.general-duration {
+		color: var(--color-text-inverse-muted);
+		font-weight: 600;
+		font-size: 0.72rem;
+		letter-spacing: 0.06em;
+	}
+
+	.general-duration::before {
+		content: '· ';
+	}
+
+	.general-title {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 1.15rem;
+		line-height: 1.25;
+		color: var(--color-text-inverse);
+		margin-top: 0.45rem;
+	}
+
+	.general-speaker {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		margin-top: 0.6rem;
+	}
+
+	.avatar {
+		position: relative;
+		flex: 0 0 auto;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		overflow: hidden;
+		display: grid;
+		place-items: center;
+		background: rgba(255, 255, 255, 0.07);
+		border: 1px solid rgba(255, 255, 255, 0.14);
+	}
+
+	.avatar-initials {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.7rem;
+		color: var(--color-text-inverse-muted);
+	}
+
+	.avatar img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.speaker-info {
+		display: flex;
+		flex-direction: column;
+		gap: 0.1rem;
+		min-width: 0;
+	}
+
+	.speaker-name {
+		font-size: 0.92rem;
+		line-height: 1.25;
+		color: var(--color-text-inverse);
+	}
+
+	.flag {
+		font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+		font-size: 0.9rem;
+		line-height: 1;
+		margin-left: 0.35rem;
+	}
+
+	.general-org {
+		color: var(--color-text-inverse-muted);
+		font-size: 0.8rem;
+		line-height: 1.3;
+	}
+
+	.general-notes {
+		font-size: 0.75rem;
+		color: var(--color-text-inverse-muted);
+		font-style: italic;
+		margin-top: 0.4rem;
+	}
+</style>

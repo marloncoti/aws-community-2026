@@ -1,108 +1,51 @@
 ---
-interface Speaker {
-	id: string;
-	name: string;
-	role?: string;
-	topic?: string;
-	photo?: string;
-}
-
+import { flagEmoji } from '../utils/flag';
 interface Props {
-	speaker: Speaker;
+ speaker: { id: string; name: string; role?: string; org?: string; photo?: string; linkedin?: string; country?: string; countryCode?: string };
+ index: number;
 }
-
-const { speaker } = Astro.props;
-const isPlaceholder = !speaker.photo;
+const { speaker, index } = Astro.props;
+const flag = flagEmoji(speaker.countryCode);
 ---
-
-<article class="card">
-	<div class="media">
-		{
-			isPlaceholder ? (
-				<div class="placeholder">
-					<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-						<circle cx="12" cy="8" r="4" />
-						<path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" />
-					</svg>
-				</div>
-			) : (
-				<img src={speaker.photo} alt={speaker.name} loading="lazy" />
-			)
-		}
-	</div>
-	<div class="info">
-		<p class:list={['name', { muted: isPlaceholder }]}>{speaker.name}</p>
-		{speaker.role && <p class="role">{speaker.role}</p>}
-		{speaker.topic && <p class="topic">{speaker.topic}</p>}
-	</div>
+<article class="card" style={`--card-accent: ${['#ff9900', '#a78bda', '#e96598', '#55c9c5'][index % 4]}`}>
+ <div class="media">
+  <span class="initials" aria-hidden="true">{speaker.name.split(' ').slice(0, 2).map(part => part[0]).join('')}</span>
+  {speaker.photo && <img src={speaker.photo} alt={speaker.name} width="400" height="400" loading="lazy" decoding="async" />}
+  <span class="number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+  {flag && speaker.country && <span class="country-flag" role="img" aria-label={speaker.country} title={speaker.country}>{flag}</span>}
+ </div>
+ <div class="info">
+  <h3>{speaker.name}</h3>
+  {speaker.role && <p class="role">{speaker.role}</p>}
+  {speaker.org && <p class="org">{speaker.org}</p>}
+  {speaker.linkedin && <a href={speaker.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`Ver LinkedIn de ${speaker.name} (abre en otra pestaña)`}>
+   <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M5.37 24H.4V7.98h4.97V24ZM2.88 5.8a2.88 2.88 0 1 1 0-5.76 2.88 2.88 0 0 1 0 5.76ZM24 24h-4.97v-7.8c0-1.86-.04-4.25-2.59-4.25-2.59 0-2.99 2.03-2.99 4.12V24H8.48V7.98h4.77v2.19h.07c.66-1.26 2.29-2.59 4.71-2.59 5.04 0 5.97 3.32 5.97 7.63V24Z" /></svg>
+   LinkedIn <span aria-hidden="true">↗</span>
+  </a>}
+ </div>
 </article>
-
 <style>
-	.card {
-		background: var(--color-ink);
-		border-radius: 8px;
-		overflow: hidden;
-		border-top: 3px solid var(--color-orange);
-	}
-
-	.card:nth-child(3n + 2) {
-		border-top-color: var(--color-violet);
-	}
-
-	.card:nth-child(3n + 3) {
-		border-top-color: var(--color-magenta);
-	}
-
-	.media {
-		position: relative;
-		aspect-ratio: 1 / 1;
-		background: var(--color-ink-soft);
-	}
-
-	.media img {
-		position: absolute;
-		inset: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-	}
-
-	.placeholder {
-		position: absolute;
-		inset: 0;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color: rgba(255, 255, 255, 0.25);
-	}
-
-	.info {
-		padding: 0.85rem 0.9rem 1rem;
-	}
-
-	.name {
-		margin: 0;
-		font-family: var(--font-display);
-		font-weight: 700;
-		font-size: 0.95rem;
-		color: var(--color-text-inverse);
-	}
-
-	.name.muted {
-		color: var(--color-text-inverse-muted);
-		font-weight: 600;
-	}
-
-	.role {
-		margin: 0.2rem 0 0;
-		font-size: 0.78rem;
-		color: var(--color-orange);
-		font-weight: 600;
-	}
-
-	.topic {
-		margin: 0.2rem 0 0;
-		font-size: 0.78rem;
-		color: var(--color-text-inverse-muted);
-	}
+ .card { height: 100%; overflow: hidden; border: 1px solid #ffffff20; border-radius: 12px; background: var(--color-near-black); border-top: 3px solid var(--card-accent); display: flex; flex-direction: column; transition: border-color 180ms ease; }
+ .card:hover, .card:focus-within { border-color: var(--card-accent); }
+ .media { position: relative; aspect-ratio: 1; background: var(--color-ink); overflow: hidden; }
+ .initials { position: absolute; inset: 0; display: grid; place-items: center; font: 600 4rem var(--font-display); color: var(--card-accent); }
+ .media img { position: relative; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+ .media img[hidden] { display: none; }
+ .number { position: absolute; top: .75rem; left: .75rem; background: var(--color-near-black); color: var(--card-accent); padding: .2rem .5rem; font: 600 .8rem var(--font-display); border-radius: 4px; }
+ .info { padding: 1.25rem; display: flex; flex-direction: column; align-items: flex-start; flex: 1; }
+ .country-flag { position: absolute; bottom: .65rem; right: .65rem; display: grid; place-items: center; min-width: 38px; height: 32px; padding-inline: .3rem; border-radius: 6px; background: var(--color-surface); box-shadow: 0 2px 8px #0003; font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif; font-size: 1.5rem; line-height: 1; }
+ h3 { font-size: 1.15rem; line-height: 1.25; overflow-wrap: anywhere; }
+ .role { color: var(--color-text-inverse-muted); font-size: .85rem; margin-top: .65rem; }
+ .org { color: var(--card-accent); font-size: .8rem; font-weight: 600; margin-top: .3rem; }
+ a { display: inline-flex; align-items: center; gap: .5rem; font-size: .8rem; text-decoration: none; padding-top: 1.25rem; margin-top: auto; min-height: 44px; }
+ a span { margin-left: .25rem; }
+ a:hover { color: var(--card-accent); }
+ a:focus-visible { outline: 2px solid var(--card-accent); outline-offset: 5px; }
+ @media (max-width: 599px) {
+  .info { padding: .75rem; }
+  h3 { font-size: .95rem; }
+  .role, .org { font-size: .75rem; overflow-wrap: anywhere; }
+  a { gap: .35rem; font-size: .75rem; }
+ }
+ @media (prefers-reduced-motion: reduce) { .card { transition: none; } }
 </style>

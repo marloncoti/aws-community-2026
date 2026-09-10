@@ -1,0 +1,474 @@
+---
+import rooms from '../data/agenda-rooms.json';
+import sessions from '../data/agenda.json';
+import tracks from '../data/agenda-tracks.json';
+import speakers from '../data/speakers.json';
+import organizers from '../data/organizers.json';
+import AgendaRoomTabs from './AgendaRoomTabs.astro';
+import AgendaTalkCard from './AgendaTalkCard.astro';
+import AgendaGeneralBanner from './AgendaGeneralBanner.astro';
+
+const roomOrder = Object.fromEntries(rooms.map((room, index) => [room.id, index]));
+const roomsById = Object.fromEntries(rooms.map((room) => [room.id, room]));
+const trackNames = Object.fromEntries(tracks.map((track) => [track.id, track.name]));
+
+// `speakerId` resuelve contra speakers.json y, en segundo lugar, contra
+// organizers.json (algunos organizadores también dan charla). Los organizadores
+// no traen `countryCode`, así que salen con avatar pero sin bandera.
+const peopleById: Record<string, { name: string; photo?: string; country?: string; countryCode?: string }> = {};
+for (const person of [...organizers, ...speakers]) {
+	peopleById[person.id] = person;
+}
+
+const sorted = [...sessions].sort((a, b) => a.startTime.localeCompare(b.startTime));
+
+interface Block {
+	startTime: string;
+	generals: typeof sessions;
+	talks: typeof sessions;
+}
+
+const blocks: Block[] = [];
+for (const session of sorted) {
+	let block = blocks.find((b) => b.startTime === session.startTime);
+	if (!block) {
+		block = { startTime: session.startTime, generals: [], talks: [] };
+		blocks.push(block);
+	}
+	if (session.type === 'general') {
+		block.generals.push(session);
+	} else {
+		block.talks.push(session);
+	}
+}
+
+for (const block of blocks) {
+	block.talks.sort((a, b) => (roomOrder[a.roomIds[0]] ?? 99) - (roomOrder[b.roomIds[0]] ?? 99));
+}
+
+const blockId = (time: string) => `block-${time.replace(':', '')}`;
+const PANEL_ID = 'agenda-blocks';
+---
+
+<agenda-board class="board" data-view="grid" data-room="all">
+	<nav class="quick-nav" aria-label="Horarios de la agenda">
+		<div class="container">
+			<div class="quick-nav-list">
+				{blocks.map((block) => <a href={`#${blockId(block.startTime)}`}>{block.startTime}</a>)}
+			</div>
+		</div>
+	</nav>
+
+	<AgendaRoomTabs panelId={PANEL_ID} />
+
+	<div class="agenda">
+		<div class="container">
+			<p class="status" aria-live="polite" aria-atomic="true" hidden></p>
+		</div>
+
+		<div id={PANEL_ID} role="tabpanel" tabindex="0" aria-labelledby="room-tab-all">
+			{
+				blocks.map((block) => (
+					<section
+						class="time-block"
+						id={blockId(block.startTime)}
+						data-rooms={[...new Set(block.talks.flatMap((talk) => talk.roomIds))].join(' ')}
+					>
+						<div class="container block-grid">
+							<div class="rail">
+								<span class="rail-node" aria-hidden="true" />
+								<p class="rail-start">{block.startTime}</p>
+								<p class="rail-end" />
+								<p class="rail-dur" />
+							</div>
+
+							<div class="block-content">
+								{block.generals.map((session) => (
+									<AgendaGeneralBanner
+										session={session}
+										trackName={trackNames[session.track]}
+										speaker={peopleById[session.speakerId]}
+									/>
+								))}
+								{block.talks.length > 0 && (
+									<div class="talks-grid">
+										{block.talks.map((talk) => (
+											<AgendaTalkCard
+												talk={talk}
+												rooms={talk.roomIds.map((id) => roomsById[id]).filter(Boolean)}
+												trackName={trackNames[talk.track]}
+												speaker={peopleById[talk.speakerId]}
+											/>
+										))}
+									</div>
+								)}
+							</div>
+						</div>
+					</section>
+				))
+			}
+		</div>
+	</div>
+</agenda-board>
+
+<script>
+	class AgendaBoard extends HTMLElement {
+		private controller = new AbortController();
+
+		connectedCallback() {
+			if (this.dataset.ready) return;
+			this.dataset.ready = 'true';
+
+			const tabsWrap = this.querySelector<HTMLElement>('.room-tabs');
+			const tablist = this.querySelector<HTMLElement>('[role="tablist"]');
+			const panel = this.querySelector<HTMLElement>('[role="tabpanel"]');
+			const status = this.querySelector<HTMLElement>('.status');
+			if (!tabsWrap || !tablist) return;
+
+			const tabs = [...this.querySelectorAll<HTMLButtonElement>('.tab')];
+			const blocks = [...this.querySelectorAll<HTMLElement>('.time-block')];
+			const cards = [...this.querySelectorAll<HTMLElement>('.talk-card')];
+			const chips = [...this.querySelectorAll<HTMLAnchorElement>('.quick-nav-list a')];
+			const roomLabels = new Map(
+				tabs.map((tab) => [tab.dataset.room, tab.querySelector('.tab-name')?.textContent?.trim() ?? '']),
+			);
+			const roomCount = tabs.length - 1;
+
+			// Sin JS las tabs no filtrarían nada, así que solo aparecen una vez montado el componente.
+			tabsWrap.hidden = false;
+			if (status) status.hidden = false;
+
+			const { signal } = this.controller;
+
+			const apply = (roomId: string, options: { focusTab?: boolean; updateUrl?: boolean } = {}) => {
+				const { focusTab = false, updateUrl = true } = options;
+				const isAll = roomId === 'all';
+
+				this.dataset.room = roomId;
+				this.dataset.view = isAll ? 'grid' : 'track';
+
+				let visibleTalks = 0;
+				for (const card of cards) {
+					const inRoom = isAll || (card.dataset.rooms ?? '').split(' ').includes(roomId);
+					card.hidden = !inRoom;
+					if (inRoom) visibleTalks++;
+				}
+
+				for (const block of blocks) {
+					const visibleTalk = block.querySelector<HTMLElement>('.talk-card:not([hidden])');
+					const general = block.querySelector<HTMLElement>('[data-general]');
+					block.hidden = !visibleTalk && !general;
+
+					const grid = block.querySelector<HTMLElement>('.talks-grid');
+					if (grid) grid.hidden = !visibleTalk;
+
+					// En modo track queda una sola sesión por bloque, así que el rail puede
+					// mostrar su hora de fin y duración exactas.
+					const source = visibleTalk ?? general;
+					const end = block.querySelector<HTMLElement>('.rail-end');
+					const dur = block.querySelector<HTMLElement>('.rail-dur');
+					if (end) end.textContent = isAll ? '' : (source?.dataset.end ?? '');
+					if (dur) dur.textContent = isAll ? '' : (source?.dataset.duration ?? '');
+				}
+
+				for (const chip of chips) {
+					const target = document.getElementById(chip.hash.slice(1));
+					chip.hidden = !target || target.hidden;
+				}
+
+				for (const tab of tabs) {
+					const active = tab.dataset.room === roomId;
+					tab.classList.toggle('active', active);
+					tab.setAttribute('aria-selected', String(active));
+					tab.tabIndex = active ? 0 : -1;
+					if (active && focusTab) {
+						tab.focus();
+						tab.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+					}
+				}
+
+				panel?.setAttribute('aria-labelledby', `room-tab-${roomId}`);
+
+				if (status) {
+					const plural = visibleTalks === 1 ? 'charla' : 'charlas';
+					status.textContent = isAll
+						? `${visibleTalks} ${plural} en ${roomCount} salones, más las sesiones plenarias.`
+						: `${visibleTalks} ${plural} en ${roomLabels.get(roomId)}, más las sesiones plenarias.`;
+				}
+
+				if (updateUrl) {
+					const url = new URL(location.href);
+					if (isAll) url.searchParams.delete('sala');
+					else url.searchParams.set('sala', roomId);
+					history.replaceState(null, '', url);
+				}
+			};
+
+			tablist.addEventListener(
+				'click',
+				(event) => {
+					const tab = (event.target as HTMLElement).closest<HTMLButtonElement>('.tab');
+					if (tab?.dataset.room) apply(tab.dataset.room);
+				},
+				{ signal },
+			);
+
+			tablist.addEventListener(
+				'keydown',
+				(event) => {
+					const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
+					if (!keys.includes(event.key)) return;
+
+					const current = tabs.findIndex((tab) => tab.dataset.room === this.dataset.room);
+					let next = current;
+					if (event.key === 'ArrowLeft') next = (current - 1 + tabs.length) % tabs.length;
+					if (event.key === 'ArrowRight') next = (current + 1) % tabs.length;
+					if (event.key === 'Home') next = 0;
+					if (event.key === 'End') next = tabs.length - 1;
+
+					event.preventDefault();
+					apply(tabs[next].dataset.room!, { focusTab: true });
+				},
+				{ signal },
+			);
+
+			const requested = new URL(location.href).searchParams.get('sala');
+			const initial = requested && tabs.some((tab) => tab.dataset.room === requested) ? requested : 'all';
+			apply(initial, { updateUrl: false });
+		}
+
+		disconnectedCallback() {
+			this.controller.abort();
+		}
+	}
+
+	if (!customElements.get('agenda-board')) customElements.define('agenda-board', AgendaBoard);
+</script>
+
+<style>
+	.board {
+		display: block;
+	}
+
+	/* Horarios ------------------------------------------------------------ */
+
+	.quick-nav {
+		background: var(--color-violet-deep);
+		padding-block: 1.25rem;
+	}
+
+	.quick-nav-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+
+	.quick-nav-list a {
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.8rem;
+		text-decoration: none;
+		color: var(--color-text-inverse-muted);
+		border: 1px solid rgba(255, 255, 255, 0.14);
+		border-radius: 999px;
+		padding: 0.45rem 0.9rem;
+		white-space: nowrap;
+		transition: border-color 0.15s ease, color 0.15s ease;
+		font-variant-numeric: tabular-nums;
+	}
+
+	.quick-nav-list a:hover {
+		border-color: var(--color-orange);
+		color: var(--color-orange);
+	}
+
+	/* Lista ---------------------------------------------------------------- */
+
+	.agenda {
+		background: var(--color-ink-soft);
+		padding-block: var(--section-padding-block);
+	}
+
+	.status {
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.8rem;
+		color: var(--color-text-inverse-muted);
+		font-variant-numeric: tabular-nums;
+		margin-bottom: 2rem;
+	}
+
+	[role='tabpanel']:focus-visible {
+		outline: 2px solid var(--color-orange);
+		outline-offset: 4px;
+	}
+
+	/* Header fijo (84px) + barra sticky de salas (45px). */
+	.time-block {
+		scroll-margin-top: calc(84px + 53px);
+	}
+
+	.time-block + .time-block {
+		margin-top: 2.5rem;
+	}
+
+	.block-content {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+		margin-top: 1.25rem;
+	}
+
+	.talks-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+
+	/* `display: grid`/`flex` de autor gana sobre el `[hidden]` del UA stylesheet. */
+	.talks-grid[hidden],
+	.block-content[hidden],
+	.rail[hidden] {
+		display: none;
+	}
+
+	@media (min-width: 640px) {
+		.talks-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 900px) {
+		.talks-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.time-block {
+			scroll-margin-top: calc(104px + 53px);
+		}
+	}
+
+	/* Rail de tiempo ------------------------------------------------------- */
+
+	.rail {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.5rem 0.75rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+		font-family: var(--font-display);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.rail-start {
+		font-weight: 700;
+		font-size: 1.1rem;
+		color: var(--color-text-inverse);
+		letter-spacing: 0.02em;
+	}
+
+	.rail-end,
+	.rail-dur {
+		font-weight: 600;
+		font-size: 0.8rem;
+		color: var(--color-text-inverse-muted);
+	}
+
+	.rail-end:empty,
+	.rail-dur:empty {
+		display: none;
+	}
+
+	.rail-node {
+		display: none;
+	}
+
+	/* Modo track: una sola sala seleccionada -------------------------------- */
+
+	[data-view='track'] .block-content :global(.talk-time),
+	[data-view='track'] .block-content :global(.general-time) {
+		display: none;
+	}
+
+	@media (min-width: 640px) {
+		[data-view='track'] .time-block + .time-block {
+			margin-top: 0;
+		}
+
+		[data-view='track'] .block-grid {
+			display: grid;
+			grid-template-columns: 5.5rem 1fr;
+			column-gap: 1.75rem;
+			padding-block: 1rem;
+		}
+
+		[data-view='track'] .rail {
+			position: relative;
+			display: block;
+			text-align: right;
+			padding-right: 1.25rem;
+			padding-bottom: 0;
+			border-bottom: 0;
+		}
+
+		/* Línea continua: se extiende hacia arriba y abajo para cruzar el padding del bloque. */
+		[data-view='track'] .rail::before {
+			content: '';
+			position: absolute;
+			top: -1rem;
+			bottom: -1rem;
+			right: 0;
+			width: 1px;
+			background: rgba(255, 255, 255, 0.14);
+		}
+
+		/* La línea nace y muere en los nodos de los extremos, no cuelga. */
+		[data-view='track'] .time-block:first-child .rail::before {
+			top: 10px;
+		}
+
+		/* top vale -1rem, así que la línea muere justo en el centro del nodo. */
+		[data-view='track'] .time-block:last-child .rail::before {
+			bottom: auto;
+			height: calc(1rem + 10px);
+		}
+
+		[data-view='track'] .rail-node {
+			display: block;
+			position: absolute;
+			top: 0.35rem;
+			right: -4px;
+			width: 9px;
+			height: 9px;
+			border-radius: 50%;
+			border: 2px solid var(--color-orange);
+			background: var(--color-ink-soft);
+			z-index: 1;
+		}
+
+		[data-view='track'] .rail-start {
+			font-size: 1rem;
+		}
+
+		[data-view='track'] .rail-end,
+		[data-view='track'] .rail-dur {
+			font-size: 0.78rem;
+		}
+
+		[data-view='track'] .rail-dur {
+			text-transform: uppercase;
+			letter-spacing: 0.06em;
+			opacity: 0.65;
+			margin-top: 0.35rem;
+		}
+
+		[data-view='track'] .block-content {
+			margin-top: 0;
+		}
+
+		[data-view='track'] .talks-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

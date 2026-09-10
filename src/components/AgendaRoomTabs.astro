@@ -1,0 +1,152 @@
+---
+import rooms from '../data/agenda-rooms.json';
+
+interface Props {
+	panelId: string;
+}
+
+const { panelId } = Astro.props;
+---
+
+<div class="room-tabs" hidden>
+	<div class="container">
+		<div class="tabs-scroll" role="tablist" aria-label="Filtrar la agenda por salón">
+			<button
+				type="button"
+				role="tab"
+				id="room-tab-all"
+				class="tab active"
+				data-room="all"
+				aria-selected="true"
+				aria-controls={panelId}
+			>
+				<span class="tab-name">Todas las salas</span>
+			</button>
+			{
+				rooms.map((room) => (
+					<button
+						type="button"
+						role="tab"
+						id={`room-tab-${room.id}`}
+						class="tab"
+						data-room={room.id}
+						aria-selected="false"
+						aria-controls={panelId}
+						tabindex="-1"
+						style={`--room-color: ${room.color}`}
+					>
+						<span class="tab-dot" aria-hidden="true" />
+						<span class="tab-labels">
+							<span class="tab-name">{room.name}</span>
+							{room.nickname && <span class="tab-nickname">{room.nickname}</span>}
+						</span>
+					</button>
+				))
+			}
+		</div>
+	</div>
+</div>
+
+<style>
+	.room-tabs {
+		position: sticky;
+		top: 84px;
+		z-index: 20;
+		background: var(--color-violet-deep);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	}
+
+	.tabs-scroll {
+		display: flex;
+		gap: 0.25rem;
+		overflow-x: auto;
+		scroll-snap-type: x proximity;
+		scrollbar-width: none;
+		/* el padding compensa el margen negativo que deja el scroll llegar al borde */
+		margin-inline: calc(var(--edge-pad) * -1);
+		padding-inline: var(--edge-pad);
+	}
+
+	.tabs-scroll::-webkit-scrollbar {
+		display: none;
+	}
+
+	.tab {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.45rem;
+		flex: 0 0 auto;
+		scroll-snap-align: start;
+		min-height: 52px;
+		padding: 0.5rem 0.85rem;
+		background: none;
+		border: 0;
+		border-bottom: 2px solid transparent;
+		cursor: pointer;
+		font-family: var(--font-display);
+		font-weight: 600;
+		font-size: 0.85rem;
+		color: var(--color-text-inverse-muted);
+		white-space: nowrap;
+		transition: color 0.15s ease, border-color 0.15s ease;
+	}
+
+	.tab:hover {
+		color: var(--color-text-inverse);
+	}
+
+	.tab.active {
+		color: var(--color-text-inverse);
+		border-bottom-color: var(--color-orange);
+	}
+
+	.tab:focus-visible {
+		outline: 2px solid var(--color-orange);
+		outline-offset: -3px;
+		border-radius: 2px;
+	}
+
+	.tab-dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--room-color);
+		flex: 0 0 auto;
+	}
+
+	.tab-labels {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.1rem;
+		line-height: 1.15;
+	}
+
+	/* El nickname (Tajumulco, Tacaná…) es el nombre con el que se señaliza el campus.
+	   Se enciende con el color de la sala solo en la tab activa: si todas fueran de
+	   color la barra se vuelve ruido y el punto ya carga esa información. */
+	.tab-nickname {
+		font-weight: 700;
+		font-size: 0.65rem;
+		text-transform: uppercase;
+		letter-spacing: 0.09em;
+		color: var(--color-text-inverse-muted);
+		opacity: 0.75;
+		transition: color 0.15s ease, opacity 0.15s ease;
+	}
+
+	.tab.active .tab-nickname {
+		color: var(--room-color);
+		opacity: 1;
+	}
+
+	@media (min-width: 900px) {
+		.room-tabs {
+			top: 104px;
+		}
+
+		.tabs-scroll {
+			gap: 0.5rem;
+		}
+	}
+</style>
