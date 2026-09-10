@@ -155,8 +155,16 @@ JSON — no hace falta tocar componentes.
   horarios) y ordena las charlas de cada bloque según el orden de
   `agenda-rooms.json`:
   ```json
-  { "id": "0950-auditorio-principal", "type": "talk", "startTime": "09:50", "endTime": "10:40", "title": "...", "speakerName": "...", "speakerOrg": "", "roomIds": ["auditorio-principal"], "track": "carrera", "notes": "" }
+  { "id": "0950-auditorio-principal", "type": "talk", "startTime": "09:50", "endTime": "10:40", "title": "...", "speakerName": "...", "speakerOrg": "", "speakerId": "angel-castillo", "roomIds": ["auditorio-principal"], "track": "carrera", "notes": "" }
   ```
+  `speakerId` resuelve la miniatura y la bandera del ponente: se busca primero en
+  `speakers.json` y luego en `organizers.json` (varios organizadores también dan
+  charla). Los organizadores no traen `countryCode`, así que salen con avatar
+  pero sin bandera. Con `speakerId: ""` la tarjeta cae a las iniciales sobre un
+  círculo neutro, así que **nunca rompe el layout** — es el estado de los
+  ponentes que todavía no están en `speakers.json`. Es un id explícito a
+  propósito, no un match por nombre: la agenda y `speakers.json` escriben varios
+  nombres distinto y un match difuso fallaría en silencio.
   `track` referencia un `id` de `agenda-tracks.json`; `""` no rompe nada
   (simplemente no se pinta el badge) y es lo que usan las charlas "Tema por
   confirmar". Las sesiones `type: "general"` usan `"track": "plenaria"`.
