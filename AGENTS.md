@@ -216,6 +216,30 @@ correspondiente. Ningún componente necesita cambios.
 El CTA principal del hero ("Regístrate") enlaza directo a la plataforma de
 tickets: `https://c.proticket.store/1e90d63c6b97` (`target="_blank"`).
 
+## Pedir datos en Excel (carpeta `solicitudes/`)
+
+Para no editar los JSON a mano cuando falta información (o llega un ponente
+nuevo), hay un ida y vuelta por CSV:
+
+```
+npm run csv:generar             # agenda.csv + ponentes.csv desde el estado actual
+npm run csv:importar            # los carga de vuelta a agenda.json / speakers.json
+npm run csv:importar -- --dry   # preview, no escribe
+```
+
+Los CSV llevan el **nombre** legible de salón/track/país (no ids) y una primera
+columna `QUE_FALTA` que marca qué le falta a cada fila. Una fila **sin id** crea
+una sesión o un ponente nuevo; el id se genera del nombre. Una celda vacía
+significa «no cambies este dato», nunca «bórralo» — el importador no borra nada.
+
+Si una charla no trae `id_ponente`, se enlaza por coincidencia **exacta** de
+nombre contra `ponentes.csv` (sin acentos ni mayúsculas); si no hay match,
+avisa y la tarjeta cae a las iniciales. La organización del ponente rellena la
+de la charla cuando esta viene vacía. Detalles en `solicitudes/README.md`.
+
+`importar-csv.mjs` conserva el formato de `agenda.json` (una sesión por línea,
+línea en blanco entre bloques horarios) y solo reescribe un archivo si cambió.
+
 ## Arquitectura de componentes (plan)
 
 Un componente Astro por bloque, cada uno consumiendo su JSON vía

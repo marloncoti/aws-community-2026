@@ -1,5 +1,5 @@
 [
-    {
+  {
     "id": "claudia-izquierdo",
     "country": "Colombia",
     "countryCode": "CO",
@@ -10,8 +10,7 @@
     "photoSource": "https://cdn.sessionize.com/image/973c-400o400o1-Qn9eW4UMEioNNZxpHdDA44.jpg",
     "linkedin": "https://www.linkedin.com/in/claudia-izquierdo-salazar/"
   },
-
-    {
+  {
     "id": "ramses-mata",
     "country": "México",
     "countryCode": "MX",
@@ -22,7 +21,7 @@
     "photoSource": "https://cdn.sessionize.com/image/3b6b-400o400o1-7AnQVJKp7un39aUFfaSTv8.jpg",
     "linkedin": "https://www.linkedin.com/in/ramses-mata/"
   },
-    {
+  {
     "id": "carlos-andres-zambrano-barrera",
     "country": "Colombia",
     "countryCode": "CO",
@@ -33,7 +32,7 @@
     "photoSource": "https://cdn.sessionize.com/image/cb6c-400o400o1-LweoY3VrS81Cqfk3R78FG6.png",
     "linkedin": "https://www.linkedin.com/in/carlos-zambrano-aws/"
   },
-    {
+  {
     "id": "odilia-marisol-choc-cac",
     "country": "Guatemala",
     "countryCode": "GT",
@@ -41,33 +40,43 @@
     "role": "Cloud Specialist",
     "org": "Escala 24x7",
     "photo": "/images/speakers/odilia-marisol-choc-cac.webp",
-    "photoSource": "https://cdn.sessionize.com/image/2976-400o400o1-DQd5juPbAj4YdhZrRhN2Bu.jpg",
+    "photoSource": "foto enviada por el ponente (2026-09-12)",
     "linkedin": "https://www.linkedin.com/in/choccac"
   },
   {
-    "id": "alex-archibold",
-    "country": "Panamá",
-    "countryCode": "PA",
-    "name": "Alex Archibold",
-    "role": "",
-    "org": "",
-    "photo": "/images/speakers/alex-archibold.webp",
-    "photoSource": "https://cdn.sessionize.com/image/7faf-400o400o1-L6z413xXw8NUF7nSDcxeh8.jpg",
-    "linkedin": "https://www.linkedin.com/in/alex-archibold/"
+    "id": "mario-estuardo-gomez-orellana",
+    "country": "Guatemala",
+    "countryCode": "GT",
+    "name": "Mario Estuardo Gómez Orellana",
+    "role": "GuateData",
+    "org": "Factored.ai",
+    "photo": "/images/speakers/mario-estuardo-gomez-orellana.webp",
+    "photoSource": "https://cdn.sessionize.com/image/6f06-400o400o1-sPrnP93URMtDu4hoAAocV5.png",
+    "linkedin": "https://www.linkedin.com/in/mariogodata/"
   },
   {
-    "id": "alexis-velasquez-quintero",
+    "id": "jacobo-de-leon",
+    "country": "Guatemala",
+    "countryCode": "GT",
+    "name": "Jacobo De Leon",
+    "role": "Cloud Architect",
+    "org": "Escala24x7 inc",
+    "photo": "/images/speakers/jacobo-de-leon.webp",
+    "photoSource": "foto enviada por el ponente (2026-09-12)",
+    "linkedin": "https://www.linkedin.com/in/jacobodl/"
+  },
+  {
+    "id": "lucas-vera-toro",
     "country": "Colombia",
     "countryCode": "CO",
-    "name": "Alexis Velásquez Quintero",
-    "role": "",
-    "org": "",
-    "photo": "/images/speakers/alexis-velasquez-quintero.webp",
-    "photoSource": "https://cdn.sessionize.com/image/ee35-400o400o1-BMQVZsswMuGaTNsuR34Su7.png",
-    "linkedin": "https://www.linkedin.com/in/alexis-vel%C3%A1squez-quintero-3a9003170/"
+    "name": "Lucas Vera Toro",
+    "role": "Arquitecto técnico",
+    "org": "sls.guru",
+    "photo": "/images/speakers/lucas-vera-toro.webp",
+    "photoSource": "https://cdn.sessionize.com/image/6c46-400o400o1-HKcP7XCCrbZG9MMYYQvJLe.jpg",
+    "linkedin": "https://www.linkedin.com/in/lucas-vera-toro-1355b479/"
   },
-
-    {
+  {
     "id": "marlon-coti",
     "country": "Guatemala",
     "countryCode": "GT",
@@ -78,7 +87,62 @@
     "photoSource": "https://cdn.sessionize.com/image/8fd8-400o400o1-TCFqTEKBjA72iRs1EZvBc9.jpg",
     "linkedin": "https://www.linkedin.com/in/marlon-coti/"
   },
-    {
+  {
+    "id": "tony-trujillo-davila",
+    "country": "Perú",
+    "countryCode": "PE",
+    "name": "Tony Trujillo Dávila",
+    "role": "DATA ARCHITECT",
+    "org": "IDATHA",
+    "photo": "/images/speakers/tony-trujillo-davila.webp",
+    "photoSource": "https://cdn.sessionize.com/image/2879-400o400o1-TkRBRmuCW5XuTFxtNwL9Li.jpg",
+    "linkedin": "https://www.linkedin.com/in/tonytec/"
+  },
+  {
+    "id": "roger-giron",
+    "country": "Guatemala",
+    "countryCode": "GT",
+    "name": "Roger Giron",
+    "role": "Managed Services  - Presales Architect",
+    "org": "GBM",
+    "photo": "/images/speakers/roger-giron.webp",
+    "photoSource": "https://cdn.sessionize.com/image/579c-400o400o1-EnSYdaqLAmqMY46utaY34y.jpg",
+    "linkedin": "https://www.linkedin.com/in/rogergm92/"
+  },
+  {
+    "id": "mar-garcia-anticona",
+    "country": "Perú",
+    "countryCode": "PE",
+    "name": "Mar García Anticona",
+    "role": "Founder",
+    "org": "HOPE CONSULTING GROUP",
+    "photo": "/images/speakers/mar-garcia-anticona.webp",
+    "photoSource": "https://cdn.sessionize.com/image/1497-400o400o1-XskXzby6w61GErjNGBz73U.png",
+    "linkedin": "https://www.linkedin.com/in/margarcialiderazgo"
+  },
+  {
+    "id": "victor-pinzon",
+    "country": "Guatemala",
+    "countryCode": "GT",
+    "name": "Victor Pinzon",
+    "role": "AWS Builder - Engineering & Delivery Lead at Justo MX",
+    "org": "Justo MX",
+    "photo": "/images/speakers/victor-pinzon.webp",
+    "photoSource": "https://cdn.sessionize.com/image/f452-400o400o1-Xp4xwLe8BHCo4r1AnJQdCy.jpg",
+    "linkedin": "https://www.linkedin.com/in/victor-pinzon/"
+  },
+  {
+    "id": "laura-isabel-leiva-alvarez",
+    "country": "Guatemala",
+    "countryCode": "GT",
+    "name": "Laura Isabel Leiva Alvarez",
+    "role": "Desarrollo e Innovación & Founder of MGP",
+    "org": "Grupo Intelecto & Money Growth Partners",
+    "photo": "/images/speakers/laura-isabel-leiva-alvarez.webp",
+    "photoSource": "https://cdn.sessionize.com/image/e99f-400o400o1-GbibwmAsmQr1F6jGjEhUNV.jpg",
+    "linkedin": ""
+  },
+  {
     "id": "andrea-alejandra-rosero-perez",
     "country": "Chile",
     "countryCode": "CL",
@@ -101,6 +165,28 @@
     "linkedin": "https://www.linkedin.com/in/angelcastillo243/"
   },
   {
+    "id": "luciano-tom",
+    "country": "Guatemala",
+    "countryCode": "GT",
+    "name": "Luciano Tom",
+    "role": "Founder",
+    "org": "CCDatos",
+    "photo": "/images/speakers/luciano-tom.webp",
+    "photoSource": "foto enviada por el ponente (2026-09-12)",
+    "linkedin": "https://www.linkedin.com/in/jlucianotom/"
+  },
+  {
+    "id": "alex-archibold",
+    "country": "Panamá",
+    "countryCode": "PA",
+    "name": "Alex Archibold",
+    "role": "",
+    "org": "",
+    "photo": "/images/speakers/alex-archibold.webp",
+    "photoSource": "https://cdn.sessionize.com/image/7faf-400o400o1-L6z413xXw8NUF7nSDcxeh8.jpg",
+    "linkedin": "https://www.linkedin.com/in/alex-archibold/"
+  },
+  {
     "id": "blanca-navarro",
     "country": "Costa Rica",
     "countryCode": "CR",
@@ -121,19 +207,6 @@
     "photo": "/images/speakers/byron-antonio-lainez-sasvin.webp",
     "photoSource": "https://cdn.sessionize.com/image/5774-400o400o1-hf2EL8ZSjhPtPaHxHPCR38.jpg",
     "linkedin": "https://gt.linkedin.com/in/byronlainezsasvin"
-  },
-
-
-  {
-    "id": "diana-david",
-    "country": "",
-    "countryCode": "",
-    "name": "Diana David",
-    "role": "LATAM Manager",
-    "org": "sls.guru",
-    "photo": "/images/speakers/diana-david.webp",
-    "photoSource": "https://cdn.sessionize.com/image/39bf-400o400o1-Liw3GiAbUZpudx89pHQt6P.jpg",
-    "linkedin": "https://www.linkedin.com/in/dianadavids/"
   },
   {
     "id": "erick-j-pineda-amezquita",
@@ -165,7 +238,7 @@
     "role": "",
     "org": "",
     "photo": "/images/speakers/fernanda-osorio-morales.webp",
-    "photoSource": "https://cdn.sessionize.com/image/aa58-400o400o1-SU1yUPsqGZo5F73afFAAsD.jpg",
+    "photoSource": "foto enviada por el ponente (2026-09-12)",
     "linkedin": "https://www.linkedin.com/in/fernanda-osorio-925604225/"
   },
   {
@@ -176,19 +249,8 @@
     "role": "",
     "org": "",
     "photo": "/images/speakers/hernan-villavicencio-s.webp",
-    "photoSource": "https://cdn.sessionize.com/image/dd98-400o400o1-UqRU1s2s7fKDTLhjBySTZR.png",
+    "photoSource": "foto enviada por el ponente (2026-09-12)",
     "linkedin": "https://linkedin.com/in/hvillavicencio"
-  },
-  {
-    "id": "jacobo-de-leon",
-    "country": "Guatemala",
-    "countryCode": "GT",
-    "name": "Jacobo De Leon",
-    "role": "Cloud Architect",
-    "org": "Escala24x7 inc",
-    "photo": "/images/speakers/jacobo-de-leon.webp",
-    "photoSource": "https://cdn.sessionize.com/image/f3d0-400o400o1-7CTgrWDmimzwDaep2zTDqw.jpg",
-    "linkedin": "https://www.linkedin.com/in/jacobodl/"
   },
   {
     "id": "jonathan-bucaro",
@@ -224,39 +286,6 @@
     "linkedin": "https://www.linkedin.com/in/joseph-arriola-eng/"
   },
   {
-    "id": "laura-isabel-leiva-alvarez",
-    "country": "Guatemala",
-    "countryCode": "GT",
-    "name": "Laura Isabel Leiva Alvarez",
-    "role": "Desarrollo e Innovación & Founder of MGP",
-    "org": "Grupo Intelecto & Money Growth Partners",
-    "photo": "/images/speakers/laura-isabel-leiva-alvarez.webp",
-    "photoSource": "https://cdn.sessionize.com/image/e99f-400o400o1-GbibwmAsmQr1F6jGjEhUNV.jpg",
-    "linkedin": ""
-  },
-  {
-    "id": "lucas-vera-toro",
-    "country": "Colombia",
-    "countryCode": "CO",
-    "name": "Lucas Vera Toro",
-    "role": "Arquitecto técnico",
-    "org": "sls.guru",
-    "photo": "/images/speakers/lucas-vera-toro.webp",
-    "photoSource": "https://cdn.sessionize.com/image/6c46-400o400o1-HKcP7XCCrbZG9MMYYQvJLe.jpg",
-    "linkedin": "https://www.linkedin.com/in/lucas-vera-toro-1355b479/"
-  },
-  {
-    "id": "luciano-tom",
-    "country": "Guatemala",
-    "countryCode": "GT",
-    "name": "Luciano Tom",
-    "role": "Founder",
-    "org": "CCDatos",
-    "photo": "/images/speakers/luciano-tom.webp",
-    "photoSource": "https://cdn.sessionize.com/image/d601-400o400o1-K93fXNv49vYNw1ujBkfuF4.jpg",
-    "linkedin": "https://www.linkedin.com/in/jlucianotom/"
-  },
-  {
     "id": "manuela-andrea-ballen-galeano",
     "country": "Colombia",
     "countryCode": "CO",
@@ -264,30 +293,8 @@
     "role": "",
     "org": "",
     "photo": "/images/speakers/manuela-andrea-ballen-galeano.webp",
-    "photoSource": "https://cdn.sessionize.com/image/9615-400o400o1-3rq2fKvc8LqU9Z1yfEZsPK.jpg",
+    "photoSource": "foto enviada por el ponente (2026-09-12)",
     "linkedin": "https://www.linkedin.com/in/manuela-ball%C3%A9n-79b8791a5/"
-  },
-  {
-    "id": "mar-garcia-anticona",
-    "country": "Perú",
-    "countryCode": "PE",
-    "name": "Mar García Anticona",
-    "role": "Founder",
-    "org": "HOPE CONSULTING GROUP",
-    "photo": "/images/speakers/mar-garcia-anticona.webp",
-    "photoSource": "https://cdn.sessionize.com/image/1497-400o400o1-XskXzby6w61GErjNGBz73U.png",
-    "linkedin": "https://www.linkedin.com/in/margarcialiderazgo"
-  },
-  {
-    "id": "mario-estuardo-gomez-orellana",
-    "country": "Guatemala",
-    "countryCode": "GT",
-    "name": "Mario Estuardo Gómez Orellana",
-    "role": "GuateData",
-    "org": "Factored.ai",
-    "photo": "/images/speakers/mario-estuardo-gomez-orellana.webp",
-    "photoSource": "https://cdn.sessionize.com/image/6f06-400o400o1-sPrnP93URMtDu4hoAAocV5.png",
-    "linkedin": "https://www.linkedin.com/in/mariogodata/"
   },
   {
     "id": "mario-garcia",
@@ -308,10 +315,9 @@
     "role": "",
     "org": "",
     "photo": "/images/speakers/mauricio-alvarado.webp",
-    "photoSource": "https://cdn.sessionize.com/image/3982-400o400o1-Xmyvj1Tykz26gibm33U6Dm.jpg",
+    "photoSource": "foto enviada por el ponente (2026-09-12)",
     "linkedin": "https://linkedin.com/in/mauriciora"
   },
-
   {
     "id": "pablo-medrano",
     "country": "Guatemala",
@@ -323,38 +329,15 @@
     "photoSource": "https://cdn.sessionize.com/image/ee6b-400o400o1-LoEHa5no9Uv1XHSWZz31AT.jpg",
     "linkedin": "https://www.linkedin.com/in/pablo-medrano-dev/"
   },
-
   {
-    "id": "roger-giron",
-    "country": "Guatemala",
-    "countryCode": "GT",
-    "name": "Roger Giron",
-    "role": "Managed Services  - Presales Architect",
-    "org": "GBM",
-    "photo": "/images/speakers/roger-giron.webp",
-    "photoSource": "https://cdn.sessionize.com/image/579c-400o400o1-EnSYdaqLAmqMY46utaY34y.jpg",
-    "linkedin": "https://www.linkedin.com/in/rogergm92/"
-  },
-  {
-    "id": "tony-trujillo-davila",
-    "country": "Perú",
-    "countryCode": "PE",
-    "name": "Tony Trujillo Dávila",
-    "role": "DATA ARCHITECT",
-    "org": "IDATHA",
-    "photo": "/images/speakers/tony-trujillo-davila.webp",
-    "photoSource": "https://cdn.sessionize.com/image/2879-400o400o1-TkRBRmuCW5XuTFxtNwL9Li.jpg",
-    "linkedin": "https://www.linkedin.com/in/tonytec/"
-  },
-  {
-    "id": "victor-pinzon",
-    "country": "Guatemala",
-    "countryCode": "GT",
-    "name": "Victor Pinzon",
-    "role": "AWS Builder - Engineering & Delivery Lead at Justo MX",
-    "org": "Justo MX",
-    "photo": "/images/speakers/victor-pinzon.webp",
-    "photoSource": "https://cdn.sessionize.com/image/f452-400o400o1-Xp4xwLe8BHCo4r1AnJQdCy.jpg",
-    "linkedin": "https://www.linkedin.com/in/victor-pinzon/"
+    "id": "alexis-velasquez-quintero",
+    "country": "Colombia",
+    "countryCode": "CO",
+    "name": "Alexis Velásquez Quintero",
+    "role": "",
+    "org": "",
+    "photo": "/images/speakers/alexis-velasquez-quintero.webp",
+    "photoSource": "https://cdn.sessionize.com/image/ee35-400o400o1-BMQVZsswMuGaTNsuR34Su7.png",
+    "linkedin": "https://www.linkedin.com/in/alexis-vel%C3%A1squez-quintero-3a9003170/"
   }
 ]
