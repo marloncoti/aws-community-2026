@@ -4,46 +4,63 @@ interface Keynote {
 	name: string;
 	role?: string;
 	org?: string;
+	talk?: string;
 	photo?: string;
 	linkedin?: string;
 }
 
 interface Props {
 	keynote: Keynote;
+	index: number;
+	total: number;
 }
 
-const { keynote } = Astro.props;
+const { keynote, index, total } = Astro.props;
 const isPlaceholder = !keynote.photo;
+const position = String(index + 1).padStart(2, '0');
 ---
 
-<article class="card">
-	<div class="media">
-		{
-			isPlaceholder ? (
-				<div class="placeholder">
-					<svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-						<circle cx="12" cy="8" r="4" />
-						<path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" />
-					</svg>
-				</div>
-			) : (
-				<img src={keynote.photo} alt={keynote.name} loading="lazy" />
-			)
-		}
-		<p class="tag">Keynote</p>
+<article class="slide" role="group" aria-roledescription="diapositiva" aria-label={`${index + 1} de ${total}: ${keynote.name}`}>
+	<div class="frame">
+		<span class="number">{position}</span>
+		<div class="photo">
+			{
+				isPlaceholder ? (
+					<div class="placeholder">
+						<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
+							<circle cx="12" cy="8" r="4" />
+							<path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" />
+						</svg>
+					</div>
+				) : (
+					<img src={keynote.photo} alt={keynote.name} width="800" height="800" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+				)
+			}
+		</div>
+		<p class="plate">{keynote.name}</p>
 	</div>
 
 	<div class="info">
-		<p class:list={['name', { muted: isPlaceholder }]}>{keynote.name}</p>
-		{keynote.role && <p class="role">{keynote.role}</p>}
-		{keynote.org && <p class="org">{keynote.org}</p>}
-		<span class="rule" />
+		<p class="kicker">Keynote Speaker</p>
+		<h3 class:list={['name', { muted: isPlaceholder }]}>{keynote.name}</h3>
+		{
+			(keynote.role || keynote.org) && (
+				<p class="role">
+					{keynote.role}
+					{keynote.role && keynote.org && <span class="at"> @ </span>}
+					{keynote.org}
+				</p>
+			)
+		}
+		<p class:list={['talk', { pending: !keynote.talk }]}>{keynote.talk || 'Tema por confirmar'}</p>
 		{
 			keynote.linkedin && (
-				<a class="linkedin" href={keynote.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${keynote.name}`}>
+				<a class="linkedin" href={keynote.linkedin} target="_blank" rel="noopener noreferrer">
 					<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
 						<path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.48 1 4.98 2.12 4.98 3.5zM.4 8.24H4.6V23H.4V8.24zM8.34 8.24h4.03v2.01h.06c.56-1.06 1.93-2.18 3.98-2.18 4.25 0 5.03 2.8 5.03 6.44V23h-4.2v-6.68c0-1.59-.03-3.64-2.22-3.64-2.22 0-2.56 1.74-2.56 3.53V23H8.34V8.24z" />
 					</svg>
+					<span>LinkedIn</span>
+					<span class="sr-only">de {keynote.name}</span>
 				</a>
 			)
 		}
@@ -51,22 +68,49 @@ const isPlaceholder = !keynote.photo;
 </article>
 
 <style>
-	.card {
-		background: var(--color-ink);
-		border-radius: 10px;
-		overflow: hidden;
-		border: 1px solid rgba(255, 255, 255, 0.06);
+	.slide {
+		flex: 0 0 100%;
+		min-width: 0;
+		scroll-snap-align: center;
+		scroll-snap-stop: always;
+		display: grid;
+		gap: 2rem;
+		align-items: center;
+		padding-block: 0.5rem 1rem;
 	}
 
-	.media {
+	/* ---- marco de la foto ---- */
+	.frame {
 		position: relative;
-		aspect-ratio: 4 / 5;
-		background: radial-gradient(ellipse at 50% 20%, rgba(109, 74, 173, 0.45), transparent 65%), var(--color-violet-deep);
+		justify-self: center;
+		width: min(280px, 78%);
+		padding: 2.1rem 0.75rem 0.75rem;
+		border-radius: 20px;
+		background: linear-gradient(165deg, var(--color-magenta) 0%, #b5276a 55%, #7c2a68 100%);
+		box-shadow: 0 28px 55px -22px rgba(0, 0, 0, 0.75);
+		transform: rotate(-2.5deg);
 	}
 
-	.media img {
+	.number {
 		position: absolute;
-		inset: 0;
+		top: 0.7rem;
+		left: 1.05rem;
+		font-family: var(--font-display);
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		color: rgba(255, 255, 255, 0.85);
+	}
+
+	.photo {
+		position: relative;
+		aspect-ratio: 1;
+		border-radius: 12px;
+		overflow: hidden;
+		background: var(--color-violet-deep);
+	}
+
+	.photo img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
@@ -78,79 +122,132 @@ const isPlaceholder = !keynote.photo;
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		color: rgba(255, 255, 255, 0.25);
+		color: rgba(255, 255, 255, 0.3);
 	}
 
-	.tag {
-		position: absolute;
-		top: 1rem;
-		left: 1rem;
+	.plate {
 		margin: 0;
+		padding-block: 0.6rem 0.35rem;
+		text-align: center;
+		font-size: 0.85rem;
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	/* ---- texto ---- */
+	.info {
+		text-align: center;
+	}
+
+	.kicker {
 		font-family: var(--font-display);
-		font-weight: 700;
-		font-size: 1.6rem;
-		letter-spacing: -0.02em;
+		font-size: 0.72rem;
+		font-weight: 600;
 		text-transform: uppercase;
+		letter-spacing: 0.18em;
+		color: var(--color-text-inverse-muted);
+	}
+
+	.name {
+		margin-top: 0.45rem;
+		font-size: clamp(2rem, 8vw, 3.4rem);
+		font-weight: 700;
+		line-height: 1.02;
+		letter-spacing: -0.025em;
+		color: var(--color-text-inverse);
+	}
+
+	.name.muted {
+		color: var(--color-text-inverse-muted);
+	}
+
+	.role {
+		margin-top: 0.7rem;
+		font-size: 1rem;
+		color: var(--color-text-inverse-muted);
+	}
+
+	.at {
+		color: rgba(255, 255, 255, 0.35);
+	}
+
+	.talk {
+		margin-top: 1.1rem;
+		font-family: var(--font-display);
+		font-size: clamp(1.25rem, 4.5vw, 1.85rem);
+		font-weight: 700;
+		line-height: 1.15;
+		letter-spacing: -0.015em;
 		background: var(--gradient-accent);
 		-webkit-background-clip: text;
 		background-clip: text;
 		color: transparent;
 	}
 
-	.info {
-		padding: 1.25rem 1.25rem 1.5rem;
-	}
-
-	.name {
-		margin: 0;
-		font-family: var(--font-display);
-		font-weight: 700;
-		font-size: 1.15rem;
-		color: var(--color-text-inverse);
-	}
-
-	.name.muted {
+	.talk.pending {
+		font-family: var(--font-body);
+		font-size: 0.9rem;
+		font-weight: 400;
+		letter-spacing: 0.02em;
+		background: none;
 		color: var(--color-text-inverse-muted);
-		font-weight: 600;
-	}
-
-	.role {
-		margin: 0.3rem 0 0;
-		font-size: 0.85rem;
-		font-weight: 600;
-		color: var(--color-orange);
-	}
-
-	.org {
-		margin: 0.15rem 0 0;
-		font-size: 0.85rem;
-		color: var(--color-text-inverse-muted);
-	}
-
-	.rule {
-		display: block;
-		width: 32px;
-		height: 2px;
-		margin-top: 0.9rem;
-		background: var(--color-orange);
-		border-radius: 2px;
+		opacity: 0.75;
 	}
 
 	.linkedin {
 		display: inline-flex;
 		align-items: center;
-		justify-content: center;
-		width: 28px;
-		height: 28px;
-		margin-top: 0.9rem;
-		border-radius: 50%;
-		background: rgba(255, 255, 255, 0.08);
+		gap: 0.5rem;
+		margin-top: 1.5rem;
+		padding: 0.55rem 1.1rem;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		border-radius: 999px;
+		font-size: 0.85rem;
+		font-weight: 600;
 		color: var(--color-text-inverse);
 		text-decoration: none;
+		transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 	}
 
-	.linkedin:hover {
+	.linkedin:hover,
+	.linkedin:focus-visible {
 		background: var(--color-orange);
+		border-color: var(--color-orange);
 		color: var(--color-ink);
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	@media (min-width: 800px) {
+		.slide {
+			grid-template-columns: minmax(0, 355px) minmax(0, 1fr);
+			gap: 3.5rem;
+			padding-block: 1rem 1.5rem;
+		}
+
+		.frame {
+			width: 100%;
+			justify-self: start;
+		}
+
+		.info {
+			text-align: left;
+		}
+
+		.name {
+			font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.frame {
+			transform: none;
+		}
 	}
 </style>

@@ -1,26 +1,29 @@
 [
   {
-    "id": "keynote-1",
-    "name": "Por confirmar",
-    "role": "",
-    "org": "",
-    "photo": "",
-    "linkedin": ""
+    "id": "magali-pinto",
+    "name": "Magali Pinto",
+    "role": "Solutions Architect",
+    "org": "Amazon Web Services",
+    "talk": "",
+    "photo": "/images/keynotes/magali-pinto.webp",
+    "linkedin": "https://www.linkedin.com/in/magalipintof"
   },
   {
-    "id": "keynote-2",
-    "name": "Por confirmar",
+    "id": "luis-carlo-arias",
+    "name": "Luis Carlo Arias",
     "role": "",
-    "org": "",
-    "photo": "",
-    "linkedin": ""
+    "org": "Amazon Web Services",
+    "talk": "",
+    "photo": "/images/keynotes/luis-carlo-arias.webp",
+    "linkedin": "https://www.linkedin.com/in/luiscarlo-arias"
   },
   {
-    "id": "keynote-3",
-    "name": "Por confirmar",
-    "role": "",
-    "org": "",
-    "photo": "",
-    "linkedin": ""
+    "id": "alejandra-bricio",
+    "name": "Alejandra Bricio",
+    "role": "Community Manager LATAM",
+    "org": "Amazon Web Services",
+    "talk": "",
+    "photo": "/images/keynotes/alejandra-bricio.webp",
+    "linkedin": "https://www.linkedin.com/in/alejandrabricio"
   }
 ]

@@ -120,17 +120,39 @@ JSON — no hace falta tocar componentes.
   (cargo/rol de cada uno) — el sitio original no expone ese dato en el markup,
   hay que pedirlo o inferirlo.
 
-- `src/data/keynotes.json` — array de objetos:
+- `src/data/keynotes.json` — array de objetos; **el orden del array es el orden
+  del slider**:
   ```json
-  { "id": "keynote-1", "name": "Por confirmar", "role": "", "org": "", "photo": "", "linkedin": "" }
+  { "id": "magali-pinto", "name": "Magali Pinto", "role": "Solutions Architect", "org": "Amazon Web Services", "talk": "", "photo": "/images/keynotes/magali-pinto.webp", "linkedin": "https://www.linkedin.com/in/magalipintof" }
   ```
-  **Placeholder por ahora** (3 entradas "Por confirmar", sin foto todavía —
-  `KeynoteCard.astro` detecta `photo: ""` y muestra un ícono de silueta en vez
-  de romper el layout). Diseño inspirado en las tarjetas de keynote de
-  `awscommunitydaycolombia.com/home#keynote` y el spotlight de
-  `day.awscommunity.mx`, adaptado a nuestra paleta. Cuando haya speakers
-  confirmados: reemplazar `name`/`role`/`org`/`linkedin`, y subir la foto a
-  `public/images/keynotes/` y referenciarla en `photo`.
+  Ya poblado con los 3 keynotes confirmados (Magali Pinto, Luis Carlo Arias,
+  Alejandra Bricio), en orden cronológico según la agenda: apertura, charla de
+  la tarde y cierre. **Pendiente:** el `role` de Luis Carlo Arias y el `talk`
+  (título de la charla) de los tres.
+
+  `talk: ""` no rompe nada: la tarjeta muestra «Tema por confirmar» en gris
+  apagado; en cuanto se llena, ese mismo renglón pasa a título en degradado
+  magenta→naranja (el acento fuerte del slide, como el banner de keynote de
+  `day.awscommunity.mx`). `photo: ""` tampoco rompe: cae al ícono de silueta.
+  Fotos en `public/images/keynotes/`, cuadradas (800×800) y en `.webp`.
+
+### El slider de keynotes
+
+`Keynotes.astro` renderiza un custom element `<keynote-slider>`: un carrusel de
+un keynote a la vez (foto grande en marco magenta rotado + nombre en display
+grande), inspirado en el banner de keynote de `day.awscommunity.mx` y las
+tarjetas de `awscommunitydaycolombia.com/home#keynote`.
+
+- La pista es un scroll horizontal con `scroll-snap`, así que **sin JavaScript
+  sigue funcionando**: se desliza con el dedo/trackpad y los controles quedan
+  ocultos (`hidden` lo quita el script al montar), igual que la agenda.
+- Autoplay de 8s (`data-interval`); la barra de progreso son los propios
+  puntos/`.dot`, animados por CSS con `--interval`. Se pausa cuando la sección
+  sale de viewport y **se apaga en la primera interacción** del usuario
+  (clic, swipe, teclas, foco) — entonces `data-autoplay="off"` congela la barra.
+  Con `prefers-reduced-motion` no arranca y el marco no se rota.
+- Navegación por flechas, puntos y teclas ←/→ sobre la pista; el slide inactivo
+  queda `inert` para que no se pueda tabular a un enlace invisible.
 
 - `src/data/agenda-rooms.json` — array de objetos, el orden del array define el
   orden de columnas/tarjetas en toda la agenda:
