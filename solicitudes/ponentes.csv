@@ -1,4 +1,4 @@
-﻿QUE_FALTA,id_ponente,nombre,cargo,organizacion,pais,linkedin,foto
+QUE_FALTA,id_ponente,nombre,cargo,organizacion,pais,linkedin,foto
 OK,claudia-izquierdo,Claudia Izquierdo,AWS Solutions Architect / AWS Developer Community Champion,AWS,Colombia,https://www.linkedin.com/in/claudia-izquierdo-salazar/,claudia-izquierdo.webp
 OK,ramses-mata,Ramsés Mata,Developer Advocate,Amazon Web Services,México,https://www.linkedin.com/in/ramses-mata/,ramses-mata.webp
 OK,carlos-andres-zambrano-barrera,Carlos Andres Zambrano Barrera,Senior Tech Director,Globant LLC,Colombia,https://www.linkedin.com/in/carlos-zambrano-aws/,carlos-andres-zambrano-barrera.webp
@@ -6,32 +6,28 @@ OK,odilia-marisol-choc-cac,Odilia Marisol Choc Cac,Cloud Specialist,Escala 24x7,
 OK,mario-estuardo-gomez-orellana,Mario Estuardo Gómez Orellana,GuateData,Factored.ai,Guatemala,https://www.linkedin.com/in/mariogodata/,mario-estuardo-gomez-orellana.webp
 OK,jacobo-de-leon,Jacobo De Leon,Cloud Architect,Escala24x7 inc,Guatemala,https://www.linkedin.com/in/jacobodl/,jacobo-de-leon.webp
 OK,lucas-vera-toro,Lucas Vera Toro,Arquitecto técnico,sls.guru,Colombia,https://www.linkedin.com/in/lucas-vera-toro-1355b479/,lucas-vera-toro.webp
-FALTA: cargo,marlon-coti,Marlon Coti,,Proticket.io | CSN,Guatemala,https://www.linkedin.com/in/marlon-coti/,marlon-coti.webp
+FALTA: cargo,marlon-coti,Marlon Coti,CSN Co-Founder | Proticket Co-Founder,Proticket.io | CSN,Guatemala,https://www.linkedin.com/in/marlon-coti/,marlon-coti.webp
 OK,tony-trujillo-davila,Tony Trujillo Dávila,DATA ARCHITECT,IDATHA,Perú,https://www.linkedin.com/in/tonytec/,tony-trujillo-davila.webp
 OK,roger-giron,Roger Giron,Managed Services  - Presales Architect,GBM,Guatemala,https://www.linkedin.com/in/rogergm92/,roger-giron.webp
 OK,mar-garcia-anticona,Mar García Anticona,Founder,HOPE CONSULTING GROUP,Perú,https://www.linkedin.com/in/margarcialiderazgo,mar-garcia-anticona.webp
 OK,victor-pinzon,Victor Pinzon,AWS Builder - Engineering & Delivery Lead at Justo MX,Justo MX,Guatemala,https://www.linkedin.com/in/victor-pinzon/,victor-pinzon.webp
 FALTA: LinkedIn,laura-isabel-leiva-alvarez,Laura Isabel Leiva Alvarez,Desarrollo e Innovación & Founder of MGP,Grupo Intelecto & Money Growth Partners,Guatemala,,laura-isabel-leiva-alvarez.webp
-FALTA: cargo,andrea-alejandra-rosero-perez,Andrea Alejandra Rosero Pérez,,Student,Chile,https://www.linkedin.com/in/andrearoseroperez/,andrea-alejandra-rosero-perez.webp
+FALTA: cargo,andrea-alejandra-rosero-perez,Andrea Alejandra Rosero Pérez,"AWS Student Builder Group Leader , Software Engineering Student and Graphic Designer.",Student,Chile,https://www.linkedin.com/in/andrearoseroperez/,andrea-alejandra-rosero-perez.webp
 OK,angel-castillo,Angel Castillo,DevOps L2,Vana,Guatemala,https://www.linkedin.com/in/angelcastillo243/,angel-castillo.webp
 OK,luciano-tom,Luciano Tom,Founder,CCDatos,Guatemala,https://www.linkedin.com/in/jlucianotom/,luciano-tom.webp
-"FALTA: cargo, organización",alex-archibold,Alex Archibold,,,Panamá,https://www.linkedin.com/in/alex-archibold/,alex-archibold.webp
-"FALTA: cargo, organización",blanca-navarro,Blanca Navarro,,,Costa Rica,https://www.linkedin.com/in/blanca-rosa-navarro,blanca-navarro.webp
-"FALTA: cargo, organización",byron-antonio-lainez-sasvin,Byron Antonio Lainez Sasvin,,,Guatemala,https://gt.linkedin.com/in/byronlainezsasvin,byron-antonio-lainez-sasvin.webp
-"FALTA: cargo, organización",erick-j-pineda-amezquita,Erick J. Pineda Amézquita,,,Guatemala,https://www.linkedin.com/in/erick-j-pineda-am%C3%A9zquita-1808801a4,erick-j-pineda-amezquita.webp
-"FALTA: cargo, organización",estefano-bullon,Estefano Bullón,,,Perú,https://www.linkedin.com/in/Ebullon,estefano-bullon.webp
-"FALTA: cargo, organización",fernanda-osorio-morales,Fernanda Osorio Morales,,,México,https://www.linkedin.com/in/fernanda-osorio-925604225/,fernanda-osorio-morales.webp
-"FALTA: cargo, organización",hernan-villavicencio-s,Hernán Villavicencio S,,,Ecuador,https://linkedin.com/in/hvillavicencio,hernan-villavicencio-s.webp
-"FALTA: cargo, organización",jonathan-bucaro,Jonathan Búcaro,,,Guatemala,https://www.linkedin.com/in/jonathanbucaro/,jonathan-bucaro.webp
-"FALTA: cargo, organización",jorge-romero,Jorge Romero,,,Guatemala,https://www.linkedin.com/in/jarv28/,jorge-romero.webp
-"FALTA: cargo, organización",joseph-arriola,Joseph Arriola,,,Guatemala,https://www.linkedin.com/in/joseph-arriola-eng/,joseph-arriola.webp
-"FALTA: cargo, organización",manuela-andrea-ballen-galeano,Manuela Andrea Ballén Galeano,,,Colombia,https://www.linkedin.com/in/manuela-ball%C3%A9n-79b8791a5/,manuela-andrea-ballen-galeano.webp
-"FALTA: cargo, organización",mario-garcia,Mario García,,,México,https://linkedin.com/in/mariogmd,mario-garcia.webp
-"FALTA: cargo, organización",mauricio-alvarado,Mauricio Alvarado,,,Colombia,https://linkedin.com/in/mauriciora,mauricio-alvarado.webp
-"FALTA: cargo, organización",pablo-medrano,Pablo Medrano,,,Guatemala,https://www.linkedin.com/in/pablo-medrano-dev/,pablo-medrano.webp
-"FALTA: cargo, organización",alexis-velasquez-quintero,Alexis Velásquez Quintero,,,Colombia,https://www.linkedin.com/in/alexis-vel%C3%A1squez-quintero-3a9003170/,alexis-velasquez-quintero.webp
+"FALTA: cargo, organización",alex-archibold,Alex Archibold,SoftwareOne - AWS Cloud Strategist,,Panamá,https://www.linkedin.com/in/alex-archibold/,alex-archibold.webp
+"FALTA: cargo, organización",blanca-navarro,Blanca Navarro,AWS,AWS,Costa Rica,https://www.linkedin.com/in/blanca-rosa-navarro,blanca-navarro.webp
+"FALTA: cargo, organización",byron-antonio-lainez-sasvin,Byron Antonio Lainez Sasvin,MSS/SOC Engineer,,Guatemala,https://gt.linkedin.com/in/byronlainezsasvin,byron-antonio-lainez-sasvin.webp
+"FALTA: cargo, organización",erick-j-pineda-amezquita,Erick J. Pineda Amézquita,Analista de Aplicaciones y Desarrollador Senior,,Guatemala,https://www.linkedin.com/in/erick-j-pineda-am%C3%A9zquita-1808801a4,erick-j-pineda-amezquita.webp
+"FALTA: cargo, organización",estefano-bullon,Estefano Bullón,Marketing Lead - Innovation Psychologist,,Perú,https://www.linkedin.com/in/Ebullon,estefano-bullon.webp
+"FALTA: cargo, organización",fernanda-osorio-morales,Fernanda Osorio Morales,Cloud Engineer AWS | Content Creator @soy_ferosorio | Founder @ Ixalli UNAM,,México,https://www.linkedin.com/in/fernanda-osorio-925604225/,fernanda-osorio-morales.webp
+Datafast S.A,hernan-villavicencio-s,Hernán Villavicencio S,"Datafast S.A, Arquitecto Cloud",DATAFAST,Ecuador,https://linkedin.com/in/hvillavicencio,hernan-villavicencio-s.webp
+"FALTA: cargo, organización",jonathan-bucaro,Jonathan Búcaro,"HTEC, Senior Software Engineer",HTEC,Guatemala,https://www.linkedin.com/in/jonathanbucaro/,jonathan-bucaro.webp
+"FALTA: cargo, organización",jorge-romero,Jorge Romero,Full Stack Developer | AI Tools | Web Architecture,,Guatemala,https://www.linkedin.com/in/jarv28/,jorge-romero.webp
+"FALTA: cargo, organización",joseph-arriola,Joseph Arriola,AWS Community Builder (AI) | Shaping the Future of Data Architecture with AI and Digital Innovation,,Guatemala,https://www.linkedin.com/in/joseph-arriola-eng/,joseph-arriola.webp
+"FALTA: cargo, organización",manuela-andrea-ballen-galeano,Manuela Andrea Ballén Galeano,Appliying Consulting Partner - AWS Sales Engineer - Solutions Architect,,Colombia,https://www.linkedin.com/in/manuela-ball%C3%A9n-79b8791a5/,manuela-andrea-ballen-galeano.webp
+"FALTA: cargo, organización",mario-garcia,Mario García,Open Source Advocate,,México,https://linkedin.com/in/mariogmd,mario-garcia.webp
+"FALTA: cargo, organización",mauricio-alvarado,Mauricio Alvarado,Senior Data Engineer @ Factored | Founder @ GuateData,,Colombia,https://linkedin.com/in/mauriciora,mauricio-alvarado.webp
+"FALTA: cargo, organización",pablo-medrano,Pablo Medrano,Improving - Senior Consultant,Improving,Guatemala,https://www.linkedin.com/in/pablo-medrano-dev/,pablo-medrano.webp
+"FALTA: cargo, organización",alexis-velasquez-quintero,Alexis Velásquez Quintero,Member FinOps Foundation,,Colombia,https://www.linkedin.com/in/alexis-vel%C3%A1squez-quintero-3a9003170/,alexis-velasquez-quintero.webp
 NUEVO — llena esta fila para agregar un ponente (deja id_ponente vacío),,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
