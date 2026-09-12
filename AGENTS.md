@@ -10,6 +10,8 @@ Referencias de diseño (inspiración, no copiar tal cual):
 - https://awscommunitygt.com/ (sitio actual, fuente de contenido/datos)
 - https://awscommunitydaycolombia.com/home
 - https://awscommunityday.ca/
+- https://www.infolavelada.com/combate/illojuan-vs-thegrefg (referencia del
+  tratamiento de las fotos de keynote: recorte sobre negro + glow + disolución)
 
 ## Development
 
@@ -125,34 +127,29 @@ JSON — no hace falta tocar componentes.
   ```json
   { "id": "magali-pinto", "name": "Magali Pinto", "role": "Solutions Architect", "org": "Amazon Web Services", "talk": "", "photo": "/images/keynotes/magali-pinto.webp", "linkedin": "https://www.linkedin.com/in/magalipintof" }
   ```
-  Ya poblado con los 3 keynotes confirmados (Magali Pinto, Luis Carlo Arias,
-  Alejandra Bricio), en orden cronológico según la agenda: apertura, charla de
-  la tarde y cierre. **Pendiente:** el `role` de Luis Carlo Arias y el `talk`
-  (título de la charla) de los tres.
+  Ya poblado con los 3 keynotes confirmados (Luis Carlo Arias, Magali Pinto,
+  Alejandra Bricio). El orden del array manda en el slider; cambiarlo es mover
+  el objeto de lugar, nada más. **Pendiente:** el `role` de Luis Carlo Arias y
+  el `talk` (título de la charla) de los tres.
 
   `talk: ""` no rompe nada: la tarjeta muestra «Tema por confirmar» en gris
   apagado; en cuanto se llena, ese mismo renglón pasa a título en degradado
   magenta→naranja (el acento fuerte del slide, como el banner de keynote de
   `day.awscommunity.mx`). `photo: ""` tampoco rompe: cae al ícono de silueta.
-  Fotos en `public/images/keynotes/`, cuadradas (800×800) y en `.webp`.
+  Fotos en `public/images/keynotes/`, cuadradas (800×800), `.webp` y **con el
+  fondo recortado** (transparencia): el slide las pinta sobre negro con un glow
+  detrás, así que una foto con fondo se ve como un recuadro pegado. Para
+  recortar una foto nueva está `solicitudes/recortar-fondo.py` (u2net vía
+  onnxruntime, uso en el docstring del script). El script conserva el encuadre
+  original de la foto; el tamaño al que se ve la persona se decide en el CSS
+  del slide, no recortando la imagen.
 
-### El slider de keynotes
-
-`Keynotes.astro` renderiza un custom element `<keynote-slider>`: un carrusel de
-un keynote a la vez (foto grande en marco magenta rotado + nombre en display
-grande), inspirado en el banner de keynote de `day.awscommunity.mx` y las
-tarjetas de `awscommunitydaycolombia.com/home#keynote`.
-
-- La pista es un scroll horizontal con `scroll-snap`, así que **sin JavaScript
-  sigue funcionando**: se desliza con el dedo/trackpad y los controles quedan
-  ocultos (`hidden` lo quita el script al montar), igual que la agenda.
-- Autoplay de 8s (`data-interval`); la barra de progreso son los propios
-  puntos/`.dot`, animados por CSS con `--interval`. Se pausa cuando la sección
-  sale de viewport y **se apaga en la primera interacción** del usuario
-  (clic, swipe, teclas, foco) — entonces `data-autoplay="off"` congela la barra.
-  Con `prefers-reduced-motion` no arranca y el marco no se rota.
-- Navegación por flechas, puntos y teclas ←/→ sobre la pista; el slide inactivo
-  queda `inert` para que no se pueda tabular a un enlace invisible.
+  Ojo con un caso concreto que ya apareció: u2net marca como opaco el fondo que
+  se cuela **entre los mechones sueltos** del pelo y eso sale como una mancha
+  gris dentro de la silueta. El script lo corrige inundando el fondo desde el
+  marco de la foto (píxeles claros y neutros) y recalculando ahí la
+  transparencia real de la mezcla pelo/fondo. Esa corrección va **solo** en esa
+  zona: aplicarla al contorno general se come el borde de la piel.
 
 - `src/data/agenda-rooms.json` — array de objetos, el orden del array define el
   orden de columnas/tarjetas en toda la agenda:
@@ -204,6 +201,37 @@ tarjetas de `awscommunitydaycolombia.com/home#keynote`.
   truncado, la sesión de Casa de Kiro con Bárbara Gaspar sin título, la charla
   de Luis Carlo sin tema) — revisar y corregir directamente en el JSON cuando
   se tenga el dato real.
+
+### El slider de keynotes
+
+`Keynotes.astro` renderiza un custom element `<keynote-slider>`: un carrusel de
+un keynote a la vez, con la puesta en escena de las fichas de combate de
+`infolavelada.com` — la persona recortada sobre negro, sin marco ni tarjeta.
+
+Las tres capas del efecto viven en `KeynoteCard.astro` y son CSS puro:
+
+- `.glow` — dos radiales morados detrás de la figura (uno cerrado a la altura
+  de la cabeza, como contraluz, y otro amplio), desenfocados y al 60%. Sube a
+  85% y escala un 4% en `:hover`.
+- `.cutout` — la foto recortada, con `mask-image` degradado que **disuelve los
+  hombros en el negro de la sección** (opaco hasta el 34%, transparente al
+  95%). El degradado es largo a propósito: uno corto deja una línea recta
+  visible donde termina la foto.
+- `.floor` — una elipse naranja muy tenue (`mix-blend-mode: screen`) a los pies,
+  para apoyar la figura en el suelo en vez de dejarla flotando.
+
+Comportamiento del carrusel:
+
+- La pista es un scroll horizontal con `scroll-snap`, así que **sin JavaScript
+  sigue funcionando**: se desliza con el dedo/trackpad y los controles quedan
+  ocultos (`hidden` lo quita el script al montar), igual que la agenda.
+- Autoplay de 8s (`data-interval`); la barra de progreso son los propios
+  puntos/`.dot`, animados por CSS con `--interval`. Se pausa cuando la sección
+  sale de viewport y **se apaga en la primera interacción** del usuario
+  (clic, swipe, teclas, foco) — entonces `data-autoplay="off"` congela la barra.
+- Navegación por flechas, puntos y teclas ←/→ sobre la pista; el slide inactivo
+  queda `inert` para que no se pueda tabular a un enlace invisible.
+- Con `prefers-reduced-motion` no hay autoplay ni desplazamiento suave.
 
 ### Los dos modos de vista de la agenda
 

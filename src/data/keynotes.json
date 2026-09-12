@@ -1,14 +1,5 @@
 [
   {
-    "id": "magali-pinto",
-    "name": "Magali Pinto",
-    "role": "Solutions Architect",
-    "org": "Amazon Web Services",
-    "talk": "",
-    "photo": "/images/keynotes/magali-pinto.webp",
-    "linkedin": "https://www.linkedin.com/in/magalipintof"
-  },
-  {
     "id": "luis-carlo-arias",
     "name": "Luis Carlo Arias",
     "role": "",
@@ -16,6 +7,15 @@
     "talk": "",
     "photo": "/images/keynotes/luis-carlo-arias.webp",
     "linkedin": "https://www.linkedin.com/in/luiscarlo-arias"
+  },
+  {
+    "id": "magali-pinto",
+    "name": "Magali Pinto",
+    "role": "Solutions Architect",
+    "org": "Amazon Web Services",
+    "talk": "",
+    "photo": "/images/keynotes/magali-pinto.webp",
+    "linkedin": "https://www.linkedin.com/in/magalipintof"
   },
   {
     "id": "alejandra-bricio",
