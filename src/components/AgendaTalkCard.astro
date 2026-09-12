@@ -1,6 +1,6 @@
 ---
 import { durationLabel } from '../utils/duration';
-import { flagEmoji } from '../utils/flag';
+import Flag from './Flag.astro';
 
 interface Speaker {
 	name: string;
@@ -50,7 +50,6 @@ const initials = talk.speakerName
 	.slice(0, 2)
 	.map((part) => part[0])
 	.join('');
-const flag = flagEmoji(speaker?.countryCode);
 
 // Barra de acento: color sólido con una sala, bloques duros cuando la charla ocupa varias.
 const accent =
@@ -114,10 +113,8 @@ const isCapacityNote = talk.notes.toLowerCase().includes('cupo');
 		<p class="speaker-info">
 			<span class="speaker-name">
 				{talk.speakerName}
-				{flag && speaker?.country && (
-					<span class="flag" role="img" aria-label={speaker.country} title={speaker.country}>
-						{flag}
-					</span>
+				{speaker?.countryCode && (
+					<span class="flag"><Flag code={speaker.countryCode} country={speaker.country} width={15} /></span>
 				)}
 			</span>
 			{talk.speakerOrg && <span class="speaker-org">{talk.speakerOrg}</span>}
@@ -311,10 +308,9 @@ const isCapacityNote = talk.notes.toLowerCase().includes('cupo');
 	}
 
 	.flag {
-		font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
-		font-size: 0.9rem;
-		line-height: 1;
-		margin-left: 0.35rem;
+		display: inline-block;
+		vertical-align: -0.1em;
+		margin-left: 0.4rem;
 	}
 
 	.speaker-org {

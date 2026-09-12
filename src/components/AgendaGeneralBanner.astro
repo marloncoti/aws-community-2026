@@ -1,6 +1,6 @@
 ---
 import { durationLabel } from '../utils/duration';
-import { flagEmoji } from '../utils/flag';
+import Flag from './Flag.astro';
 
 interface Speaker {
 	name: string;
@@ -35,7 +35,6 @@ const initials = session.speakerName
 	.slice(0, 2)
 	.map((part) => part[0])
 	.join('');
-const flag = flagEmoji(speaker?.countryCode);
 ---
 
 <div class="general-banner" data-general data-end={session.endTime} data-duration={duration}>
@@ -63,11 +62,9 @@ const flag = flagEmoji(speaker?.countryCode);
 				<p class="speaker-info">
 					<span class="speaker-name">
 						{session.speakerName}
-						{flag && speaker?.country && (
-							<span class="flag" role="img" aria-label={speaker.country} title={speaker.country}>
-								{flag}
-							</span>
-						)}
+						{speaker?.countryCode && (
+					<span class="flag"><Flag code={speaker.countryCode} country={speaker.country} width={15} /></span>
+				)}
 					</span>
 					{session.speakerOrg && <span class="general-org">{session.speakerOrg}</span>}
 				</p>
@@ -182,10 +179,9 @@ const flag = flagEmoji(speaker?.countryCode);
 	}
 
 	.flag {
-		font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
-		font-size: 0.9rem;
-		line-height: 1;
-		margin-left: 0.35rem;
+		display: inline-block;
+		vertical-align: -0.1em;
+		margin-left: 0.4rem;
 	}
 
 	.general-org {

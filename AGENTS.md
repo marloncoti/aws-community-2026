@@ -202,6 +202,22 @@ JSON — no hace falta tocar componentes.
   de Luis Carlo sin tema) — revisar y corregir directamente en el JSON cuando
   se tenga el dato real.
 
+### Banderas de país
+
+`Flag.astro` dibuja la bandera como **SVG en línea** a partir del `countryCode`
+del ponente (`speakers.json`). **No se usa el emoji de bandera** (🇬🇹): Windows
+no lo trae — Segoe UI Emoji no tiene glifos de bandera — y el navegador termina
+dibujando las dos letras del código ("GT") dentro de la cajita blanca.
+
+- Los diseños están simplificados porque se ven a 15-26px, pero los escudos de
+  **México y Ecuador sí van insinuados**: sin ellos México se confunde con
+  Italia y Ecuador queda idéntico a Colombia.
+- Para un país nuevo: agregar su entrada al objeto `FLAGS` de `Flag.astro`. Si
+  el código no está, el componente no pinta nada — no rompe la tarjeta.
+- Lo usan `SpeakerCard.astro` (26px, dentro del chip blanco sobre la foto) y
+  `AgendaTalkCard.astro` / `AgendaGeneralBanner.astro` (15px, en línea después
+  del nombre).
+
 ### El slider de keynotes
 
 `Keynotes.astro` renderiza un custom element `<keynote-slider>`: un carrusel de
