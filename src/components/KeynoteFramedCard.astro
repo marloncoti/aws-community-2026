@@ -1,0 +1,304 @@
+---
+/**
+ * Tarjeta del diseño ALTERNO de keynotes: la foto con su fondo original.
+ * Ver `KeynotesFramed.astro` para cómo se cambia de diseño.
+ *
+ * El marco es editorial, no una tarjeta: recorte vertical, esquina magenta en
+ * L y un bloque naranja sólido detrás que sostiene el número. Nada de
+ * degradados ni de radios grandes — la foto ya trae su propio fondo y compite
+ * con cualquier adorno.
+ */
+interface Keynote {
+	id: string;
+	name: string;
+	role?: string;
+	org?: string;
+	talk?: string;
+	photo?: string;
+	photoOriginal?: string;
+	linkedin?: string;
+}
+
+interface Props {
+	keynote: Keynote;
+	index: number;
+	total: number;
+}
+
+const { keynote, index, total } = Astro.props;
+// este diseño usa la foto SIN recortar; la recortada es el respaldo
+const photo = keynote.photoOriginal || keynote.photo;
+const isPlaceholder = !photo;
+const position = String(index + 1).padStart(2, '0');
+---
+
+<article class="slide" role="group" aria-roledescription="diapositiva" aria-label={`${index + 1} de ${total}: ${keynote.name}`}>
+	<div class="frame">
+		<div class="mat">
+			<span class="index" aria-hidden="true">{position}</span>
+			<div class="photo">
+			{
+				isPlaceholder ? (
+					<div class="placeholder">
+						<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
+							<circle cx="12" cy="8" r="4" />
+							<path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" />
+						</svg>
+					</div>
+				) : (
+					<img src={photo} alt={keynote.name} width="800" height="800" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+				)
+			}
+				<span class="scrim" aria-hidden="true"></span>
+			</div>
+		</div>
+	</div>
+
+	<div class="info">
+		<h3 class:list={['name', { muted: isPlaceholder }]}>{keynote.name}</h3>
+		<span class="rule" aria-hidden="true"></span>
+		{
+			(keynote.role || keynote.org) && (
+				<p class="role">
+					{keynote.role}
+					{keynote.role && keynote.org && <span class="at"> @ </span>}
+					{keynote.org}
+				</p>
+			)
+		}
+		<p class:list={['talk', { pending: !keynote.talk }]}>{keynote.talk || 'Tema por confirmar'}</p>
+		{
+			keynote.linkedin && (
+				<a class="linkedin" href={keynote.linkedin} target="_blank" rel="noopener noreferrer">
+					<svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true">
+						<path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.11 1 2.48 1 4.98 2.12 4.98 3.5zM.4 8.24H4.6V23H.4V8.24zM8.34 8.24h4.03v2.01h.06c.56-1.06 1.93-2.18 3.98-2.18 4.25 0 5.03 2.8 5.03 6.44V23h-4.2v-6.68c0-1.59-.03-3.64-2.22-3.64-2.22 0-2.56 1.74-2.56 3.53V23H8.34V8.24z" />
+					</svg>
+					<span>LinkedIn</span>
+					<span class="sr-only">de {keynote.name}</span>
+				</a>
+			)
+		}
+	</div>
+</article>
+
+<style>
+	.slide {
+		position: relative;
+		flex: 0 0 100%;
+		min-width: 0;
+		scroll-snap-align: center;
+		scroll-snap-stop: always;
+		display: grid;
+		gap: 2.5rem;
+		align-items: center;
+		padding-block: 0.5rem 1rem;
+	}
+
+	/* ---- marco editorial ---- */
+	.frame {
+		position: relative;
+		z-index: 1;
+		justify-self: center;
+		width: min(380px, 92%);
+		isolation: isolate;
+	}
+
+	/* bloque sólido de apoyo, sin degradados: profundidad con color plano */
+	.frame::before {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		right: -16px;
+		bottom: -16px;
+		width: 46%;
+		height: 32%;
+		background: var(--color-orange);
+	}
+
+	/* paspartú: marco plano, no tarjeta con degradado */
+	.mat {
+		position: relative;
+		padding: 10px;
+		background: var(--color-magenta);
+		border-radius: 2px;
+		box-shadow: 0 24px 44px -20px rgba(12, 8, 24, 0.6);
+	}
+
+	.index {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: 2;
+		padding: 0.3rem 0.6rem 0.32rem;
+		background: var(--color-near-black);
+		font-family: var(--font-display);
+		font-size: 0.72rem;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		color: var(--color-text-inverse);
+	}
+
+	.photo {
+		position: relative;
+		aspect-ratio: 3 / 4;
+		overflow: hidden;
+	}
+
+	.photo img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		/* sube el encuadre: estas fotos traen mucho aire sobre la cabeza */
+		object-position: 50% 12%;
+	}
+
+	/* asienta la foto (y su fondo claro) sobre el negro de la sección */
+	.scrim {
+		position: absolute;
+		inset: 0;
+		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+	}
+
+	.placeholder {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--color-violet-deep);
+		color: rgba(255, 255, 255, 0.25);
+	}
+
+	/* ---- texto ---- */
+	.info {
+		position: relative;
+		z-index: 1;
+		text-align: center;
+	}
+
+	.name {
+		margin-top: 0;
+		font-size: clamp(2rem, 8vw, 3.4rem);
+		font-weight: 700;
+		line-height: 1.02;
+		letter-spacing: -0.025em;
+		color: var(--kf-text, var(--color-text));
+	}
+
+	.name.muted {
+		color: var(--kf-muted, var(--color-text-muted));
+	}
+
+	.rule {
+		display: block;
+		width: 46px;
+		height: 3px;
+		margin: 1.1rem auto 0;
+		background: var(--kf-accent, var(--color-orange));
+	}
+
+	.role {
+		margin-top: 0.9rem;
+		font-size: 1rem;
+		color: var(--kf-muted, var(--color-text-muted));
+	}
+
+	.at {
+		color: rgba(255, 255, 255, 0.38);
+	}
+
+	.talk {
+		margin-top: 1.1rem;
+		font-family: var(--font-display);
+		font-size: clamp(1.25rem, 4.5vw, 1.85rem);
+		font-weight: 700;
+		line-height: 1.15;
+		letter-spacing: -0.015em;
+		background: var(--gradient-accent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+	}
+
+	.talk.pending {
+		font-family: var(--font-body);
+		font-size: 0.9rem;
+		font-weight: 400;
+		letter-spacing: 0.02em;
+		background: none;
+		color: var(--kf-muted, var(--color-text-muted));
+		opacity: 0.9;
+	}
+
+	.linkedin {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		margin-top: 1.5rem;
+		padding: 0.55rem 1.1rem;
+		border: 1px solid var(--kf-line, var(--color-border));
+		border-radius: 999px;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--kf-text, var(--color-text));
+		text-decoration: none;
+		transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+	}
+
+	.linkedin:hover,
+	.linkedin:focus-visible {
+		background: var(--kf-accent, var(--color-orange));
+		border-color: var(--kf-accent, var(--color-orange));
+		color: var(--color-near-black);
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	@media (min-width: 800px) {
+		.slide {
+			/* la foto pesa la mitad del slide en vez de un ancho fijo: en
+			   pantallas de ~800-1000px un ancho fijo dejaba al texto sin sitio */
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			gap: 3rem;
+			/* con el retrato grande el texto centrado equilibra mejor que
+			   alineado arriba, que dejaba un hueco largo a la derecha */
+			align-items: center;
+			padding-block: 1rem 1.5rem;
+		}
+
+		.frame {
+			width: 100%;
+			max-width: 470px;
+			justify-self: start;
+			margin-top: 0.5rem;
+		}
+
+		.wordmark {
+			/* banda superior: la foto tapa su mitad de abajo */
+			top: 0;
+			left: -1.5%;
+			transform: none;
+			font-size: clamp(4.5rem, 13vw, 11rem);
+		}
+
+		.info {
+			text-align: left;
+			padding-bottom: 2rem;
+		}
+
+		.rule {
+			margin-inline: 0;
+		}
+
+		.name {
+			font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+		}
+	}
+</style>

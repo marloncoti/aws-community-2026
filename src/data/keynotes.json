@@ -6,6 +6,7 @@
     "org": "Amazon Web Services",
     "talk": "",
     "photo": "/images/keynotes/luis-carlo-arias.webp",
+    "photoOriginal": "/images/keynotes/con-fondo/luis-carlo-arias.webp",
     "linkedin": "https://www.linkedin.com/in/luiscarlo-arias"
   },
   {
@@ -15,6 +16,7 @@
     "org": "Amazon Web Services",
     "talk": "",
     "photo": "/images/keynotes/magali-pinto.webp",
+    "photoOriginal": "/images/keynotes/con-fondo/magali-pinto.webp",
     "linkedin": "https://www.linkedin.com/in/magalipintof"
   },
   {
@@ -24,6 +26,7 @@
     "org": "Amazon Web Services",
     "talk": "",
     "photo": "/images/keynotes/alejandra-bricio.webp",
+    "photoOriginal": "/images/keynotes/con-fondo/alejandra-bricio.webp",
     "linkedin": "https://www.linkedin.com/in/alejandrabricio"
   }
 ]

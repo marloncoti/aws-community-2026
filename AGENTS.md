@@ -136,6 +136,12 @@ JSON — no hace falta tocar componentes.
   apagado; en cuanto se llena, ese mismo renglón pasa a título en degradado
   magenta→naranja (el acento fuerte del slide, como el banner de keynote de
   `day.awscommunity.mx`). `photo: ""` tampoco rompe: cae al ícono de silueta.
+  Cada keynote lleva **dos fotos**, una por diseño (ver «Los dos diseños del
+  bloque de keynotes»): `photo` es el recorte con transparencia y
+  `photoOriginal` la foto tal cual, con su fondo, en
+  `public/images/keynotes/con-fondo/`. Si falta `photoOriginal`, el diseño
+  alterno cae a `photo`.
+
   Fotos en `public/images/keynotes/`, cuadradas (800×800), `.webp` y **con el
   fondo recortado** (transparencia): el slide las pinta sobre negro con un glow
   detrás, así que una foto con fondo se ve como un recuadro pegado. Para
@@ -217,6 +223,71 @@ dibujando las dos letras del código ("GT") dentro de la cajita blanca.
 - Lo usan `SpeakerCard.astro` (26px, dentro del chip blanco sobre la foto) y
   `AgendaTalkCard.astro` / `AgendaGeneralBanner.astro` (15px, en línea después
   del nombre).
+
+### Los dos diseños del bloque de keynotes
+
+Hay **dos versiones del bloque**, en discusión, y se cambia de una a otra
+comentando/descomentando un import en `src/pages/index.astro` — nada más:
+
+```astro
+import Keynotes from '../components/Keynotes.astro';        // A (por defecto)
+// import Keynotes from '../components/KeynotesFramed.astro';  // B
+```
+
+- **A · `Keynotes.astro` + `KeynoteCard.astro`** — la persona recortada sobre
+  negro, con glow detrás y los hombros disueltos en el fondo (estilo
+  `infolavelada.com`). Usa `photo` (recorte con transparencia).
+- **B · `KeynotesFramed.astro` + `KeynoteFramedCard.astro`** — la foto con su
+  fondo original, tratada como pieza impresa: recorte vertical 3:4, paspartú
+  magenta plano, pestaña con el número y un bloque naranja sólido de apoyo
+  detrás. Usa `photoOriginal`.
+
+  Va sobre **morado oscuro** (`#211936`), un paso por debajo del violet-deep
+  con el que empatan los bloques vecinos, así que el degradado hunde el centro
+  del bloque en vez de levantarlo — igual se distingue, y las uniones siguen
+  empatando. El tono vive en ocho variables al inicio del `<style>` de
+  `KeynotesFramed.astro` (`--kf-surface`, `--kf-text`, `--kf-muted`,
+  `--kf-line`, `--kf-accent`, `--kf-ghost`, `--kf-chip`, `--kf-edge`), con
+  alternativas anotadas ahí mismo.
+
+  **Se conecta con los bloques vecinos por degradado**, sin cortes: el fondo
+  sube desde `--kf-edge` (violet-deep, el color con el que termina el bloque
+  del video y con el que empieza el de ponentes) hasta el morado y vuelve a
+  bajar. Para que la unión no se note hubo que hacer tres cosas, no una:
+  quitarle el `border-block` a la sección, desvanecer el patrón de iconos en
+  los bordes con un `mask-image` (su corte marcaba la línea aunque el color ya
+  empatara) y apagar el borde superior del bloque siguiente. Ese último va en
+  `:global`, con `~` en vez de `+` — Astro deja el `<script>` del carrusel
+  entre las dos secciones — y pisando `border-block-start-color`, que es la
+  propiedad con la que la sección vecina lo declara.
+
+  Lleva la palabra **KEYNOTE en gigante como banda superior**, con el retrato
+  encima tapándole la parte de abajo — el recurso de las tarjetas de keynote de
+  `awscommunitydaycolombia.com`. Va con los mismos colores que "Guatemala" en
+  el título del hero (magenta y naranja), pero **invertida**: naranja a la
+  izquierda, porque de ese lado la palabra toca el paspartú magenta del
+  retrato y los dos magentas se fundían. Como esa palabra ya titula el bloque,
+  en este diseño se ocultan el kicker de sección y el "Keynote Speaker" de la
+  tarjeta, que lo repetían.
+
+  Ojo con el `line-height: 0.78` de esa palabra: con line-height menor que 1
+  los glifos se salen por arriba de su caja, y el carrusel los recorta
+  (`overflow-x: auto` hace que `overflow-y` compute a `auto`, así que también
+  corta en vertical). Por eso lleva `padding-top: 0.2em` — sin él se ve la
+  parte de arriba de las letras cortada en plano.
+
+  El marco es **plano a propósito**: la versión anterior tenía un degradado
+  magenta→morado con radio grande y una placa repitiendo el nombre que ya está
+  en grande al lado. Como la foto trae su propio fondo (blanco, gris o una
+  oficina), cualquier adorno con color compite con ella; el paspartú plano la
+  contiene y el bloque naranja da profundidad sin degradados.
+
+Los dos comparten cabecera, carrusel, controles y datos, y ninguno recibe
+props, así que son intercambiables. Lo único que cambia es el tratamiento de la
+tarjeta. El custom element del alterno se llama `<keynote-slider-framed>` para
+que los dos scripts no se pisen si alguna vez conviven en la misma página.
+
+Cuando se decida uno, borrar el otro par de componentes y el import comentado.
 
 ### El slider de keynotes
 

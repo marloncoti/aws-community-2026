@@ -1,31 +1,30 @@
 ---
 /**
- * Diseño POR DEFECTO del bloque de keynotes: la persona recortada sobre negro
- * con glow detrás (estilo `infolavelada.com`).
+ * Diseño ALTERNO del bloque de keynotes: la foto con su fondo original dentro
+ * de un marco magenta (la primera versión del slider).
  *
- * El alterno es `KeynotesFramed.astro` (foto con fondo dentro de un marco).
- * Se cambia de uno a otro comentando/descomentando un import en
- * `src/pages/index.astro`. Ver AGENTS.md.
+ * El diseño por defecto es `Keynotes.astro` (recorte sobre negro, estilo
+ * infolavelada). Los dos tienen la misma cabecera, el mismo carrusel y no
+ * reciben props, así que se cambia de uno a otro comentando/descomentando un
+ * import en `src/pages/index.astro`. Ver AGENTS.md.
  */
 import keynotes from '../data/keynotes.json';
-import KeynoteCard from './KeynoteCard.astro';
+import KeynoteCard from './KeynoteFramedCard.astro';
 
 const total = keynotes.length;
 ---
 
-<section class="keynotes" id="keynote" aria-label="Keynote speakers">
+<section class="keynotes" id="keynote" aria-labelledby="keynote-title">
 	<div class="glow" aria-hidden="true"></div>
 	<div class="pattern" aria-hidden="true"></div>
 
 	<div class="container">
 		<div class="heading">
-			<div>
-				<p class="kicker">Keynote</p>
-			</div>
+			<h2 class="wordmark" id="keynote-title">Keynote</h2>
 			<p class="lead">Las voces que abren y cierran el día: referentes de AWS compartiendo hacia dónde va la nube.</p>
 		</div>
 
-		<keynote-slider data-interval="8000" style={`--interval: ${8000}ms`}>
+		<keynote-slider-framed data-interval="8000" style={`--interval: ${8000}ms`}>
 			<div class="track" id="keynote-track" tabindex="0" aria-roledescription="carrusel" aria-label="Keynote speakers. Desliza para explorar.">
 				{keynotes.map((keynote, index) => <KeynoteCard keynote={keynote} index={index} total={total} />)}
 			</div>
@@ -50,12 +49,12 @@ const total = keynotes.length;
 			</div>
 
 			<p class="sr-only status" aria-live="polite" aria-atomic="true"></p>
-		</keynote-slider>
+		</keynote-slider-framed>
 	</div>
 </section>
 
 <script>
-	class KeynoteSlider extends HTMLElement {
+	class KeynoteSliderFramed extends HTMLElement {
 		connectedCallback() {
 			if (this.dataset.ready) return;
 			this.dataset.ready = 'true';
@@ -182,27 +181,68 @@ const total = keynotes.length;
 		}
 	}
 
-	customElements.define('keynote-slider', KeynoteSlider);
+	customElements.define('keynote-slider-framed', KeynoteSliderFramed);
 </script>
 
 <style>
 	.keynotes {
+		/* ---- tono del bloque ----------------------------------------------
+		   Morado intermedio: más oscuro que el resto del bloque claro que
+		   probamos, pero bastante más claro que el near-black del diseño A y
+		   que el violet-deep de la sección de ponentes, así que el bloque
+		   sigue cortando. Además acerca la luminancia del fondo de las fotos
+		   (blanco, gris de estudio) a la de la sección, que era lo que hacía
+		   que sobre negro parecieran recuadros pegados.
+
+		   Para probar otro tono, cambiar solo estas siete variables:
+		     · morado (actual):   #211936 · texto claro
+		     · pasos más claros:  #332852 / #3d2f63 / #4a3a72
+
+		   Ojo: este tono ya es más OSCURO que el violet-deep con el que
+		   empatan los bloques vecinos, así que el degradado ahora hunde el
+		   centro en vez de levantarlo. Funciona igual —los bordes siguen
+		   empatando—, pero si se baja más hay que bajar también `--kf-edge`
+		   o la diferencia entre centro y bordes se vuelve un bandeo obvio.
+		     · lavanda claro:         #ece7f6 · texto #241b33 · líneas #d8cdec
+		                              · chip rgba(26,34,48,.16)
+		   La palabra gigante no usa estas variables: va con `--gradient-accent`,
+		   el mismo degradado que "Guatemala" en el hero.
+		   -------------------------------------------------------------------- */
+		--kf-surface: #211936;
+		--kf-text: var(--color-text-inverse);
+		--kf-muted: #c6bcdd;
+		--kf-line: rgba(255, 255, 255, 0.22);
+		--kf-accent: var(--color-orange);
+		--kf-chip: rgba(255, 255, 255, 0.22);
+		/* color con el que empatan los bloques de arriba y de abajo: el de
+		   EventVideo termina en violet-deep y el de ponentes arranca en
+		   violet-deep, así que el degradado puede ser simétrico */
+		--kf-edge: var(--color-violet-deep);
+
 		position: relative;
 		isolation: isolate;
 		overflow: hidden;
 		padding-block: var(--section-padding-block);
-		background: var(--color-near-black);
-		color: var(--color-text-inverse);
-		border-block: 1px solid #ffffff16;
+		/* sin cortes: el bloque sube al morado medio y vuelve a bajar para
+		   empatar con el bloque anterior y el siguiente. Nada de border-block
+		   aquí: una línea partiría la unión que busca el degradado. */
+		background: linear-gradient(
+			180deg,
+			var(--kf-edge) 0%,
+			var(--kf-surface) 24%,
+			var(--kf-surface) 72%,
+			var(--kf-edge) 100%
+		);
+		color: var(--kf-text);
 	}
 
 	.glow {
 		position: absolute;
-		inset-block-start: -30%;
-		inset-inline-end: -20%;
-		width: min(760px, 90%);
+		inset-block-start: -34%;
+		inset-inline-end: -22%;
+		width: min(820px, 92%);
 		aspect-ratio: 1;
-		background: radial-gradient(circle, rgba(109, 74, 173, 0.55), transparent 62%);
+		background: radial-gradient(circle, rgba(190, 160, 255, 0.28), transparent 64%);
 		mix-blend-mode: screen;
 		z-index: -2;
 	}
@@ -212,9 +252,28 @@ const total = keynotes.length;
 		inset: 0;
 		background: url('/images/pattern.svg') repeat;
 		background-size: 420px;
-		opacity: 0.05;
+		opacity: 0.06;
 		mix-blend-mode: soft-light;
 		z-index: -1;
+		/* la textura también tiene que desaparecer en los bordes, o su corte
+		   marca la unión aunque el color ya empate */
+		-webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+		mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+	}
+
+	/* El bloque que sigue (ponentes) trae una línea de 1px en su borde superior
+	   que parte justo la unión que busca el degradado. Con este diseño sobra:
+	   los dos bloques terminan y empiezan en el mismo color. Va en :global
+	   porque es de otro componente, y solo se carga cuando este diseño está
+	   activo.
+
+	   Dos detalles que costaron: el combinador tiene que ser `~` y no `+`
+	   porque Astro deja el <script> del carrusel entre las dos secciones; y
+	   hay que pisar la propiedad lógica (`border-block-start-color`), que es
+	   con la que la vecina la declara. */
+	section.keynotes ~ :global(section.speakers) {
+		border-block-start-color: transparent;
+		border-top-color: transparent;
 	}
 
 	.heading {
@@ -223,32 +282,35 @@ const total = keynotes.length;
 		margin-bottom: 2.5rem;
 	}
 
-	.kicker {
-		color: var(--color-orange);
+	/* El título de la sección ES la palabra gigante, con los mismos colores que
+	   "Guatemala" en el hero. Va invertido respecto del hero —naranja a la
+	   izquierda— porque de ese lado cae el paspartú magenta del retrato y los
+	   dos magentas se fundían.
+
+	   Ojo con el line-height < 1: los glifos se salen por arriba de su caja y
+	   se ven cortados en plano. El padding les devuelve el aire. */
+	.wordmark {
+		margin: 0;
+		padding-top: 0.14em;
+		font-family: var(--font-display);
+		font-size: clamp(3rem, 11vw, 9rem);
+		font-weight: 700;
+		line-height: 0.82;
+		letter-spacing: -0.04em;
 		text-transform: uppercase;
-		letter-spacing: 0.13em;
-		font-size: 0.72rem;
-		font-weight: 600;
-		margin-bottom: 0.85rem;
-	}
-
-	h2 {
-		font-size: clamp(2rem, 4.5vw, 3.5rem);
-		line-height: 1.1;
-		letter-spacing: -0.045em;
-	}
-
-	h2 span {
-		display: block;
+		background: linear-gradient(90deg, var(--color-orange), var(--color-magenta));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
 	}
 
 	.lead {
-		color: var(--color-text-inverse-muted);
+		color: var(--kf-muted);
 		font-size: 0.95rem;
 		max-width: 39ch;
 	}
 
-	keynote-slider {
+	keynote-slider-framed {
 		display: block;
 	}
 
@@ -266,7 +328,7 @@ const total = keynotes.length;
 	}
 
 	.track:focus-visible {
-		outline: 2px solid var(--color-orange);
+		outline: 2px solid var(--kf-accent);
 		outline-offset: 6px;
 	}
 
@@ -278,7 +340,7 @@ const total = keynotes.length;
 		flex-wrap: wrap;
 		margin-top: 1.5rem;
 		padding-top: 1.25rem;
-		border-top: 1px solid #ffffff25;
+		border-top: 1px solid var(--kf-line);
 	}
 
 	.controls[hidden] {
@@ -289,13 +351,13 @@ const total = keynotes.length;
 		font-family: var(--font-display);
 		font-variant-numeric: tabular-nums;
 		font-size: 0.85rem;
-		color: var(--color-text-inverse-muted);
+		color: var(--kf-muted);
 		order: 1;
 	}
 
 	.counter strong {
 		font-size: 1.35rem;
-		color: var(--color-orange);
+		color: var(--kf-accent);
 		margin-right: 0.15rem;
 	}
 
@@ -312,7 +374,7 @@ const total = keynotes.length;
 		padding: 0;
 		border: 0;
 		border-radius: 999px;
-		background: #ffffff26;
+		background: var(--kf-chip, rgba(255, 255, 255, 0.22));
 		cursor: pointer;
 		position: relative;
 		overflow: hidden;
@@ -338,7 +400,7 @@ const total = keynotes.length;
 		animation: keynote-progress var(--interval, 8000ms) linear forwards;
 	}
 
-	keynote-slider[data-autoplay='off'] .dot[aria-current='true'] .fill {
+	keynote-slider-framed[data-autoplay='off'] .dot[aria-current='true'] .fill {
 		animation: none;
 		width: 100%;
 	}
@@ -362,9 +424,9 @@ const total = keynotes.length;
 		width: 44px;
 		min-height: 44px;
 		font: 500 1.4rem var(--font-display);
-		color: var(--color-text-inverse);
+		color: var(--kf-text);
 		background: transparent;
-		border: 1px solid #ffffff40;
+		border: 1px solid var(--kf-line);
 		border-radius: 5px;
 		cursor: pointer;
 		transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
@@ -378,7 +440,7 @@ const total = keynotes.length;
 
 	.navigation button:focus-visible,
 	.dot:focus-visible {
-		outline: 2px solid var(--color-orange);
+		outline: 2px solid var(--kf-accent);
 		outline-offset: 4px;
 	}
 
@@ -406,12 +468,15 @@ const total = keynotes.length;
 
 	@media (min-width: 1000px) {
 		.heading {
-			grid-template-columns: 1.3fr 1fr;
+			grid-template-columns: minmax(0, 1fr) minmax(0, auto);
 			align-items: end;
+			gap: 2.5rem;
 		}
 
 		.lead {
 			justify-self: end;
+			max-width: 34ch;
+			padding-bottom: 0.5rem;
 		}
 	}
 
