@@ -234,9 +234,15 @@ import Keynotes from '../components/Keynotes.astro';        // A (por defecto)
 // import Keynotes from '../components/KeynotesFramed.astro';  // B
 ```
 
-- **A · `Keynotes.astro` + `KeynoteCard.astro`** — la persona recortada sobre
-  negro, con glow detrás y los hombros disueltos en el fondo (estilo
-  `infolavelada.com`). Usa `photo` (recorte con transparencia).
+- **A · `Keynotes.astro` + `KeynoteCard.astro`** — la persona **recortada**
+  (PNG con transparencia) sobre el fondo de la sección, con glow detrás y los
+  hombros disueltos hacia abajo. Sin marco ni bloque de color: el recorte no
+  tiene fondo y ese es justo el punto del diseño. Usa `photo`.
+
+  La máscara de disolución va de largo a propósito (opaco hasta el 34%,
+  transparente al 95%): una corta deja una línea recta visible donde termina la
+  foto. Si alguna vez se le pone un bloque de color detrás, esa máscara hay que
+  acortarla o la persona se ve teñida y translúcida.
 - **B · `KeynotesFramed.astro` + `KeynoteFramedCard.astro`** — la foto con su
   fondo original, tratada como pieza impresa: recorte vertical 3:4, paspartú
   magenta plano, pestaña con el número y un bloque naranja sólido de apoyo
@@ -282,9 +288,11 @@ import Keynotes from '../components/Keynotes.astro';        // A (por defecto)
   oficina), cualquier adorno con color compite con ella; el paspartú plano la
   contiene y el bloque naranja da profundidad sin degradados.
 
-Los dos comparten cabecera, carrusel, controles y datos, y ninguno recibe
-props, así que son intercambiables. Lo único que cambia es el tratamiento de la
-tarjeta. El custom element del alterno se llama `<keynote-slider-framed>` para
+Los dos comparten **todo menos el tratamiento de la foto**: el título gigante,
+el tono morado, el degradado que los conecta con los bloques vecinos, el
+carrusel, los controles y los datos. Ninguno recibe props, así que son
+intercambiables. Esa igualdad es a propósito: la comparación entre A y B tiene
+que ser sobre la foto, no sobre el resto. El custom element del alterno se llama `<keynote-slider-framed>` para
 que los dos scripts no se pisen si alguna vez conviven en la misma página.
 
 Cuando se decida uno, borrar el otro par de componentes y el import comentado.

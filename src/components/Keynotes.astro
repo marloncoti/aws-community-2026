@@ -1,7 +1,11 @@
 ---
 /**
- * Diseño POR DEFECTO del bloque de keynotes: la persona recortada sobre negro
- * con glow detrás (estilo `infolavelada.com`).
+ * Diseño POR DEFECTO del bloque de keynotes: la persona **recortada** (PNG con
+ * transparencia) sobre un bloque de color sólido, con glow detrás.
+ *
+ * Comparte cabecera, tono y carrusel con `KeynotesFramed.astro`: la única
+ * diferencia entre los dos diseños es el tratamiento de la foto. Este usa
+ * `photo` (el recorte); el otro `photoOriginal` (la foto con su fondo).
  *
  * El alterno es `KeynotesFramed.astro` (foto con fondo dentro de un marco).
  * Se cambia de uno a otro comentando/descomentando un import en
@@ -13,15 +17,13 @@ import KeynoteCard from './KeynoteCard.astro';
 const total = keynotes.length;
 ---
 
-<section class="keynotes" id="keynote" aria-label="Keynote speakers">
+<section class="keynotes" id="keynote" aria-labelledby="keynote-title">
 	<div class="glow" aria-hidden="true"></div>
 	<div class="pattern" aria-hidden="true"></div>
 
 	<div class="container">
 		<div class="heading">
-			<div>
-				<p class="kicker">Keynote</p>
-			</div>
+			<h2 class="wordmark" id="keynote-title">Keynote</h2>
 			<p class="lead">Las voces que abren y cierran el día: referentes de AWS compartiendo hacia dónde va la nube.</p>
 		</div>
 
@@ -187,13 +189,36 @@ const total = keynotes.length;
 
 <style>
 	.keynotes {
+		/* mismo tono y mismas uniones que el diseño alterno, para que la
+		   comparación entre los dos sea solo del tratamiento de la foto */
+		--kf-surface: #211936;
+		--kf-edge: var(--color-violet-deep);
+		--kf-muted: var(--color-text-inverse-muted);
+		--kf-line: rgba(255, 255, 255, 0.22);
+		--kf-accent: var(--color-orange);
+
 		position: relative;
 		isolation: isolate;
 		overflow: hidden;
 		padding-block: var(--section-padding-block);
-		background: var(--color-near-black);
+		/* sin border-block: una línea partiría la unión que busca el degradado */
+		background: linear-gradient(
+			180deg,
+			var(--kf-edge) 0%,
+			var(--kf-surface) 24%,
+			var(--kf-surface) 72%,
+			var(--kf-edge) 100%
+		);
 		color: var(--color-text-inverse);
-		border-block: 1px solid #ffffff16;
+	}
+
+	/* El bloque que sigue (ponentes) trae una línea de 1px en su borde superior
+	   que parte justo la unión. `~` y no `+` porque Astro deja el <script> del
+	   carrusel entre las dos secciones; y hay que pisar la propiedad lógica,
+	   que es con la que la vecina lo declara. */
+	section.keynotes ~ :global(section.speakers) {
+		border-block-start-color: transparent;
+		border-top-color: transparent;
 	}
 
 	.glow {
@@ -212,9 +237,13 @@ const total = keynotes.length;
 		inset: 0;
 		background: url('/images/pattern.svg') repeat;
 		background-size: 420px;
-		opacity: 0.05;
+		opacity: 0.06;
 		mix-blend-mode: soft-light;
 		z-index: -1;
+		/* la textura también se desvanece en los bordes: su corte marcaba la
+		   unión aunque el color ya empatara */
+		-webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
+		mask-image: linear-gradient(180deg, transparent 0%, #000 16%, #000 84%, transparent 100%);
 	}
 
 	.heading {
@@ -223,23 +252,25 @@ const total = keynotes.length;
 		margin-bottom: 2.5rem;
 	}
 
-	.kicker {
-		color: var(--color-orange);
+	/* Título de la sección: los mismos colores que "Guatemala" en el hero.
+	   Aquí sí en el sentido del hero (magenta → naranja), porque no hay marco
+	   magenta al lado con el que se pueda confundir.
+
+	   El padding es por el line-height < 1: los glifos se salen por arriba de
+	   su caja y se ven cortados en plano. */
+	.wordmark {
+		margin: 0;
+		padding-top: 0.14em;
+		font-family: var(--font-display);
+		font-size: clamp(3rem, 11vw, 9rem);
+		font-weight: 700;
+		line-height: 0.82;
+		letter-spacing: -0.04em;
 		text-transform: uppercase;
-		letter-spacing: 0.13em;
-		font-size: 0.72rem;
-		font-weight: 600;
-		margin-bottom: 0.85rem;
-	}
-
-	h2 {
-		font-size: clamp(2rem, 4.5vw, 3.5rem);
-		line-height: 1.1;
-		letter-spacing: -0.045em;
-	}
-
-	h2 span {
-		display: block;
+		background: var(--gradient-accent);
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
 	}
 
 	.lead {
@@ -406,12 +437,15 @@ const total = keynotes.length;
 
 	@media (min-width: 1000px) {
 		.heading {
-			grid-template-columns: 1.3fr 1fr;
+			grid-template-columns: minmax(0, 1fr) minmax(0, auto);
 			align-items: end;
+			gap: 2.5rem;
 		}
 
 		.lead {
 			justify-self: end;
+			max-width: 34ch;
+			padding-bottom: 0.5rem;
 		}
 	}
 

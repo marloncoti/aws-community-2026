@@ -38,7 +38,6 @@ const isPlaceholder = !keynote.photo;
 	</div>
 
 	<div class="info">
-		<p class="kicker">Keynote Speaker</p>
 		<h3 class:list={['name', { muted: isPlaceholder }]}>{keynote.name}</h3>
 		{
 			(keynote.role || keynote.org) && (
@@ -71,7 +70,7 @@ const isPlaceholder = !keynote.photo;
 		scroll-snap-align: center;
 		scroll-snap-stop: always;
 		display: grid;
-		gap: 0.5rem;
+		gap: 0.75rem;
 		align-items: center;
 		padding-block: 0.5rem 1rem;
 	}
@@ -80,8 +79,8 @@ const isPlaceholder = !keynote.photo;
 	.figure {
 		position: relative;
 		justify-self: center;
-		width: min(300px, 80%);
-		aspect-ratio: 1;
+		width: min(380px, 92%);
+		aspect-ratio: 4 / 5;
 	}
 
 	.glow {
@@ -114,7 +113,9 @@ const isPlaceholder = !keynote.photo;
 		height: 100%;
 		object-fit: contain;
 		object-position: bottom center;
-		/* los hombros se disuelven en el negro de la sección */
+		/* los hombros se disuelven en el fondo de la sección. El degradado es
+		   largo a propósito: uno corto deja una línea recta visible donde
+		   termina la foto */
 		-webkit-mask-image: linear-gradient(to bottom, #000 34%, rgba(0, 0, 0, 0.62) 62%, rgba(0, 0, 0, 0.24) 78%, rgba(0, 0, 0, 0.06) 88%, transparent 95%);
 		mask-image: linear-gradient(to bottom, #000 34%, rgba(0, 0, 0, 0.62) 62%, rgba(0, 0, 0, 0.24) 78%, rgba(0, 0, 0, 0.06) 88%, transparent 95%);
 		filter: contrast(1.04) saturate(1.02) drop-shadow(0 22px 38px rgba(0, 0, 0, 0.7));
@@ -148,17 +149,8 @@ const isPlaceholder = !keynote.photo;
 		text-align: center;
 	}
 
-	.kicker {
-		font-family: var(--font-display);
-		font-size: 0.72rem;
-		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.18em;
-		color: var(--color-text-inverse-muted);
-	}
-
 	.name {
-		margin-top: 0.45rem;
+		margin-top: 0;
 		font-size: clamp(2rem, 8vw, 3.4rem);
 		font-weight: 700;
 		line-height: 1.02;
@@ -237,20 +229,21 @@ const isPlaceholder = !keynote.photo;
 
 	@media (min-width: 800px) {
 		.slide {
-			grid-template-columns: minmax(0, 420px) minmax(0, 1fr);
-			gap: 2.5rem;
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			gap: 3rem;
 			padding-block: 0;
-			align-items: end;
+			align-items: center;
 		}
 
 		.figure {
 			width: 100%;
+			max-width: 470px;
 			justify-self: start;
 		}
 
 		.info {
 			text-align: left;
-			padding-bottom: 3.5rem;
+			padding-bottom: 2rem;
 		}
 
 		.name {
