@@ -261,20 +261,20 @@ import Keynotes from '../components/Keynotes.astro';        // A (por defecto)
   entre las dos secciones — y pisando `border-block-start-color`, que es la
   propiedad con la que la sección vecina lo declara.
 
-  Lleva la palabra **KEYNOTE en gigante como banda superior**, con el retrato
-  encima tapándole la parte de abajo — el recurso de las tarjetas de keynote de
-  `awscommunitydaycolombia.com`. Va con los mismos colores que "Guatemala" en
-  el título del hero (magenta y naranja), pero **invertida**: naranja a la
-  izquierda, porque de ese lado la palabra toca el paspartú magenta del
-  retrato y los dos magentas se fundían. Como esa palabra ya titula el bloque,
-  en este diseño se ocultan el kicker de sección y el "Keynote Speaker" de la
-  tarjeta, que lo repetían.
+  El título de la sección es la palabra **KEYNOTE en gigante** (`.wordmark`,
+  un `<h2>` en `KeynotesFramed.astro`), con los mismos colores que "Guatemala"
+  en el título del hero pero **invertida** —naranja a la izquierda—, porque de
+  ese lado cae el paspartú magenta del retrato y los dos magentas se fundían.
+  Es un título del bloque, **no va dentro del carrusel**: no se repite por
+  slide ni se mueve al cambiar de ponente. Como ya titula la sección, el
+  kicker chico y el "Keynote Speaker" de la tarjeta están ocultos: repetían la
+  misma palabra.
 
-  Ojo con el `line-height: 0.78` de esa palabra: con line-height menor que 1
-  los glifos se salen por arriba de su caja, y el carrusel los recorta
-  (`overflow-x: auto` hace que `overflow-y` compute a `auto`, así que también
-  corta en vertical). Por eso lleva `padding-top: 0.2em` — sin él se ve la
-  parte de arriba de las letras cortada en plano.
+  Ojo con su `line-height: 0.82`: con line-height menor que 1 los glifos se
+  salen por arriba de su caja y se ven cortados en plano. Por eso lleva
+  `padding-top`. (Cuando la palabra vivía dentro del carrusel el recorte lo
+  hacía además el propio track, porque `overflow-x: auto` hace que
+  `overflow-y` compute a `auto`.)
 
   El marco es **plano a propósito**: la versión anterior tenía un degradado
   magenta→morado con radio grande y una placa repitiendo el nombre que ya está
