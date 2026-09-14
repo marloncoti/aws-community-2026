@@ -1,6 +1,7 @@
 ---
 import speakers from '../data/speakers.json';
 import SpeakerCard from './SpeakerCard.astro';
+import AgendaInvite from './AgendaInvite.astro';
 const pageSize = 6;
 const pages = Array.from({ length: Math.ceil(speakers.length / pageSize) }, (_, index) => speakers.slice(index * pageSize, (index + 1) * pageSize));
 ---
@@ -20,6 +21,7 @@ const pages = Array.from({ length: Math.ceil(speakers.length / pageSize) }, (_, 
     <div class="navigation"><button class="previous" type="button" aria-label="Página anterior de ponentes" aria-controls="speakers-track"><span aria-hidden="true">←</span></button><label>Página <select aria-label="Seleccionar página de ponentes" aria-controls="speakers-track"></select><span class="page-total"></span></label><button class="next" type="button" aria-label="Página siguiente de ponentes" aria-controls="speakers-track"><span aria-hidden="true">→</span></button></div>
    </div>
   </speaker-gallery>
+  <AgendaInvite />
  </div>
 </section>
 <script>
