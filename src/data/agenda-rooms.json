@@ -5,5 +5,6 @@
   { "id": "pedro-javier-1", "name": "Pedro Javier 1", "nickname": "Santa María", "building": "Edificio H", "capacity": 60, "color": "#2bb0a8" },
   { "id": "salon-1", "name": "Salón 1", "nickname": "Agua", "building": "Edificio H", "capacity": 50, "color": "#4b9fe1" },
   { "id": "salon-2", "name": "Salón 2", "nickname": "Fuego", "building": "Edificio H", "capacity": 50, "color": "#d9b310" },
-  { "id": "casa-de-kiro", "name": "Casa de Kiro", "nickname": "", "building": "Biblioteca", "capacity": 20, "color": "#7ec24c" }
+  { "id": "casa-de-kiro", "name": "Casa de Kiro", "nickname": "", "building": "Biblioteca", "capacity": 20, "color": "#7ec24c" },
+  { "id": "laboratorio", "name": "Laboratorio", "nickname": "", "building": "Laboratorio", "capacity": 20, "color": "#f07862" }
 ]
