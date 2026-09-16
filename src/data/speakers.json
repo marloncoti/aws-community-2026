@@ -8,7 +8,7 @@
     "org": "AWS",
     "photo": "/images/speakers/claudia-izquierdo.webp",
     "photoSource": "https://cdn.sessionize.com/image/973c-400o400o1-Qn9eW4UMEioNNZxpHdDA44.jpg",
-    "linkedin": "https://www.linkedin.com/in/claudia-izquierdo-salazar/"
+    "linkedin": "https://www.linkedin.com/in/claudia-izquierdo-s"
   },
   {
     "id": "ramses-mata",
@@ -312,8 +312,8 @@
     "country": "Colombia",
     "countryCode": "CO",
     "name": "Mauricio Alvarado",
-    "role": "Senior Data Engineer @ Factored | Founder @ GuateData",
-    "org": "",
+    "role": "Software Engineering @ Mercado Libre",
+    "org": "Mercado Libre",
     "photo": "/images/speakers/mauricio-alvarado.webp",
     "photoSource": "foto enviada por el ponente (2026-09-12)",
     "linkedin": "https://linkedin.com/in/mauriciora"
@@ -339,5 +339,16 @@
     "photo": "/images/speakers/alexis-velasquez-quintero.webp",
     "photoSource": "https://cdn.sessionize.com/image/ee35-400o400o1-BMQVZsswMuGaTNsuR34Su7.png",
     "linkedin": "https://www.linkedin.com/in/alexis-vel%C3%A1squez-quintero-3a9003170/"
+  },
+  {
+    "id": "edgar-vela",
+    "country": "Guatemala",
+    "countryCode": "GT",
+    "name": "Edgar Vela",
+    "role": "Speaker",
+    "org": "Ikigai Consulting - Business Consultant",
+    "photo": "/images/speakers/edgar-vela.webp",
+    "photoSource": "https://cdn.sessionize.com/image/9336-0o0o0-wZtuJM4coRuirgVipN4D1e.jpg?download=edgar-vela.jpg",
+    "linkedin": "https://www.linkedin.com/in/edgar-l-13846786/"
   }
 ]
