@@ -55,5 +55,19 @@
     "tier": "silver",
     "logo": "/images/sponsors/improving.png",
     "url": ""
+  },
+  {
+    "id": "intcomex",
+    "name": "Intcomex guatemala",
+    "tier": "gold",
+    "logo": "/images/sponsors/intcomex-cloud.png",
+    "url": ""
+  },
+  {
+    "id": "ikigai",
+    "name": "Ikigai",
+    "tier": "silver",
+    "logo": "/images/sponsors/ikigai.png",
+    "url": ""
   }
 ]
