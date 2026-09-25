@@ -361,5 +361,16 @@
     "photo":"/images/speakers/miguel-mateo.webp",
     "photoSource":"https://cdn.sessionize.com/image/52c2-0o0o0-X824XW6jrctPaKDpJHsh3F.jpg?download=miguel-mateo.jpg",
     "linkedin":"https://www.linkedin.com/in/miguel-mateo-63bb6b43/"
+  },
+  {
+    "id":"barbara-gaspar",
+    "country":"Mexico",
+    "countryCode":"MX",
+    "name":"Barbara Gaspar",
+    "role":"FinOps Specialist",
+    "org":"FinOps Foundation",
+    "photo":"/images/speakers/barbara-gaspar.webp",
+    "photoSource":"https://cdn.sessionize.com/image/ede8-0o0o0-PtNeyQnuTQtVgL767h5tZn.png?download=barbara-gaspar.png",
+    "linkedin":""
   }
 ]
