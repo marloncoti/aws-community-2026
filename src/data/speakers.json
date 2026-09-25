@@ -88,17 +88,6 @@
     "linkedin": "https://www.linkedin.com/in/marlon-coti/"
   },
   {
-    "id": "tony-trujillo-davila",
-    "country": "Perú",
-    "countryCode": "PE",
-    "name": "Tony Trujillo Dávila",
-    "role": "DATA ARCHITECT",
-    "org": "IDATHA",
-    "photo": "/images/speakers/tony-trujillo-davila.webp",
-    "photoSource": "https://cdn.sessionize.com/image/2879-400o400o1-TkRBRmuCW5XuTFxtNwL9Li.jpg",
-    "linkedin": "https://www.linkedin.com/in/tonytec/"
-  },
-  {
     "id": "roger-giron",
     "country": "Guatemala",
     "countryCode": "GT",
@@ -141,17 +130,6 @@
     "photo": "/images/speakers/laura-isabel-leiva-alvarez.webp",
     "photoSource": "https://cdn.sessionize.com/image/e99f-400o400o1-GbibwmAsmQr1F6jGjEhUNV.jpg",
     "linkedin": ""
-  },
-  {
-    "id": "andrea-alejandra-rosero-perez",
-    "country": "Chile",
-    "countryCode": "CL",
-    "name": "Andrea Alejandra Rosero Pérez",
-    "role": "AWS Student Builder Group Leader , Software Engineering Student and Graphic Designer.",
-    "org": "Student",
-    "photo": "/images/speakers/andrea-alejandra-rosero-perez.webp",
-    "photoSource": "https://cdn.sessionize.com/image/6b6c-400o400o1-SWfqcGWJhV46ZWrwidipPE.png",
-    "linkedin": "https://www.linkedin.com/in/andrearoseroperez/"
   },
   {
     "id": "angel-castillo",
@@ -350,5 +328,38 @@
     "photo": "/images/speakers/edgar-vela.webp",
     "photoSource": "https://cdn.sessionize.com/image/9336-0o0o0-wZtuJM4coRuirgVipN4D1e.jpg?download=edgar-vela.jpg",
     "linkedin": "https://www.linkedin.com/in/edgar-l-13846786/"
+  },
+  {
+    "id":"victor-reyes",
+    "country":"Guatemala",
+    "countryCode":"GT",
+    "name":"Victor Reyes",
+    "role":"Cloud Specialist",
+    "org":"GMB",
+    "photo":"/images/speakers/victor-reyes.webp",
+    "photoSource":"https://cdn.sessionize.com/image/3636-0o0o0-wCAgPENbGTyKqfnTkmjZNT.jpg?download=victor-reyes.jpg",
+    "linkedin":"https://www.linkedin.com/in/victor-amilcar-reyes-taperia-02839a14b/"
+  },
+  {
+    "id":"samuel-palacios",
+    "country":"Guatemala",
+    "countryCode":"GT",
+    "name":"Samuel Palacios",
+    "role":"Tech Engineer",
+    "org":"JB Analytica",
+    "photo":"/images/speakers/samuel-palacios.webp",
+    "photoSource":"https://cdn.sessionize.com/image/a944-0o0o0-UyoS9CRPqjNajqMfbtVuoa.jpg?download=samuel-palacios.jpg",
+    "linkedin":"https://www.linkedin.com/in/samuelpalaciosgt"
+  },
+  {
+    "id":"miguel-mateo",
+    "country":"Guatemala",
+    "countryCode":"GT",
+    "name":"Miguel Mateo",
+    "role":"Business Development Manager",
+    "org":"INTCOMEX",
+    "photo":"/images/speakers/miguel-mateo.webp",
+    "photoSource":"https://cdn.sessionize.com/image/52c2-0o0o0-X824XW6jrctPaKDpJHsh3F.jpg?download=miguel-mateo.jpg",
+    "linkedin":"https://www.linkedin.com/in/miguel-mateo-63bb6b43/"
   }
 ]

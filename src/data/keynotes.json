@@ -18,15 +18,5 @@
     "photo": "/images/keynotes/magali-pinto.webp",
     "photoOriginal": "/images/keynotes/con-fondo/magali-pinto.webp",
     "linkedin": "https://www.linkedin.com/in/magalipintof"
-  },
-  {
-    "id": "alejandra-bricio",
-    "name": "Alejandra Bricio",
-    "role": "Community Manager LATAM",
-    "org": "Amazon Web Services",
-    "talk": "",
-    "photo": "/images/keynotes/alejandra-bricio.webp",
-    "photoOriginal": "/images/keynotes/con-fondo/alejandra-bricio.webp",
-    "linkedin": "https://www.linkedin.com/in/alejandrabricio"
   }
 ]
