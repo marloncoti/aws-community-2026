@@ -2,7 +2,7 @@
 interface Sponsor {
 	id: string;
 	name: string;
-	tier: 'diamond' | 'gold' | 'silver';
+	tier: 'diamond' | 'gold' | 'silver' | 'bronze';
 	logo: string;
 	url?: string;
 }
@@ -48,7 +48,8 @@ const linkProps = sponsor.url ? { href: sponsor.url, target: '_blank', rel: 'noo
 
 	.tier-diamond,
 	.tier-gold,
-	.tier-silver {
+	.tier-silver,
+	.tier-bronze {
 		min-height: 130px;
 	}
 
@@ -68,5 +69,9 @@ const linkProps = sponsor.url ? { href: sponsor.url, target: '_blank', rel: 'noo
 
 	.tier-silver {
 		--tier-color: rgba(255, 255, 255, 0.3);
+	}
+
+	.tier-bronze {
+		--tier-color: rgba(205, 127, 50, 0.8);
 	}
 </style>

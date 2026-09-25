@@ -6,6 +6,7 @@ const tiers = [
 	{ key: 'diamond', label: 'Diamond' },
 	{ key: 'gold', label: 'Gold' },
 	{ key: 'silver', label: 'Silver' },
+	{ key: 'bronze', label: 'Bronze' },
 ] as const;
 
 const grouped = tiers
@@ -123,6 +124,10 @@ const grouped = tiers
 
 	.tier-label-silver {
 		--tier-color: rgba(255, 255, 255, 0.3);
+	}
+
+	.tier-label-bronze {
+		--tier-color: rgba(205, 127, 50, 0.8);
 	}
 
 	.grid {
