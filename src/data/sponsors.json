@@ -69,5 +69,12 @@
     "tier": "bronze",
     "logo": "/images/sponsors/ikigai.png",
     "url": ""
+  },
+  {
+    "id": "sgs-analitics",
+    "name": "SGS Analitics",
+    "tier": "silver",
+    "logo": "/images/sponsors/sgs-analitics.png",
+    "url": ""
   }
 ]
