@@ -5,5 +5,6 @@
   { "id": "devops", "name": "DevOps & Operaciones" },
   { "id": "seguridad", "name": "Seguridad" },
   { "id": "carrera", "name": "Carrera & Comunidad" },
-  { "id": "plenaria", "name": "Plenaria" }
+  { "id": "plenaria", "name": "Plenaria" },
+  { "id": "finops", "name": "FinOps - Operaciones" }
 ]

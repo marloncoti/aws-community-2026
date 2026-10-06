@@ -372,5 +372,27 @@
     "photo":"/images/speakers/barbara-gaspar.webp",
     "photoSource":"https://cdn.sessionize.com/image/ede8-0o0o0-PtNeyQnuTQtVgL767h5tZn.png?download=barbara-gaspar.png",
     "linkedin":""
+  },
+  {
+    "id":"marlon-paredes",
+    "country":"Guatemala",
+    "countryCode":"GT",
+    "name":"Marlon Paredes",
+    "role":"Software Developer Mid level",
+    "org":"Banco Industrial",
+    "photo":"/images/speakers/marlon-paredes.webp",
+    "photoSource":"https://cdn.sessionize.com/image/0ab3-0o0o0-X2JZJErzFbVNFFpLrcm77K.jpg?download=marlon-daniel-paredes-avila.jpg",
+    "linkedin":"https://www.linkedin.com/in/marlon-paredes-415a1b1a7"
+  },
+  {
+    "id":"hugo-estrada",
+    "country":"Guatemala",
+    "countryCode":"GT",
+    "name":"Hugo Estrada",
+    "role":"CTO at SGS Analytics",
+    "org":"Sg-Analytics",
+    "photo":"/images/speakers/hugo-estrada.webp",
+    "photoSource":"https://cdn.sessionize.com/image/eab6-0o0o0-Ecu9gaaroL2oYd3G4AQWCg.jpg?download=hugo-estrada.jpg",
+    "linkedin":"https://www.linkedin.com/in/hugoestradas/?isSelfProfile=true"
   }
 ]
