@@ -20,6 +20,11 @@ for (const person of [...organizers, ...speakers]) {
 	peopleById[person.id] = person;
 }
 
+const speakersForTalk = (talk: (typeof sessions)[number]) =>
+	'speakers' in talk
+		? talk.speakers.map(({ name, org, id }) => ({ name, org, profile: peopleById[id] }))
+		: undefined;
+
 const sorted = [...sessions].sort((a, b) => a.startTime.localeCompare(b.startTime));
 
 interface Block {
@@ -98,6 +103,7 @@ const PANEL_ID = 'agenda-blocks';
 												rooms={talk.roomIds.map((id) => roomsById[id]).filter(Boolean)}
 												trackName={trackNames[talk.track]}
 												speaker={peopleById[talk.speakerId]}
+												speakers={speakersForTalk(talk)}
 											/>
 										))}
 									</div>

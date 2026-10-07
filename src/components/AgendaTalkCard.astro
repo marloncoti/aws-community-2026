@@ -30,16 +30,24 @@ interface Talk {
 	notes: string;
 }
 
+interface TalkSpeaker {
+	name: string;
+	org: string;
+	profile?: Speaker;
+}
+
 interface Props {
 	talk: Talk;
 	rooms: Room[];
 	trackName?: string;
 	speaker?: Speaker;
+	speakers?: TalkSpeaker[];
 }
 
-const { talk, rooms, trackName, speaker } = Astro.props;
+const { talk, rooms, trackName, speaker, speakers } = Astro.props;
 
 const isPlaceholder = talk.speakerName === 'Por confirmar';
+const hasSpeakerList = Boolean(speakers?.length);
 const duration = durationLabel(talk.startTime, talk.endTime);
 
 // Ni un placeholder ni un panel son una persona: no les toca avatar.
@@ -97,28 +105,71 @@ const isCapacityNote = talk.notes.toLowerCase().includes('cupo');
 
 	<h3 class="talk-title">{talk.title}</h3>
 
-	<div class:list={['speaker-row', { muted: isPlaceholder }]}>
+	<div class:list={['speaker-row', { muted: isPlaceholder, 'multiple-speakers': hasSpeakerList }]}>
 		{
-			isPerson && (
-				<span class="avatar">
-					<span class="avatar-initials" aria-hidden="true">
-						{initials}
-					</span>
-					{speaker?.photo && (
-						<img src={speaker.photo} alt="" width="72" height="72" loading="lazy" decoding="async" />
-					)}
-				</span>
+			hasSpeakerList ? (
+				<div class="speaker-list">
+					{speakers?.map((person) => {
+						const personInitials = person.name
+							.split(' ')
+							.filter((part) => /^\p{L}/u.test(part))
+							.slice(0, 2)
+							.map((part) => part[0])
+							.join('');
+
+						return (
+							<div class="speaker-entry">
+								<span class="avatar">
+									<span class="avatar-initials" aria-hidden="true">{personInitials}</span>
+									{person.profile?.photo && (
+										<img src={person.profile.photo} alt="" width="72" height="72" loading="lazy" decoding="async" />
+									)}
+								</span>
+								<p class="speaker-info">
+									<span class="speaker-name">
+										{person.name}
+										{person.profile?.countryCode && (
+											<span class="flag">
+												<Flag
+													code={person.profile.countryCode}
+													country={person.profile.country}
+													width={15}
+												/>
+											</span>
+										)}
+									</span>
+									{person.org && <span class="speaker-org">{person.org}</span>}
+								</p>
+							</div>
+						);
+					})}
+				</div>
+			) : (
+				<>
+					{
+						isPerson && (
+							<span class="avatar">
+								<span class="avatar-initials" aria-hidden="true">
+									{initials}
+								</span>
+								{speaker?.photo && (
+									<img src={speaker.photo} alt="" width="72" height="72" loading="lazy" decoding="async" />
+								)}
+							</span>
+						)
+					}
+					<p class="speaker-info">
+						<span class="speaker-name">
+							{talk.speakerName}
+							{speaker?.countryCode && (
+								<span class="flag"><Flag code={speaker.countryCode} country={speaker.country} width={15} /></span>
+							)}
+						</span>
+						{talk.speakerOrg && <span class="speaker-org">{talk.speakerOrg}</span>}
+					</p>
+				</>
 			)
 		}
-		<p class="speaker-info">
-			<span class="speaker-name">
-				{talk.speakerName}
-				{speaker?.countryCode && (
-					<span class="flag"><Flag code={speaker.countryCode} country={speaker.country} width={15} /></span>
-				)}
-			</span>
-			{talk.speakerOrg && <span class="speaker-org">{talk.speakerOrg}</span>}
-		</p>
 	</div>
 
 	<div class="card-foot">
@@ -259,6 +310,26 @@ const isCapacityNote = talk.notes.toLowerCase().includes('cupo');
 		flex: 1;
 	}
 
+	.speaker-row.multiple-speakers {
+		align-items: flex-start;
+		width: 100%;
+	}
+
+	.speaker-list {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+		gap: 0.65rem;
+		width: 100%;
+	}
+
+	.speaker-entry {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 0.6rem;
+		min-width: 0;
+	}
+
 	.speaker-row.muted .speaker-name {
 		font-style: italic;
 		color: var(--color-text-inverse-muted);
@@ -298,6 +369,7 @@ const isCapacityNote = talk.notes.toLowerCase().includes('cupo');
 		display: flex;
 		flex-direction: column;
 		gap: 0.1rem;
+		flex: 1;
 		min-width: 0;
 	}
 

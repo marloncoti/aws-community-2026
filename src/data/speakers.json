@@ -394,5 +394,38 @@
     "photo":"/images/speakers/hugo-estrada.webp",
     "photoSource":"https://cdn.sessionize.com/image/eab6-0o0o0-Ecu9gaaroL2oYd3G4AQWCg.jpg?download=hugo-estrada.jpg",
     "linkedin":"https://www.linkedin.com/in/hugoestradas/?isSelfProfile=true"
+  },
+  {
+    "id":"maria-jose-paiz",
+    "country":"",
+    "countryCode":"",
+    "name":"Maria José Paiz",
+    "role":"Gerente General en Fundación Bi",
+    "org":"",
+    "photo":"/images/speakers/maria-jose-paiz.webp",
+    "photoSource":"",
+    "linkedin":""
+  },
+  {
+    "id":"magali-pinto",
+    "country":"",
+    "countryCode":"",
+    "name":"Magali Pinto",
+    "role":"Manager, Solutions Architect @AWS",
+    "org":"",
+    "photo":"/images/speakers/magali.webp",
+    "photoSource":"",
+    "linkedin":""
+  },
+  {
+    "id":"rosseth-bautista",
+    "country":"",
+    "countryCode":"",
+    "name":"Rosseth Bautista",
+    "role":"Commercial Analysis",
+    "org":"",
+    "photo":"/images/speakers/rosseth.webp",
+    "photoSource":"",
+    "linkedin":""
   }
 ]
