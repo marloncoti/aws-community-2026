@@ -28,6 +28,7 @@ interface Talk {
 	roomIds: string[];
 	track?: string;
 	notes: string;
+	level?: number | string;
 }
 
 interface TalkSpeaker {
@@ -49,6 +50,20 @@ const { talk, rooms, trackName, speaker, speakers } = Astro.props;
 const isPlaceholder = talk.speakerName === 'Por confirmar';
 const hasSpeakerList = Boolean(speakers?.length);
 const duration = durationLabel(talk.startTime, talk.endTime);
+const levelNames: Record<string, string> = {
+	'100': 'Básico',
+	'200': 'Intermedio',
+	'300': 'Avanzado',
+	'400': 'Experto',
+};
+const levelValues =
+	talk.level == null
+		? []
+		: String(talk.level)
+				.split(',')
+				.map((level) => level.trim())
+				.filter((level, index, values) => Boolean(levelNames[level]) && values.indexOf(level) === index);
+const levelDescription = levelValues.map((level) => `${levelNames[level]} (${level})`).join(', ');
 
 // Ni un placeholder ni un panel son una persona: no les toca avatar.
 const isPerson = Boolean(talk.speakerName) && !isPlaceholder && !talk.speakerName.startsWith('Panel');
@@ -173,6 +188,25 @@ const isCapacityNote = talk.notes.toLowerCase().includes('cupo');
 	</div>
 
 	<div class="card-foot">
+
+		{
+			levelValues.length > 0 && (
+				<div class="talk-level">
+				<span class="level-label">Nivel</span>
+
+				<div class="level-list" aria-label={levelDescription}>
+					{Object.entries(levelNames)
+					.filter(([value]) => levelValues.includes(value))
+					.map(([value, name]) => (
+						<span class={`level-chip level-${value}`}>
+						{name}
+						</span>
+					))}
+				</div>
+				</div>
+			)
+		}
+
 		{talk.notes && isCapacityNote && <p class="note-chip">{talk.notes}</p>}
 		{talk.notes && !isCapacityNote && <p class="talk-notes">{talk.notes}</p>}
 		{
@@ -429,6 +463,57 @@ const isCapacityNote = talk.notes.toLowerCase().includes('cupo');
 		color: var(--color-text-inverse-muted);
 		margin-left: auto;
 		font-variant-numeric: tabular-nums;
+	}
+
+	.talk-level {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.level-label {
+		font-size: 10px;
+		font-weight: 600;
+		color: #64748b;
+		text-transform: uppercase;
+		letter-spacing: 0.3px;
+	}
+
+	.level-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px;
+	}
+
+	.level-chip {
+		display: inline-flex;
+		align-items: center;
+		padding: 3px 8px;
+		border-radius: 999px;
+		font-size: 11px;
+		font-weight: 500;
+		line-height: 1.2;
+		white-space: nowrap;
+	}
+
+	.level-100 {
+		background: #dcfce7;
+		color: #166534;
+	}
+
+	.level-200 {
+		background: #dbeafe;
+		color: #1d4ed8;
+	}
+
+	.level-300 {
+		background: #f3e8ff;
+		color: #7e22ce;
+	}
+
+	.level-400 {
+		background: #ffedd5;
+		color: #9a3412;
 	}
 
 	@media (prefers-reduced-motion: reduce) {
