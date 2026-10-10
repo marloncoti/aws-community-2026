@@ -2,6 +2,7 @@
 import heroBackground from '../assets/brand/hero-background.png';
 import quetzal from '../assets/brand/quetzal.png';
 import { Image } from 'astro:assets';
+import LiveAgendaCta from './LiveAgendaCta.astro';
 
 const general_register_url = 'https://c.proticket.store/tickets/free/o/b88ac5c2-573b-438a-8587-12248067b887/e/e8fe1d69-4870-4d27-a63e-e499c819c7cd/s/350e165d-dc95-4e2b-9c97-1e90d63c6b97?chart=ga&category=2c1a98d1-c186-42e1-983d-f901df4e35f6'
 ---
@@ -53,6 +54,10 @@ const general_register_url = 'https://c.proticket.store/tickets/free/o/b88ac5c2-
 					Universidad Rafael Landívar, Zona 16
 				</span>
 			</div>
+		</div>
+
+		<div class="live">
+			<LiveAgendaCta />
 		</div>
 
 		<div class="actions">
@@ -288,6 +293,15 @@ const general_register_url = 'https://c.proticket.store/tickets/free/o/b88ac5c2-
 	.info-icon {
 		flex-shrink: 0;
 		color: var(--color-orange);
+	}
+
+	.live {
+		margin-top: 2rem;
+		max-width: 34rem;
+	}
+
+	.live + .actions {
+		margin-top: 0.75rem;
 	}
 
 	.actions {

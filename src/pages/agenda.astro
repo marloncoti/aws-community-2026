@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Agenda from '../components/Agenda.astro';
+import LiveAgendaCta from '../components/LiveAgendaCta.astro';
 ---
 
 <Layout
@@ -21,6 +22,9 @@ import Agenda from '../components/Agenda.astro';
 				con charlas en paralelo durante todo el día. Filtra por salón para seguir un solo
 				track.
 			</p>
+			<div class="live">
+				<LiveAgendaCta />
+			</div>
 		</div>
 	</section>
 
@@ -96,6 +100,11 @@ import Agenda from '../components/Agenda.astro';
 		margin-top: 1.25rem;
 		font-size: 1.05rem;
 		max-width: 56ch;
+	}
+
+	.live {
+		margin-top: 1.75rem;
+		max-width: 34rem;
 	}
 
 	@media (min-width: 900px) {
